@@ -1,0 +1,737 @@
+{
+  "name": "object",
+  "description": "Object nodes for Chiχ",
+  "version": "0.0.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nodule/object.git"
+  },
+  "dependencies": {
+    "underscore": "1.x.x"
+  },
+  "nodes": [
+    {
+      "name": "clone",
+      "ns": "object",
+      "description": "Create a shallow-copied clone of the object. Any nested objects or arrays will be copied by reference, not duplicated.",
+      "phrases": {
+        "active": "Cloning object"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "object"
+          }
+        }
+      },
+      "fn": "output.out = underscore.clone(input.in)\n"
+    },
+    {
+      "name": "defaults",
+      "ns": "object",
+      "description": "Fill in undefined properties in object with values from the defaults objects, and return the object. As soon as the property is filled, further defaults will have no effect.",
+      "phrases": {
+        "active": "Applying defaults to object"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          },
+          "defaults": {
+            "title": "Defaults",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "object"
+          }
+        }
+      },
+      "fn": "output.out = underscore.defaults(input.in, input.defaults)\n"
+    },
+    {
+      "name": "extend",
+      "ns": "object",
+      "description": "Output a copy of the object, filtered to only have values for the whitelisted keys (or array of valid keys)",
+      "phrases": {
+        "active": "Extending object"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "array"
+          }
+        }
+      },
+      "fn": "output.out = underscore.extend(input.in)\n"
+    },
+    {
+      "name": "has",
+      "ns": "object",
+      "description": "Does the object contain the given key? Identical to object.hasOwnProperty(key), but uses a safe reference to the hasOwnProperty function, in case it's been overridden accidentally.",
+      "phrases": {
+        "active": "Determining whether the object has key {{input.key}}"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.has(input.in, input.key)\n"
+    },
+    {
+      "name": "invert",
+      "ns": "object",
+      "description": "Retrieves a copy of the object where the keys have become the values and the values the keys. For this to work, all of your object's values should be unique and string serializable",
+      "phrases": {
+        "active": "Inverting object"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "array"
+          }
+        }
+      },
+      "fn": "output.out = underscore.invert(input.in)\n"
+    },
+    {
+      "name": "isArguments",
+      "ns": "object",
+      "description": "Outputs true if object is an Arguments Object",
+      "phrases": {
+        "active": "Determining Arguments Object"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isArguments(input.object)\n"
+    },
+    {
+      "name": "isArray",
+      "ns": "object",
+      "description": "Outputs true if object is an Array",
+      "phrases": {
+        "active": "Determining Array"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isArray(input.object)\n"
+    },
+    {
+      "name": "isBoolean",
+      "ns": "object",
+      "description": "Outputs true if object is a Boolean",
+      "phrases": {
+        "active": "Determining whether object is a boolean"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isBoolean(input.object)\n"
+    },
+    {
+      "name": "isDate",
+      "ns": "object",
+      "description": "Outputs true if object is a Date",
+      "phrases": {
+        "active": "Determining whether object is a Date"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isDate(input.object)\n"
+    },
+    {
+      "name": "isElement",
+      "ns": "object",
+      "description": "Outputs true if object is a DOM element.",
+      "phrases": {
+        "active": "Determining dom element"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isElement(input.object)\n"
+    },
+    {
+      "name": "isEmpty",
+      "ns": "object",
+      "description": "Outputs true if object contains no values (no enumerable own-properties)",
+      "phrases": {
+        "active": "Determining empty object"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isEmpty(input.object)\n"
+    },
+    {
+      "name": "isEqual",
+      "ns": "object",
+      "description": "Performs an optimized deep comparison between the two objects, to determine if they should be considered equal.",
+      "phrases": {
+        "active": "Determining equality"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "object": {
+            "title": "Object",
+            "type": "object"
+          },
+          "other": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isEqual(input.object, input.other)\n"
+    },
+    {
+      "name": "isFinite",
+      "ns": "object",
+      "description": "Outputs true if object is a Finite Number",
+      "phrases": {
+        "active": "Determining whether object is a finite number"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isFinite(input.object)\n"
+    },
+    {
+      "name": "isFunction",
+      "ns": "object",
+      "description": "Outputs true if object is a Function",
+      "phrases": {
+        "active": "Determining whether object is a function"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isFunction(input.object)\n"
+    },
+    {
+      "name": "isNaN",
+      "ns": "object",
+      "description": "Outputs true if object is NaN",
+      "phrases": {
+        "active": "Determining whether object is NaN"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isNaN(input.object)\n"
+    },
+    {
+      "name": "isNull",
+      "ns": "object",
+      "description": "Outputs true if object is Null",
+      "phrases": {
+        "active": "Determining whether object is Null"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isNull(input.object)\n"
+    },
+    {
+      "name": "isNumber",
+      "ns": "object",
+      "description": "Outputs true if object is a Number",
+      "phrases": {
+        "active": "Determining whether object is a number"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isNumber(input.object)\n"
+    },
+    {
+      "name": "isObject",
+      "ns": "object",
+      "description": "Outputs true if object is an Object",
+      "phrases": {
+        "active": "Determining Object"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isObject(input.object)\n"
+    },
+    {
+      "name": "isRegExp",
+      "ns": "object",
+      "description": "Outputs true if object is a RegExp",
+      "phrases": {
+        "active": "Determining whether object is a RegExp"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isRegExp(input.object)\n"
+    },
+    {
+      "name": "isString",
+      "ns": "object",
+      "description": "Outputs true if object is a String",
+      "phrases": {
+        "active": "Determining whether object is a string"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isString(input.object)\n"
+    },
+    {
+      "name": "isUndefined",
+      "ns": "object",
+      "description": "Outputs true if object is Undefined",
+      "phrases": {
+        "active": "Determining whether object is undefined"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "boolean"
+          }
+        }
+      },
+      "fn": "output.out = underscore.isUndefined(input.object)\n"
+    },
+    {
+      "name": "keys",
+      "ns": "object",
+      "description": "Retrieve all the names of the object's properties",
+      "phrases": {
+        "active": "Retrieving object properties"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "array"
+          }
+        }
+      },
+      "fn": "output.out = underscore.keys(input.in)\n"
+    },
+    {
+      "name": "methods",
+      "ns": "object",
+      "description": "Gets a sorted list of the names of every method in an object — that is to say, the name of every function property of the object",
+      "phrases": {
+        "active": "Dermining methods"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "array"
+          }
+        }
+      },
+      "fn": "output.out = underscore.methods(input.in)\n"
+    },
+    {
+      "name": "omit",
+      "ns": "object",
+      "description": "Return a copy of the object, filtered to omit the blacklisted keys (or array of keys)",
+      "phrases": {
+        "active": "Omitting object keys"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          },
+          "omit": {
+            "title": "Pick",
+            "type": "any"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "object"
+          }
+        }
+      },
+      "fn": "output.out = underscore.omit(input.in, input.omit)\n"
+    },
+    {
+      "name": "pairs",
+      "ns": "object",
+      "description": "Retrieve key value pairs from an object",
+      "phrases": {
+        "active": "Transforming object to pairs"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "array"
+          }
+        }
+      },
+      "fn": "output.out = underscore.pairs(input.in)\n"
+    },
+    {
+      "name": "pick",
+      "ns": "object",
+      "description": "Output a copy of the object, filtered to only have values for the whitelisted keys (or array of valid keys)",
+      "phrases": {
+        "active": "Picking object"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          },
+          "pick": {
+            "title": "Pick",
+            "type": "any"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "object"
+          }
+        }
+      },
+      "fn": "output.out = underscore.pick(input.in, input.pick)\n"
+    },
+    {
+      "name": "values",
+      "ns": "object",
+      "description": "Retrieve all of the values of the object's properties",
+      "phrases": {
+        "active": "Retrieving object values"
+      },
+      "require": {
+        "underscore": "1.x.x"
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "array"
+          }
+        }
+      },
+      "fn": "output.out = underscore.values(input.in)\n"
+    }
+  ],
+  "twigs": []
+}
