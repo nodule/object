@@ -1,0 +1,25 @@
+{
+  "name": "keys",
+  "ns": "object",
+  "description": "Retrieve all the names of the object's properties",
+  "phrases": {
+    "active": "Retrieving object properties"
+  },
+  "require": {
+    "underscore": "1.x.x"
+  },
+  "ports": {
+    "input": {
+      "in": {
+        "title": "Object",
+        "type": "object"
+      }
+    },
+    "output": {
+      "out": {
+        "title": "out",
+        "type": "array"
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "isArray",
+  "ns": "object",
+  "description": "Outputs true if object is an Array",
+  "phrases": {
+    "active": "Determining Array"
+  },
+  "require": {
+    "underscore": "1.x.x"
+  },
+  "ports": {
+    "input": {
+      "in": {
+        "title": "Object",
+        "type": "object"
+      }
+    },
+    "output": {
+      "out": {
+        "title": "out",
+        "type": "boolean"
+      }
+    }
+  }
+}

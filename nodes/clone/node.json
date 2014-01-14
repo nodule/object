@@ -1,0 +1,25 @@
+{
+  "name": "clone",
+  "ns": "object",
+  "description": "Create a shallow-copied clone of the object. Any nested objects or arrays will be copied by reference, not duplicated.",
+  "phrases": {
+    "active": "Cloning object"
+  },
+  "require": {
+    "underscore": "1.x.x"
+  },
+  "ports": {
+    "input": {
+      "in": {
+        "title": "Object",
+        "type": "object"
+      }
+    },
+    "output": {
+      "out": {
+        "title": "out",
+        "type": "object"
+      }
+    }
+  }
+}

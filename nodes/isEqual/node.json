@@ -1,0 +1,29 @@
+{
+  "name": "isEqual",
+  "ns": "object",
+  "description": "Performs an optimized deep comparison between the two objects, to determine if they should be considered equal.",
+  "phrases": {
+    "active": "Determining equality"
+  },
+  "require": {
+    "underscore": "1.x.x"
+  },
+  "ports": {
+    "input": {
+      "object": {
+        "title": "Object",
+        "type": "object"
+      },
+      "other": {
+        "title": "Object",
+        "type": "object"
+      }
+    },
+    "output": {
+      "out": {
+        "title": "out",
+        "type": "boolean"
+      }
+    }
+  }
+}

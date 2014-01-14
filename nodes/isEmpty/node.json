@@ -1,0 +1,25 @@
+{
+  "name": "isEmpty",
+  "ns": "object",
+  "description": "Outputs true if object contains no values (no enumerable own-properties)",
+  "phrases": {
+    "active": "Determining empty object"
+  },
+  "require": {
+    "underscore": "1.x.x"
+  },
+  "ports": {
+    "input": {
+      "in": {
+        "title": "Object",
+        "type": "object"
+      }
+    },
+    "output": {
+      "out": {
+        "title": "out",
+        "type": "boolean"
+      }
+    }
+  }
+}

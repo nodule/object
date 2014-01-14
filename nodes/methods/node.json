@@ -1,0 +1,25 @@
+{
+  "name": "methods",
+  "ns": "object",
+  "description": "Gets a sorted list of the names of every method in an object — that is to say, the name of every function property of the object",
+  "phrases": {
+    "active": "Dermining methods"
+  },
+  "require": {
+    "underscore": "1.x.x"
+  },
+  "ports": {
+    "input": {
+      "in": {
+        "title": "Object",
+        "type": "object"
+      }
+    },
+    "output": {
+      "out": {
+        "title": "out",
+        "type": "array"
+      }
+    }
+  }
+}

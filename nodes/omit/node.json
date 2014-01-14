@@ -1,0 +1,29 @@
+{
+  "name": "omit",
+  "ns": "object",
+  "description": "Return a copy of the object, filtered to omit the blacklisted keys (or array of keys)",
+  "phrases": {
+    "active": "Omitting object keys"
+  },
+  "require": {
+    "underscore": "1.x.x"
+  },
+  "ports": {
+    "input": {
+      "in": {
+        "title": "Object",
+        "type": "object"
+      },
+      "omit": {
+        "title": "Pick",
+        "type": "any"
+      }
+    },
+    "output": {
+      "out": {
+        "title": "out",
+        "type": "object"
+      }
+    }
+  }
+}

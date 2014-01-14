@@ -1,0 +1,25 @@
+{
+  "name": "isNumber",
+  "ns": "object",
+  "description": "Outputs true if object is a Number",
+  "phrases": {
+    "active": "Determining whether object is a number"
+  },
+  "require": {
+    "underscore": "1.x.x"
+  },
+  "ports": {
+    "input": {
+      "in": {
+        "title": "Object",
+        "type": "object"
+      }
+    },
+    "output": {
+      "out": {
+        "title": "out",
+        "type": "boolean"
+      }
+    }
+  }
+}

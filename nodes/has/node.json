@@ -1,0 +1,29 @@
+{
+  "name": "has",
+  "ns": "object",
+  "description": "Does the object contain the given key? Identical to object.hasOwnProperty(key), but uses a safe reference to the hasOwnProperty function, in case it's been overridden accidentally.",
+  "phrases": {
+    "active": "Determining whether the object has key {{input.key}}"
+  },
+  "require": {
+    "underscore": "1.x.x"
+  },
+  "ports": {
+    "input": {
+      "in": {
+        "title": "Object",
+        "type": "object"
+      },
+      "key": {
+        "title": "Key",
+        "type": "string"
+      }
+    },
+    "output": {
+      "out": {
+        "title": "out",
+        "type": "boolean"
+      }
+    }
+  }
+}
