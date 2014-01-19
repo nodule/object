@@ -1,1 +1,1 @@
-output.out = underscore.isFinite(input.object)
+if(underscore.isFinite(input.object)) { output.yes = true; } else { output.no = true; }

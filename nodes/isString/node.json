@@ -11,13 +11,17 @@
   "ports": {
     "input": {
       "in": {
-        "title": "Object",
-        "type": "object"
+        "title": "In",
+        "type": "any"
       }
     },
     "output": {
-      "out": {
-        "title": "out",
+      "yes": {
+        "title": "Yes",
+        "type": "boolean"
+      },
+      "no": {
+        "title": "No",
         "type": "boolean"
       }
     }

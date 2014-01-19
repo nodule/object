@@ -1,1 +1,1 @@
-output.out = underscore.isNaN(input.object)
+if(underscore.isNaN(input.object)) { output.yes = true; } else { output.no = true; }

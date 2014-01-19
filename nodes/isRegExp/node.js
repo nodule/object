@@ -1,1 +1,1 @@
-output.out = underscore.isRegExp(input.object)
+if(underscore.isRegExp(input.object)) { output.yes = true; } else { output.no = true; }

@@ -1,1 +1,1 @@
-output.out = underscore.isEmpty(input.object)
+if(underscore.isEmpty(input.object)) { output.yes = true; } else { output.no = true; }

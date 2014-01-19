@@ -1,1 +1,1 @@
-output.out = underscore.isUndefined(input.object)
+if(underscore.isUndefined(input.object)) { output.yes = true; } else { output.no = true; }
