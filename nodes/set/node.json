@@ -1,0 +1,31 @@
+{
+  "name": "set",
+  "ns": "object",
+  "description": "Set a property on an object, or else create a new object and set the property",
+  "phrases": {
+    "active": "Setting propety {{input.key}}"
+  },
+  "ports": {
+    "input": {
+      "in": {
+        "title": "Value",
+        "type": "any"
+      },
+      "key": {
+        "title": "Key",
+        "type": "string"
+      },
+      "object": {
+        "title": "Object",
+        "type": "object",
+        "default": null
+      }
+    },
+    "output": {
+      "out": {
+        "title": "out",
+        "type": "object"
+      }
+    }
+  }
+}
