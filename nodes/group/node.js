@@ -54,7 +54,7 @@ on.input.in = function() {
         // are pairs of data comming out, belong to eachother.
         output({
           out: state.group[key],
-          by: key // same as input.by
+          by: JSON.parse(key) // same as input.by
         }, g.item());
         g.done();
       }
@@ -83,7 +83,7 @@ on.input.by = function() {
         var g = chi.group('xout', output);
         output({
           out: state.group[key],
-          by: key // same as input.by
+          by: JSON.parse(key) // same as input.by
         }, g.item());
         g.done();
       }
