@@ -1,6 +1,11 @@
 state = {
-  group: {}
+  group: {},
+  total: 0
 };
+
+// If this even works, state is not cleared
+// properly or at lease during send out
+// the current groups can be removed.
 
 // really needs a main also.
 // main is called always then.
@@ -19,10 +24,9 @@ on.input.in = function() {
      state.group[state[id].by].push(state[id].in);
    }
 
-   if(state.complete &&
-      state[id].by  &&
-      state[id].in.length === state.l &&
-      state[id].by.length === state.l) {
+   state.total++;
+
+   if(state.complete && state.l === (state.total / 2)) {
       // send them out, might also create groups again.
       for(var key in state.group) {
         var g = chi.group('xout', output);
@@ -48,10 +52,9 @@ on.input.by = function() {
      state.group[state[id].by].push(state[id].in);
    }
 
-   if(state.complete &&
-      state[id].in &&
-      state[id].in.length === state.l &&
-      state[id].by.length === state.l) {
+   state.total++;
+
+   if(state.complete && state.l === (state.total / 2)) {
       // send them out, might also create groups again.
       for(var key in state.group) {
         var g = chi.group('xout', output);
