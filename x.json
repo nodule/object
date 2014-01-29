@@ -97,7 +97,7 @@
         "input": {
           "in": {
             "title": "Object",
-            "type": "object"
+            "type": "any"
           },
           "xin": {
             "title": "In Group",
