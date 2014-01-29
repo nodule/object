@@ -24,7 +24,13 @@
     "output": {
       "out": {
         "title": "out",
+        "group": "result",
         "type": "boolean"
+      },
+      "by": {
+        "title": "Group By",
+        "group": "result",
+        "type": "any"
       },
       "xout": {
         "title": "Xout",

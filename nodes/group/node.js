@@ -30,8 +30,31 @@ on.input.in = function() {
       // send them out, might also create groups again.
       for(var key in state.group) {
         var g = chi.group('xout', output);
+
+        // like to introduce the grouped output, output like the below is grouped
+        // it's a bit like an array port, only difference the output goes to normal ports.
+        // I would like to add the convention, that if you send output this way.
+        // You must declare a group inside the json
+        //
+        // out: "group": "result"
+        // by:  "group": "result"
+        //
+        // in a ui this will look like:
+        // [o o] o o o
+        //
+        // Only two states:
+        //
+        //  [• •] and [o o]
+        //
+        // Whereas the individual ports are not perse synchronous:
+        //
+        //  [o o] o • o
+        //
+        // Where the first is the grouped output, you are assured those ports
+        // are pairs of data comming out, belong to eachother.
         output({
-          out: state.group[key]
+          out: state.group[key],
+          by: key // same as input.by
         }, g.item());
         g.done();
       }
@@ -59,7 +82,8 @@ on.input.by = function() {
       for(var key in state.group) {
         var g = chi.group('xout', output);
         output({
-          out: state.group[key]
+          out: state.group[key],
+          by: key // same as input.by
         }, g.item());
         g.done();
       }
