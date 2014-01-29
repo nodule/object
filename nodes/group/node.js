@@ -20,6 +20,7 @@ on.input.in = function() {
    }
 
    if(state.complete &&
+      state[id].by  &&
       state[id].in.length === state.l &&
       state[id].by.length === state.l) {
       // send them out, might also create groups again.
@@ -48,6 +49,7 @@ on.input.by = function() {
    }
 
    if(state.complete &&
+      state[id].in &&
       state[id].in.length === state.l &&
       state[id].by.length === state.l) {
       // send them out, might also create groups again.
