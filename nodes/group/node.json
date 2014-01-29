@@ -12,6 +12,10 @@
         "title": "Object",
         "type": "object"
       },
+      "xin": {
+        "title": "In Group",
+        "type": "any"
+      },
       "by": {
         "title": "Group By",
         "type": "any"
