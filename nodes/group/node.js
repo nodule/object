@@ -15,8 +15,8 @@ on.input.in = function() {
 
    if(state[id].by) {
      // we have a match.
-     if(!state.group[state[id]].by) state.group[state[id].by] = [];
-     state.group[state[id]].push(state[id].in);
+     if(!state.group[state[id].by]) state.group[state[id].by] = [];
+     state.group[state[id].by].push(state[id].in);
    }
 
    if(state.complete &&
@@ -43,8 +43,8 @@ on.input.by = function() {
 
    if(state[id].in) {
      // we have a match.
-     if(!state.group[state[id].by) state.group[state[id].by] = [];
-     state.group[state[id]].push(state[id].in);
+     if(!state.group[state[id].by]) state.group[state[id].by] = [];
+     state.group[state[id].by].push(state[id].in);
    }
 
    if(state.complete &&
