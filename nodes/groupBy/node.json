@@ -1,8 +1,8 @@
 {
-  "name": "group",
+  "name": "groupBy",
   "ns": "object",
   "async": true,
-  "description": "Groups input into an array",
+  "description": "Groups an object by it's differentiator",
   "phrases": {
     "active": "Grouping object"
   },
@@ -15,11 +15,20 @@
       "xin": {
         "title": "In Group",
         "type": "any"
+      },
+      "by": {
+        "title": "Group By",
+        "type": "any"
       }
     },
     "output": {
       "out": {
         "title": "out",
+        "group": "result",
+        "type": "boolean"
+      },
+      "by": {
+        "title": "Group By",
         "group": "result",
         "type": "any"
       },
