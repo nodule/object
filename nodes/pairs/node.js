@@ -1,1 +1,1 @@
-output.out = underscore.pairs(input.in)
+output.out = underscore.pairs(input. in )

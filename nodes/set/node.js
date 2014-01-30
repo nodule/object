@@ -1,3 +1,3 @@
 var obj = input.object ? input.object : {};
-obj[input.key] = input.in;
+obj[input.key] = input. in ;
 output.out = obj;

@@ -1,1 +1,1 @@
-output.out = underscore.pick(input.in, input.pick)
+output.out = underscore.pick(input. in , input.pick)

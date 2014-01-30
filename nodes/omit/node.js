@@ -1,1 +1,1 @@
-output.out = underscore.omit(input.in, input.omit)
+output.out = underscore.omit(input. in , input.omit)
