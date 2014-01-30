@@ -1,1 +1,5 @@
-if(underscore.isArguments(input.object)) { output.yes = true; } else { output.no = true; }
+if (underscore.isArguments(input.object)) {
+  output.yes = true;
+} else {
+  output.no = true;
+}
