@@ -34,7 +34,7 @@
       "description": "Create a shallow-copied clone of the object. Any nested objects or arrays will be copied by reference, not duplicated.",
       "ns": "object",
       "name": "clone",
-      "fn": "output.out = underscore.clone(input.in)\n"
+      "fn": "output.out = underscore.clone(input. in )\n"
     },
     {
       "ports": {
@@ -64,7 +64,7 @@
       "description": "Fill in undefined properties in object with values from the defaults objects, and return the object. As soon as the property is filled, further defaults will have no effect.",
       "ns": "object",
       "name": "defaults",
-      "fn": "output.out = underscore.defaults(input.in, input.defaults)\n"
+      "fn": "output.out = underscore.defaults(input. in , input.defaults)\n"
     },
     {
       "ports": {
@@ -90,7 +90,7 @@
       "description": "Output a copy of the object, filtered to only have values for the whitelisted keys (or array of valid keys)",
       "ns": "object",
       "name": "extend",
-      "fn": "output.out = underscore.extend(input.in)\n"
+      "fn": "output.out = underscore.extend(input. in )\n"
     },
     {
       "ports": {
@@ -132,7 +132,7 @@
       "async": true,
       "ns": "object",
       "name": "group",
-      "fn": "state = {\n  group: {},\n  total: 0\n};\n\n// If this even works, state is not cleared\n// properly or at lease during send out\n// the current groups can be removed.\n\n// really needs a main also.\n// main is called always then.\n// and check the existance of those keys\n// first just make the synchronous one\non.input.in = function() {\n   // x contains our keys\n   var id = x[state.gid];\n   if(!state[id]) state[id] = {};\n\n   state[id].in = data;\n\n   if(state[id].by) {\n     // we have a match.\n     if(!state.group[state[id].by]) state.group[state[id].by] = [];\n     state.group[state[id].by].push(state[id].in);\n   }\n\n   state.total++;\n\n   if(state.complete && state.l === (state.total / 2)) {\n      // send them out, might also create groups again.\n      for(var key in state.group) {\n        var g = chi.group('xout', output);\n\n        // like to introduce the grouped output, output like the below is grouped\n        // it's a bit like an array port, only difference the output goes to normal ports.\n        // I would like to add the convention, that if you send output this way.\n        // You must declare a group inside the json\n        //\n        // out: \"group\": \"result\"\n        // by:  \"group\": \"result\"\n        //\n        // in a ui this will look like:\n        // [o o] o o o\n        //\n        // Only two states:\n        //\n        //  [• •] and [o o]\n        //\n        // Whereas the individual ports are not perse synchronous:\n        //\n        //  [o o] o • o\n        //\n        // Where the first is the grouped output, you are assured those ports\n        // are pairs of data comming out, belong to eachother.\n        output({\n          out: state.group[key],\n          by: JSON.parse(key) // same as input.by\n        }, g.item());\n        g.done();\n      }\n   }\n};\n\n// collect the keys.\non.input.by = function() {\n\n   var id = x[state.gid];\n   if(!state[id]) state[id] = {};\n\n   state[id].by  = JSON.stringify(data); // keyify\n\n   if(state[id].in) {\n     // we have a match.\n     if(!state.group[state[id].by]) state.group[state[id].by] = [];\n     state.group[state[id].by].push(state[id].in);\n   }\n\n   state.total++;\n\n   if(state.complete && state.l === (state.total / 2)) {\n      // send them out, might also create groups again.\n      for(var key in state.group) {\n        var g = chi.group('xout', output);\n        output({\n          out: state.group[key],\n          by: JSON.parse(key) // same as input.by\n        }, g.item());\n        g.done();\n      }\n   }\n\n};\n\n// xin now kinda acts like a main.\n// more clear would probably be group begin and end methods.\n// it also makes it required to have this connected.\non.input.xin = function() {\n   // will always arrive first.\n   // probably this can all be done outside a component.\n   // the pair matching is something common.\n   if(!data.complete) {\n     // register the groupId\n     // we rely on this being set first\n     state.gid = data.gid;\n     state.complete = false;\n   } else {\n     // is finished\n     // send it out.\n     state.complete = true;\n     state.l = data.items.length;\n   }\n};\n"
+      "fn": "state = {\n  group: {},\n  total: 0\n};\n\n// If this even works, state is not cleared\n// properly or at lease during send out\n// the current groups can be removed.\n\n// really needs a main also.\n// main is called always then.\n// and check the existance of those keys\n// first just make the synchronous one\non.input. in = function () {\n  // x contains our keys\n  var id = x[state.gid];\n  if (!state[id]) state[id] = {};\n\n  state[id]. in = data;\n\n  if (state[id].by) {\n    // we have a match.\n    if (!state.group[state[id].by]) state.group[state[id].by] = [];\n    state.group[state[id].by].push(state[id]. in );\n  }\n\n  state.total++;\n\n  if (state.complete && state.l === (state.total / 2)) {\n    // send them out, might also create groups again.\n    for (var key in state.group) {\n      var g = chi.group('xout', output);\n\n      // like to introduce the grouped output, output like the below is grouped\n      // it's a bit like an array port, only difference the output goes to normal ports.\n      // I would like to add the convention, that if you send output this way.\n      // You must declare a group inside the json\n      //\n      // out: \"group\": \"result\"\n      // by:  \"group\": \"result\"\n      //\n      // in a ui this will look like:\n      // [o o] o o o\n      //\n      // Only two states:\n      //\n      //  [• •] and [o o]\n      //\n      // Whereas the individual ports are not perse synchronous:\n      //\n      //  [o o] o • o\n      //\n      // Where the first is the grouped output, you are assured those ports\n      // are pairs of data comming out, belong to eachother.\n      output({\n        out: state.group[key],\n        by: JSON.parse(key) // same as input.by\n      }, g.item());\n      g.done();\n    }\n  }\n};\n\n// collect the keys.\non.input.by = function () {\n\n  var id = x[state.gid];\n  if (!state[id]) state[id] = {};\n\n  state[id].by = JSON.stringify(data); // keyify\n\n  if (state[id]. in ) {\n    // we have a match.\n    if (!state.group[state[id].by]) state.group[state[id].by] = [];\n    state.group[state[id].by].push(state[id]. in );\n  }\n\n  state.total++;\n\n  if (state.complete && state.l === (state.total / 2)) {\n    // send them out, might also create groups again.\n    for (var key in state.group) {\n      var g = chi.group('xout', output);\n      output({\n        out: state.group[key],\n        by: JSON.parse(key) // same as input.by\n      }, g.item());\n      g.done();\n    }\n  }\n\n};\n\n// xin now kinda acts like a main.\n// more clear would probably be group begin and end methods.\n// it also makes it required to have this connected.\non.input.xin = function () {\n  // will always arrive first.\n  // probably this can all be done outside a component.\n  // the pair matching is something common.\n  if (!data.complete) {\n    // register the groupId\n    // we rely on this being set first\n    state.gid = data.gid;\n    state.complete = false;\n  } else {\n    // is finished\n    // send it out.\n    state.complete = true;\n    state.l = data.items.length;\n  }\n};\n"
     },
     {
       "ports": {
@@ -162,7 +162,7 @@
       "description": "Does the object contain the given key? Identical to object.hasOwnProperty(key), but uses a safe reference to the hasOwnProperty function, in case it's been overridden accidentally.",
       "ns": "object",
       "name": "has",
-      "fn": "output.out = underscore.has(input.in, input.key)\n"
+      "fn": "output.out = underscore.has(input. in , input.key)\n"
     },
     {
       "ports": {
@@ -188,7 +188,7 @@
       "description": "Retrieves a copy of the object where the keys have become the values and the values the keys. For this to work, all of your object's values should be unique and string serializable",
       "ns": "object",
       "name": "invert",
-      "fn": "output.out = underscore.invert(input.in)\n"
+      "fn": "output.out = underscore.invert(input. in )\n"
     },
     {
       "ports": {
@@ -218,7 +218,7 @@
       "description": "Outputs true if object is an Arguments Object",
       "ns": "object",
       "name": "isArguments",
-      "fn": "if(underscore.isArguments(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isArguments(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -248,7 +248,7 @@
       "description": "Outputs true if object is an Array",
       "ns": "object",
       "name": "isArray",
-      "fn": "if(underscore.isArray(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isArray(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -278,7 +278,7 @@
       "description": "Outputs true if object is a Boolean",
       "ns": "object",
       "name": "isBoolean",
-      "fn": "if(underscore.isBoolean(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isBoolean(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -308,7 +308,7 @@
       "description": "Outputs true if object is a Date",
       "ns": "object",
       "name": "isDate",
-      "fn": "if(underscore.isDate(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isDate(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -338,7 +338,7 @@
       "description": "Outputs true if object is a DOM element.",
       "ns": "object",
       "name": "isElement",
-      "fn": "if(underscore.isElement(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isElement(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -368,7 +368,7 @@
       "description": "Outputs true if object contains no values (no enumerable own-properties)",
       "ns": "object",
       "name": "isEmpty",
-      "fn": "if(underscore.isEmpty(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isEmpty(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -402,7 +402,7 @@
       "description": "Performs an optimized deep comparison between the two objects, to determine if they should be considered equal.",
       "ns": "object",
       "name": "isEqual",
-      "fn": "if(underscore.isEqual(input.object, input.other)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isEqual(input.object, input.other)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -432,7 +432,7 @@
       "description": "Outputs true if object is a Finite Number",
       "ns": "object",
       "name": "isFinite",
-      "fn": "if(underscore.isFinite(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isFinite(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -462,7 +462,7 @@
       "description": "Outputs true if object is a Function",
       "ns": "object",
       "name": "isFunction",
-      "fn": "if(underscore.isFunction(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isFunction(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -492,7 +492,7 @@
       "description": "Outputs true if object is NaN",
       "ns": "object",
       "name": "isNaN",
-      "fn": "if(underscore.isNaN(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isNaN(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -522,7 +522,7 @@
       "description": "Outputs true if object is Null",
       "ns": "object",
       "name": "isNull",
-      "fn": "if(underscore.isNull(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isNull(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -552,7 +552,7 @@
       "description": "Outputs true if object is a Number",
       "ns": "object",
       "name": "isNumber",
-      "fn": "if(underscore.isNumber(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isNumber(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -582,7 +582,7 @@
       "description": "Outputs true if object is an Object",
       "ns": "object",
       "name": "isObject",
-      "fn": "if(underscore.isObject(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isObject(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -612,7 +612,7 @@
       "description": "Outputs true if object is a RegExp",
       "ns": "object",
       "name": "isRegExp",
-      "fn": "if(underscore.isRegExp(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isRegExp(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -642,7 +642,7 @@
       "description": "Outputs true if object is a String",
       "ns": "object",
       "name": "isString",
-      "fn": "if(underscore.isString(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isString(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -672,7 +672,7 @@
       "description": "Outputs true if object is Undefined",
       "ns": "object",
       "name": "isUndefined",
-      "fn": "if(underscore.isUndefined(input.object)) { output.yes = true; } else { output.no = true; }\n"
+      "fn": "if (underscore.isUndefined(input.object)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
     },
     {
       "ports": {
@@ -698,7 +698,7 @@
       "description": "Retrieve all the names of the object's properties",
       "ns": "object",
       "name": "keys",
-      "fn": "output.out = underscore.keys(input.in)\n"
+      "fn": "output.out = underscore.keys(input. in )\n"
     },
     {
       "ports": {
@@ -724,7 +724,7 @@
       "description": "Gets a sorted list of the names of every method in an object — that is to say, the name of every function property of the object",
       "ns": "object",
       "name": "methods",
-      "fn": "output.out = underscore.methods(input.in)\n"
+      "fn": "output.out = underscore.methods(input. in )\n"
     },
     {
       "ports": {
@@ -754,7 +754,7 @@
       "description": "Return a copy of the object, filtered to omit the blacklisted keys (or array of keys)",
       "ns": "object",
       "name": "omit",
-      "fn": "output.out = underscore.omit(input.in, input.omit)\n"
+      "fn": "output.out = underscore.omit(input. in , input.omit)\n"
     },
     {
       "ports": {
@@ -780,7 +780,7 @@
       "description": "Retrieve key value pairs from an object",
       "ns": "object",
       "name": "pairs",
-      "fn": "output.out = underscore.pairs(input.in)\n"
+      "fn": "output.out = underscore.pairs(input. in )\n"
     },
     {
       "ports": {
@@ -810,7 +810,7 @@
       "description": "Output a copy of the object, filtered to only have values for the whitelisted keys (or array of valid keys)",
       "ns": "object",
       "name": "pick",
-      "fn": "output.out = underscore.pick(input.in, input.pick)\n"
+      "fn": "output.out = underscore.pick(input. in , input.pick)\n"
     },
     {
       "ports": {
@@ -842,7 +842,7 @@
       "description": "Set a property on an object, or else create a new object and set the property",
       "ns": "object",
       "name": "set",
-      "fn": "var obj = input.object ? input.object : {};\nobj[input.key] = input.in;\noutput.out = obj;\n"
+      "fn": "var obj = input.object ? input.object : {};\nobj[input.key] = input. in ;\noutput.out = obj;\n"
     },
     {
       "ports": {
@@ -868,7 +868,7 @@
       "description": "Retrieve all of the values of the object's properties",
       "ns": "object",
       "name": "values",
-      "fn": "output.out = underscore.values(input.in)\n"
+      "fn": "output.out = underscore.values(input. in )\n"
     }
   ],
   "twigs": []
