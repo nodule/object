@@ -1,1 +1,1 @@
-output.out = underscore.clone(input.in)
+output.out = underscore.clone(input. in )
