@@ -1,1 +1,1 @@
-output.out = underscore.invert(input.in)
+output.out = underscore.invert(input. in )
