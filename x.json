@@ -99,7 +99,7 @@
             "title": "Value(s)",
             "type": "array"
           },
-          "key": {
+          "keys": {
             "title": "Key(s)",
             "type": "array"
           },
@@ -126,7 +126,7 @@
       "description": "Fills an object with key/value pairs. Both key and in are array ports. Key must be fed the key names, and in will contain the values.",
       "ns": "object",
       "name": "fill",
-      "fn": "var obj = input.object ? input.object : {};\n\nif(input.keys.length !== input.value.length) {\n  output.error = {\n    msg: 'Key length does not match value length'\n  };\n} else {\n\n  for(var i = 0; i < input.keys.length; i++) {\n   obj[input.keys[i]] = input.value[i];\n  }\n\n  output.out = obj;\n}\n"
+      "fn": "var obj = input.object ? input.object : {};\n\nif(input.keys.length !== input.in.length) {\n  output.error = {\n    msg: 'Key length does not match value length'\n  };\n} else {\n\n  for(var i = 0; i < input.keys.length; i++) {\n   obj[input.keys[i]] = input.in[i];\n  }\n\n  output.out = obj;\n}\n"
     },
     {
       "ports": {
