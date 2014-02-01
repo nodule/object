@@ -6,6 +6,7 @@
   "phrases": {
     "active": "Grouping object"
   },
+  "expose": ["chi"],
   "ports": {
     "input": {
       "in": {
