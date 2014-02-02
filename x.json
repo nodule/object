@@ -197,6 +197,9 @@
           }
         }
       },
+      "expose": [
+        "chi"
+      ],
       "phrases": {
         "active": "Grouping object"
       },
