@@ -1,4 +1,4 @@
-if (underscore.isUndefined(input.object)) {
+if (underscore.isUndefined(input.in)) {
   output.yes = true;
 } else {
   output.no = true;

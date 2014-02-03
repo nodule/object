@@ -1,4 +1,4 @@
-if (underscore.isDate(input.object)) {
+if (underscore.isDate(input.in)) {
   output.yes = true;
 } else {
   output.no = true;

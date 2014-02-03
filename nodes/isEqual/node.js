@@ -1,4 +1,4 @@
-if (underscore.isEqual(input.object, input.other)) {
+if (underscore.isEqual(input.in, input.other)) {
   output.yes = true;
 } else {
   output.no = true;

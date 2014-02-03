@@ -1,4 +1,4 @@
-if (underscore.isNaN(input.object)) {
+if (underscore.isNaN(input.in)) {
   output.yes = true;
 } else {
   output.no = true;

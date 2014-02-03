@@ -10,7 +10,7 @@
   },
   "ports": {
     "input": {
-      "object": {
+      "in": {
         "title": "Object",
         "type": "object"
       },

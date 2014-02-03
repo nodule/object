@@ -1,4 +1,4 @@
-if (underscore.isFinite(input.object)) {
+if (underscore.isFinite(input.in)) {
   output.yes = true;
 } else {
   output.no = true;

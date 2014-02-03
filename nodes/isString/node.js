@@ -1,4 +1,4 @@
-if (underscore.isString(input.object)) {
+if (underscore.isString(input.in)) {
   output.yes = true;
 } else {
   output.no = true;
