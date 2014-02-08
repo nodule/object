@@ -20,9 +20,13 @@
       }
     },
     "output": {
-      "out": {
-        "title": "out",
-        "type": "boolean"
+      "yes": {
+        "title": "Yes",
+        "type": "object"
+      },
+      "no": {
+        "title": "No",
+        "type": "object"
       }
     }
   }

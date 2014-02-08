@@ -222,9 +222,13 @@
           }
         },
         "output": {
-          "out": {
-            "title": "out",
-            "type": "boolean"
+          "yes": {
+            "title": "Yes",
+            "type": "object"
+          },
+          "no": {
+            "title": "No",
+            "type": "object"
           }
         }
       },
@@ -237,7 +241,7 @@
       "description": "Does the object contain the given key? Identical to object.hasOwnProperty(key), but uses a safe reference to the hasOwnProperty function, in case it's been overridden accidentally.",
       "ns": "object",
       "name": "has",
-      "fn": "output.out = underscore.has(input. in , input.key)\n"
+      "fn": "if(underscore.has(input.in , input.key)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
