@@ -1,7 +1,7 @@
 {
   "name": "isArguments",
   "ns": "object",
-  "description": "Outputs true if object is an Arguments Object",
+  "description": "Determines if object is an Arguments Object",
   "phrases": {
     "active": "Determining Arguments Object"
   },
@@ -18,11 +18,11 @@
     "output": {
       "yes": {
         "title": "Yes",
-        "type": "boolean"
+        "type": "object"
       },
       "no": {
         "title": "No",
-        "type": "boolean"
+        "type": "any"
       }
     }
   }

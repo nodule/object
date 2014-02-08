@@ -1,5 +1,5 @@
 if (underscore.isDate(input.in)) {
-  output.yes = true;
+  output.yes = input.in;
 } else {
-  output.no = true;
+  output.no = input.in;
 }

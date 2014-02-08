@@ -1,7 +1,7 @@
 {
   "name": "isUndefined",
   "ns": "object",
-  "description": "Outputs true if object is Undefined",
+  "description": "Determines if object is Undefined",
   "phrases": {
     "active": "Determining whether object is undefined"
   },
@@ -22,7 +22,7 @@
       },
       "no": {
         "title": "No",
-        "type": "boolean"
+        "type": "any"
       }
     }
   }

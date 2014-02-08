@@ -1,7 +1,7 @@
 {
   "name": "isEmpty",
   "ns": "object",
-  "description": "Outputs true if object contains no values (no enumerable own-properties)",
+  "description": "Determines if object contains no values (no enumerable own-properties)",
   "phrases": {
     "active": "Determining empty object"
   },
@@ -22,7 +22,7 @@
       },
       "no": {
         "title": "No",
-        "type": "boolean"
+        "type": "any"
       }
     }
   }

@@ -1,7 +1,7 @@
 {
   "name": "isFinite",
   "ns": "object",
-  "description": "Outputs true if object is a Finite Number",
+  "description": "Determines if object is a Finite Number",
   "phrases": {
     "active": "Determining whether object is a finite number"
   },
@@ -18,11 +18,11 @@
     "output": {
       "yes": {
         "title": "Yes",
-        "type": "boolean"
+        "type": "number"
       },
       "no": {
         "title": "No",
-        "type": "boolean"
+        "type": "any"
       }
     }
   }

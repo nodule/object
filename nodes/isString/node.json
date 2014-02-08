@@ -1,7 +1,7 @@
 {
   "name": "isString",
   "ns": "object",
-  "description": "Outputs true if object is a String",
+  "description": "Determines if object is a String",
   "phrases": {
     "active": "Determining whether object is a string"
   },
@@ -18,11 +18,11 @@
     "output": {
       "yes": {
         "title": "Yes",
-        "type": "boolean"
+        "type": "string"
       },
       "no": {
         "title": "No",
-        "type": "boolean"
+        "type": "any"
       }
     }
   }

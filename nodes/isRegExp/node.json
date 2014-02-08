@@ -1,7 +1,7 @@
 {
   "name": "isRegExp",
   "ns": "object",
-  "description": "Outputs true if object is a RegExp",
+  "description": "Determines if object is a RegExp",
   "phrases": {
     "active": "Determining whether object is a RegExp"
   },
@@ -18,11 +18,11 @@
     "output": {
       "yes": {
         "title": "Yes",
-        "type": "boolean"
+        "type": "RegExp"
       },
       "no": {
         "title": "No",
-        "type": "boolean"
+        "type": "any"
       }
     }
   }

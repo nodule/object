@@ -1,7 +1,7 @@
 {
   "name": "isNull",
   "ns": "object",
-  "description": "Outputs true if object is Null",
+  "description": "Determines if object is Null",
   "phrases": {
     "active": "Determining whether object is Null"
   },
@@ -18,11 +18,11 @@
     "output": {
       "yes": {
         "title": "Yes",
-        "type": "boolean"
+        "type": "null"
       },
       "no": {
         "title": "No",
-        "type": "boolean"
+        "type": "any"
       }
     }
   }

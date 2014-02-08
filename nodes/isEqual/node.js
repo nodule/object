@@ -1,5 +1,5 @@
 if (underscore.isEqual(input.in, input.other)) {
-  output.yes = true;
+  output.yes = input.in;
 } else {
-  output.no = true;
+  output.no = [input.in,input.other];
 }

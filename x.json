@@ -276,11 +276,11 @@
         "output": {
           "yes": {
             "title": "Yes",
-            "type": "boolean"
+            "type": "object"
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -290,10 +290,10 @@
       "phrases": {
         "active": "Determining Arguments Object"
       },
-      "description": "Outputs true if object is an Arguments Object",
+      "description": "Determines if object is an Arguments Object",
       "ns": "object",
       "name": "isArguments",
-      "fn": "if (underscore.isArguments(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isArguments(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
@@ -306,11 +306,11 @@
         "output": {
           "yes": {
             "title": "Yes",
-            "type": "boolean"
+            "type": "array"
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -320,10 +320,10 @@
       "phrases": {
         "active": "Determining Array"
       },
-      "description": "Outputs true if object is an Array",
+      "description": "Determines if object is an Array",
       "ns": "object",
       "name": "isArray",
-      "fn": "if (underscore.isArray(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isArray(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
@@ -340,7 +340,7 @@
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -350,10 +350,10 @@
       "phrases": {
         "active": "Determining whether object is a boolean"
       },
-      "description": "Outputs true if object is a Boolean",
+      "description": "Determines if object is a Boolean",
       "ns": "object",
       "name": "isBoolean",
-      "fn": "if (underscore.isBoolean(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isBoolean(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
@@ -366,11 +366,11 @@
         "output": {
           "yes": {
             "title": "Yes",
-            "type": "boolean"
+            "type": "date"
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -380,10 +380,10 @@
       "phrases": {
         "active": "Determining whether object is a Date"
       },
-      "description": "Outputs true if object is a Date",
+      "description": "Determines if object is a Date",
       "ns": "object",
       "name": "isDate",
-      "fn": "if (underscore.isDate(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isDate(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
@@ -396,11 +396,11 @@
         "output": {
           "yes": {
             "title": "Yes",
-            "type": "boolean"
+            "type": "DomElement"
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -410,10 +410,10 @@
       "phrases": {
         "active": "Determining dom element"
       },
-      "description": "Outputs true if object is a DOM element.",
+      "description": "Determines if object is a DOM element.",
       "ns": "object",
       "name": "isElement",
-      "fn": "if (underscore.isElement(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isElement(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
@@ -430,7 +430,7 @@
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -440,10 +440,10 @@
       "phrases": {
         "active": "Determining empty object"
       },
-      "description": "Outputs true if object contains no values (no enumerable own-properties)",
+      "description": "Determines if object contains no values (no enumerable own-properties)",
       "ns": "object",
       "name": "isEmpty",
-      "fn": "if (underscore.isEmpty(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isEmpty(input.in)) {\n  output.yes = true;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
@@ -460,11 +460,11 @@
         "output": {
           "yes": {
             "title": "Yes",
-            "type": "boolean"
+            "type": "object"
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "array"
           }
         }
       },
@@ -477,7 +477,7 @@
       "description": "Performs an optimized deep comparison between the two objects, to determine if they should be considered equal.",
       "ns": "object",
       "name": "isEqual",
-      "fn": "if (underscore.isEqual(input.in, input.other)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isEqual(input.in, input.other)) {\n  output.yes = input.in;\n} else {\n  output.no = [input.in,input.other];\n}\n"
     },
     {
       "ports": {
@@ -490,11 +490,11 @@
         "output": {
           "yes": {
             "title": "Yes",
-            "type": "boolean"
+            "type": "number"
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -504,10 +504,10 @@
       "phrases": {
         "active": "Determining whether object is a finite number"
       },
-      "description": "Outputs true if object is a Finite Number",
+      "description": "Determines if object is a Finite Number",
       "ns": "object",
       "name": "isFinite",
-      "fn": "if (underscore.isFinite(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isFinite(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
@@ -520,11 +520,11 @@
         "output": {
           "yes": {
             "title": "Yes",
-            "type": "boolean"
+            "type": "function"
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -534,10 +534,10 @@
       "phrases": {
         "active": "Determining whether object is a function"
       },
-      "description": "Outputs true if object is a Function",
+      "description": "Determines if object is a Function",
       "ns": "object",
       "name": "isFunction",
-      "fn": "if (underscore.isFunction(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isFunction(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
@@ -550,11 +550,11 @@
         "output": {
           "yes": {
             "title": "Yes",
-            "type": "boolean"
+            "type": "NaN"
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -564,10 +564,10 @@
       "phrases": {
         "active": "Determining whether object is NaN"
       },
-      "description": "Outputs true if object is NaN",
+      "description": "Determines if object is NaN",
       "ns": "object",
       "name": "isNaN",
-      "fn": "if (underscore.isNaN(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isNaN(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
@@ -580,11 +580,11 @@
         "output": {
           "yes": {
             "title": "Yes",
-            "type": "boolean"
+            "type": "null"
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -594,10 +594,10 @@
       "phrases": {
         "active": "Determining whether object is Null"
       },
-      "description": "Outputs true if object is Null",
+      "description": "Determines if object is Null",
       "ns": "object",
       "name": "isNull",
-      "fn": "if (underscore.isNull(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isNull(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
@@ -610,11 +610,11 @@
         "output": {
           "yes": {
             "title": "Yes",
-            "type": "boolean"
+            "type": "number"
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -624,10 +624,10 @@
       "phrases": {
         "active": "Determining whether object is a number"
       },
-      "description": "Outputs true if object is a Number",
+      "description": "Determines if object is a Number",
       "ns": "object",
       "name": "isNumber",
-      "fn": "if (underscore.isNumber(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isNumber(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
@@ -640,11 +640,11 @@
         "output": {
           "yes": {
             "title": "Yes",
-            "type": "boolean"
+            "type": "object"
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -654,10 +654,10 @@
       "phrases": {
         "active": "Determining Object"
       },
-      "description": "Outputs true if object is an Object",
+      "description": "Determines if object is an Object",
       "ns": "object",
       "name": "isObject",
-      "fn": "if (underscore.isObject(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isObject(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
@@ -670,11 +670,11 @@
         "output": {
           "yes": {
             "title": "Yes",
-            "type": "boolean"
+            "type": "RegExp"
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -684,10 +684,10 @@
       "phrases": {
         "active": "Determining whether object is a RegExp"
       },
-      "description": "Outputs true if object is a RegExp",
+      "description": "Determines if object is a RegExp",
       "ns": "object",
       "name": "isRegExp",
-      "fn": "if (underscore.isRegExp(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isRegExp(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
@@ -700,11 +700,11 @@
         "output": {
           "yes": {
             "title": "Yes",
-            "type": "boolean"
+            "type": "string"
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -714,10 +714,10 @@
       "phrases": {
         "active": "Determining whether object is a string"
       },
-      "description": "Outputs true if object is a String",
+      "description": "Determines if object is a String",
       "ns": "object",
       "name": "isString",
-      "fn": "if (underscore.isString(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isString(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {
@@ -734,7 +734,7 @@
           },
           "no": {
             "title": "No",
-            "type": "boolean"
+            "type": "any"
           }
         }
       },
@@ -744,10 +744,10 @@
       "phrases": {
         "active": "Determining whether object is undefined"
       },
-      "description": "Outputs true if object is Undefined",
+      "description": "Determines if object is Undefined",
       "ns": "object",
       "name": "isUndefined",
-      "fn": "if (underscore.isUndefined(input.in)) {\n  output.yes = true;\n} else {\n  output.no = true;\n}\n"
+      "fn": "if (underscore.isUndefined(input.in)) {\n  output.yes = true;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
       "ports": {

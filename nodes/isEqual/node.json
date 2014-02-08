@@ -22,11 +22,11 @@
     "output": {
       "yes": {
         "title": "Yes",
-        "type": "boolean"
+        "type": "object"
       },
       "no": {
         "title": "No",
-        "type": "boolean"
+        "type": "array"
       }
     }
   }
