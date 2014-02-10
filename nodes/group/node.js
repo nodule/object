@@ -1,5 +1,6 @@
 on.input. in = function () {
   // x contains our keys
+  console.log('out', x, data);
   for (var gid in x) {
 
     state[gid].items.push(data);
@@ -13,8 +14,9 @@ on.input. in = function () {
       }, g.item());
 
       g.done();
+      console.log('done');
 
-      delete state[gid];
+      // delete state[gid];
 
     }
 
