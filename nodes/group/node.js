@@ -1,6 +1,5 @@
 on.input. in = function () {
   // x contains our keys
-  console.log('out', x, data);
   for (var gid in x) {
 
     state[gid].items.push(data);
@@ -14,9 +13,8 @@ on.input. in = function () {
       }, g.item());
 
       g.done();
-      console.log('done');
 
-      // delete state[gid];
+      delete state[gid];
 
     }
 
@@ -33,5 +31,21 @@ on.input.xin = function () {
   } else {
     state[data.gid].total = data.items.length;
     state[data.gid].complete = true;
+
+    // ok sometimes at this point we already have everything...
+    // I wonder if the function stays in scope, i think not.
+    if (state[gid].complete &&
+      state[gid].total === (state[gid].items.length)) {
+
+      var g = chi.group('xout', output);
+      output({
+        out: state[gid].items
+      }, g.item());
+
+      g.done();
+
+      delete state[gid];
+
+    }
   }
 };
