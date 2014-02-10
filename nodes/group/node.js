@@ -34,17 +34,17 @@ on.input.xin = function () {
 
     // ok sometimes at this point we already have everything...
     // I wonder if the function stays in scope, i think not.
-    if (state[gid].complete &&
-      state[gid].total === (state[gid].items.length)) {
+    if (state[data.gid].complete &&
+      state[data.gid].total === (state[data.gid].items.length)) {
 
       var g = chi.group('xout', output);
       output({
-        out: state[gid].items
+        out: state[data.gid].items
       }, g.item());
 
       g.done();
 
-      delete state[gid];
+      delete state[data.gid];
 
     }
   }
