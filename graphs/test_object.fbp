@@ -1,0 +1,13 @@
+title:  test object
+description: test index setting
+
+User(object/create)
+Log(console/log)
+
+'noname' -> key Has(object/has)
+
+'Rob'   -> [firstname] in User out [firstname] -> [noname] in Has
+'Halff' ->  [lastname] in User out [lastname]  ->  [yoname] in Has
+
+User out -> msg Log
+Has  yes -> msg Log
