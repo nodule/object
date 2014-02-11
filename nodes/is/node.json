@@ -1,0 +1,33 @@
+{
+  "name": "is",
+  "ns": "object",
+  "description": "Determines if object an object is of a certain type",
+  "phrases": {
+    "active": "Determining whether object is a {{input.type}}"
+  },
+  "require": {
+    "instance-of": "1.x.x"
+  },
+  "ports": {
+    "input": {
+      "in": {
+        "title": "In",
+        "type": "any"
+      },
+      "type": {
+        "title": "Type",
+        "type": "string"
+      }
+    },
+    "output": {
+      "yes": {
+        "title": "Yes",
+        "type": "any"
+      },
+      "no": {
+        "title": "No",
+        "type": "any"
+      }
+    }
+  }
+}
