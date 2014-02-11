@@ -1,1 +1,1 @@
-output.out = Object.create(input.in);
+output.out = input.in;
