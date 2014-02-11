@@ -7,7 +7,8 @@
     "url": "https://github.com/nodule/object.git"
   },
   "dependencies": {
-    "underscore": "1.x.x"
+    "underscore": "1.x.x",
+    "instance-of": "1.x.x"
   },
   "nodes": [
     {
@@ -35,6 +36,29 @@
       "ns": "object",
       "name": "clone",
       "fn": "output.out = underscore.clone(input. in )\n"
+    },
+    {
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Object",
+            "type": "object"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "out",
+            "type": "object"
+          }
+        }
+      },
+      "phrases": {
+        "active": "Creating object"
+      },
+      "description": "Create an object, if input is a direct object it just returns a copy of the object",
+      "ns": "object",
+      "name": "create",
+      "fn": "// todo create a copy\noutput.out = input.in;\n"
     },
     {
       "ports": {
