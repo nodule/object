@@ -14,7 +14,7 @@
         "title": "In",
         "type": "any"
       },
-      "type": {
+      "kind": {
         "title": "Type",
         "type": "string"
       }
