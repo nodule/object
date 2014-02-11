@@ -1,2 +1,1 @@
-// todo create a copy
-output.out = input.in;
+output.out = Object.create(input.in);
