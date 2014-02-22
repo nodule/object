@@ -1,6 +1,7 @@
 {
   "name": "has",
   "ns": "object",
+  "async": true,
   "description": "Does the object contain the given key? Identical to object.hasOwnProperty(key), but uses a safe reference to the hasOwnProperty function, in case it's been overridden accidentally.",
   "phrases": {
     "active": "Determining whether the object has key {{input.key}}"
@@ -12,7 +13,8 @@
     "input": {
       "in": {
         "title": "Object",
-        "type": "object"
+        "type": "object",
+        "async": true
       },
       "key": {
         "title": "Key",

@@ -238,7 +238,8 @@
         "input": {
           "in": {
             "title": "Object",
-            "type": "object"
+            "type": "object",
+            "async": true
           },
           "key": {
             "title": "Key",
@@ -263,9 +264,10 @@
         "active": "Determining whether the object has key {{input.key}}"
       },
       "description": "Does the object contain the given key? Identical to object.hasOwnProperty(key), but uses a safe reference to the hasOwnProperty function, in case it's been overridden accidentally.",
+      "async": true,
       "ns": "object",
       "name": "has",
-      "fn": "if(underscore.has(input.in , input.key)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
+      "fn": "on.input.in = function() {\n  // can be data or input.in\n  if(underscore.has(data, input.key)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n}\n"
     },
     {
       "ports": {
