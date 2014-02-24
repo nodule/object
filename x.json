@@ -858,7 +858,7 @@
         "underscore": "1.x.x"
       },
       "phrases": {
-        "active": "Dermining methods"
+        "active": "Determining methods"
       },
       "description": "Gets a sorted list of the names of every method in an object — that is to say, the name of every function property of the object",
       "ns": "object",
@@ -976,7 +976,7 @@
         }
       },
       "phrases": {
-        "active": "Setting propety {{input.key}}"
+        "active": "Setting property {{input.key}}"
       },
       "description": "Set a property on an object, or else create a new object and set the property",
       "ns": "object",

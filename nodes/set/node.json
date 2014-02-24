@@ -3,7 +3,7 @@
   "ns": "object",
   "description": "Set a property on an object, or else create a new object and set the property",
   "phrases": {
-    "active": "Setting propety {{input.key}}"
+    "active": "Setting property {{input.key}}"
   },
   "ports": {
     "input": {
