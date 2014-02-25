@@ -1,0 +1,33 @@
+{
+  "name": "move",
+  "ns": "object",
+  "description": "Moves properties within one object from one place to the other",
+  "phrases": {
+    "active": "Moving object properties"
+  },
+  "require": {
+    "dot-object": "0.x.x"
+  },
+  "ports": {
+    "input": {
+      "in": {
+        "title": "Input Object",
+        "type": "object"
+      },
+      "from": {
+        "title": "From",
+        "type": "array"
+      },
+      "to": {
+        "title": "To",
+        "type": "array"
+      }
+    },
+    "output": {
+      "out": {
+        "title": "Output",
+        "type": "object"
+      }
+    }
+  }
+}

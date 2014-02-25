@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "underscore": "1.x.x",
-    "instance-of": "1.x.x"
+    "instance-of": "1.x.x",
+    "dot-object": "0.x.x"
   },
   "nodes": [
     {
@@ -864,6 +865,40 @@
       "ns": "object",
       "name": "methods",
       "fn": "output.out = underscore.methods(input. in )\n"
+    },
+    {
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Input Object",
+            "type": "object"
+          },
+          "from": {
+            "title": "From",
+            "type": "array"
+          },
+          "to": {
+            "title": "To",
+            "type": "array"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "Output",
+            "type": "object"
+          }
+        }
+      },
+      "require": {
+        "dot-object": "0.x.x"
+      },
+      "phrases": {
+        "active": "Moving object properties"
+      },
+      "description": "Moves properties within one object from one place to the other",
+      "ns": "object",
+      "name": "move",
+      "fn": "// Receiving an array, check both are of the same length.\nif(input.from.length !== input.to.length) {\n  output.err = new Error('from length does not match to length');\n} else {\n\n  var doo = dot_object();\n  for(var i = 0; i < input.from.length; i++) {\n    doo.move(input.from[i], input.to[i], input.in);\n  }\n\n  output.out = input.in;\n\n}\n"
     },
     {
       "ports": {
