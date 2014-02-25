@@ -242,8 +242,8 @@
             "type": "object",
             "async": true
           },
-          "key": {
-            "title": "Key",
+          "path": {
+            "title": "Path",
             "type": "string"
           }
         },
@@ -259,16 +259,16 @@
         }
       },
       "require": {
-        "underscore": "1.x.x"
+        "dot-json": "0.x.x"
       },
       "phrases": {
-        "active": "Determining whether the object has key {{input.key}}"
+        "active": "Determining whether the object has property {{input.path}}"
       },
-      "description": "Does the object contain the given key? Identical to object.hasOwnProperty(key), but uses a safe reference to the hasOwnProperty function, in case it's been overridden accidentally.",
+      "description": "Does the object contain the given property? You can use dot notation to dig deeper into the object.",
       "async": true,
       "ns": "object",
       "name": "has",
-      "fn": "on.input.in = function() {\n  // can be data or input.in\n  if(underscore.has(data, input.key)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n}\n"
+      "fn": "on.input.in = function() {\n  // can be data or input.in\n  if(dot_object.pick(data, input.path)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n}\n"
     },
     {
       "ports": {

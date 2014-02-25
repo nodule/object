@@ -2,9 +2,9 @@
   "name": "has",
   "ns": "object",
   "async": true,
-  "description": "Does the object contain the given key? You can use dot notation to dig deeper into the object.",
+  "description": "Does the object contain the given property? You can use dot notation to dig deeper into the object.",
   "phrases": {
-    "active": "Determining whether the object has key {{input.key}}"
+    "active": "Determining whether the object has property {{input.path}}"
   },
   "require": {
     "dot-json": "0.x.x"
@@ -16,8 +16,8 @@
         "type": "object",
         "async": true
       },
-      "key": {
-        "title": "Key",
+      "path": {
+        "title": "Path",
         "type": "string"
       }
     },
