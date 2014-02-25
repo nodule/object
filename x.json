@@ -883,6 +883,10 @@
           }
         },
         "output": {
+          "error": {
+            "title": "Error",
+            "type": "object"
+          },
           "out": {
             "title": "Output",
             "type": "object"
@@ -898,7 +902,7 @@
       "description": "Moves properties within one object from one place to the other",
       "ns": "object",
       "name": "move",
-      "fn": "// Receiving an array, check both are of the same length.\nif(input.from.length !== input.to.length) {\n  output.err = new Error('from length does not match to length');\n} else {\n\n  var doo = dot_object();\n  for(var i = 0; i < input.from.length; i++) {\n    doo.move(input.from[i], input.to[i], input.in);\n  }\n\n  output.out = input.in;\n\n}\n"
+      "fn": "// Receiving an array, check both are of the same length.\nif(input.from.length !== input.to.length) {\n  output.error = new Error('from length does not match to length');\n} else {\n\n  var doo = dot_object();\n  for(var i = 0; i < input.from.length; i++) {\n    doo.move(input.from[i], input.to[i], input.in);\n  }\n\n  output.out = input.in;\n\n}\n"
     },
     {
       "ports": {

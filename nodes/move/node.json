@@ -24,6 +24,10 @@
       }
     },
     "output": {
+      "error": {
+        "title": "Error",
+        "type": "object"
+      },
       "out": {
         "title": "Output",
         "type": "object"

@@ -1,6 +1,6 @@
 // Receiving an array, check both are of the same length.
 if(input.from.length !== input.to.length) {
-  output.err = new Error('from length does not match to length');
+  output.error = new Error('from length does not match to length');
 } else {
 
   var doo = dot_object();
