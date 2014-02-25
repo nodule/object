@@ -1,22 +1,30 @@
 {
   "name": "is",
   "ns": "object",
+  "async": true,
   "description": "Determines if object an object is of a certain type",
   "phrases": {
     "active": "Determining whether object is a {{input.type}}"
   },
   "require": {
-    "instance-of": "1.x.x"
+    "instance-of": "1.x.x",
+    "dot-object": "0.x.x"
   },
   "ports": {
     "input": {
       "in": {
         "title": "In",
+        "async": true,
         "type": "any"
       },
       "kind": {
         "title": "Type",
         "type": "string"
+      },
+      "path": {
+        "title": "Path",
+        "type": "string",
+        "default": null
       }
     },
     "output": {

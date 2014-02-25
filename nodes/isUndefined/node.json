@@ -1,18 +1,26 @@
 {
   "name": "isUndefined",
   "ns": "object",
+  "async": true,
   "description": "Determines if object is Undefined",
   "phrases": {
     "active": "Determining whether object is undefined"
   },
   "require": {
-    "underscore": "1.x.x"
+    "underscore": "1.x.x",
+    "dot-object": "0.x.x"
   },
   "ports": {
     "input": {
       "in": {
         "title": "In",
+        "async": true,
         "type": "any"
+      },
+      "path": {
+        "title": "Path",
+        "type": "string",
+        "default": null
       }
     },
     "output": {

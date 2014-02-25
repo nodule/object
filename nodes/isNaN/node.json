@@ -1,18 +1,26 @@
 {
   "name": "isNaN",
   "ns": "object",
+  "async": true,
   "description": "Determines if object is NaN",
   "phrases": {
     "active": "Determining whether object is NaN"
   },
   "require": {
-    "underscore": "1.x.x"
+    "underscore": "1.x.x",
+    "dot-object": "0.x.x"
   },
   "ports": {
     "input": {
       "in": {
         "title": "In",
+        "async": true,
         "type": "any"
+      },
+      "path": {
+        "title": "Path",
+        "type": "string",
+        "default": null
       }
     },
     "output": {

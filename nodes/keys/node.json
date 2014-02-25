@@ -1,18 +1,26 @@
 {
   "name": "keys",
   "ns": "object",
+  "async": true,
   "description": "Retrieve all the names of the object's properties",
   "phrases": {
     "active": "Retrieving object properties"
   },
   "require": {
-    "underscore": "1.x.x"
+    "underscore": "1.x.x",
+    "dot-object": "0.x.x"
   },
   "ports": {
     "input": {
       "in": {
         "title": "Object",
+        "async": true,
         "type": "object"
+      },
+      "path": {
+        "title": "Path",
+        "type": "string",
+        "default": null
       }
     },
     "output": {

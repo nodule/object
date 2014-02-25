@@ -1,18 +1,26 @@
 {
   "name": "isEmpty",
   "ns": "object",
+  "async": true,
   "description": "Determines if object contains no values (no enumerable own-properties)",
   "phrases": {
     "active": "Determining empty object"
   },
   "require": {
-    "underscore": "1.x.x"
+    "underscore": "1.x.x",
+    "dot-object": "0.x.x"
   },
   "ports": {
     "input": {
       "in": {
         "title": "Object",
+        "async": true,
         "type": "any"
+      },
+      "path": {
+        "title": "Path",
+        "type": "string",
+        "default": null
       }
     },
     "output": {

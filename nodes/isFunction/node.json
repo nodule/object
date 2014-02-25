@@ -1,18 +1,26 @@
 {
   "name": "isFunction",
   "ns": "object",
+  "async": true,
   "description": "Determines if object is a Function",
   "phrases": {
     "active": "Determining whether object is a function"
   },
   "require": {
-    "underscore": "1.x.x"
+    "underscore": "1.x.x",
+    "dot-object": "0.x.x"
   },
   "ports": {
     "input": {
       "in": {
         "title": "In",
+        "async": true,
         "type": "any"
+      },
+      "path": {
+        "title": "Path",
+        "type": "string",
+        "default": null
       }
     },
     "output": {

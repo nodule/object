@@ -1,5 +1,10 @@
-if (underscore.isUndefined(input.in)) {
-  output.yes = true;
-} else {
-  output.no = input.in;
-}
+on.input.in = function() {
+  var val = input.path ? dot_object.pick(input.path, data) : data;
+
+  if (underscore.isUndefined(val)) {
+    output({ yes: data });
+  } else {
+    output({ no: data });
+  }
+
+};
