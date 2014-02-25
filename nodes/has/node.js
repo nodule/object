@@ -1,6 +1,6 @@
 on.input.in = function() {
   // can be data or input.in
-  if(underscore.has(data, input.key)) {
+  if(dot_object.pick(data, input.key)) {
     output({ yes: data });
   } else {
     output({ no: data });

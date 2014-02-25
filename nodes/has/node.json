@@ -2,12 +2,12 @@
   "name": "has",
   "ns": "object",
   "async": true,
-  "description": "Does the object contain the given key? Identical to object.hasOwnProperty(key), but uses a safe reference to the hasOwnProperty function, in case it's been overridden accidentally.",
+  "description": "Does the object contain the given key? You can use dot notation to dig deeper into the object.",
   "phrases": {
     "active": "Determining whether the object has key {{input.key}}"
   },
   "require": {
-    "underscore": "1.x.x"
+    "dot-json": "0.x.x"
   },
   "ports": {
     "input": {
