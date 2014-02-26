@@ -259,7 +259,7 @@
         }
       },
       "require": {
-        "dot-json": "0.x.x"
+        "dot-object": "0.x.x"
       },
       "phrases": {
         "active": "Determining whether the object has property {{input.path}}"
