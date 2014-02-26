@@ -268,7 +268,7 @@
       "async": true,
       "ns": "object",
       "name": "has",
-      "fn": "on.input.in = function() {\n  // can be data or input.in\n  if(dot_object.pick(data, input.path)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n}\n"
+      "fn": "on.input.in = function() {\n  // can be data or input.in\n  if(dot_object().pick(data, input.path)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n}\n"
     },
     {
       "ports": {
@@ -336,7 +336,7 @@
       "async": true,
       "ns": "object",
       "name": "is",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (instance_of(val, input.kind)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (instance_of(val, input.kind)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -404,7 +404,7 @@
       "async": true,
       "ns": "object",
       "name": "isArray",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (underscore.isArray(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isArray(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -442,7 +442,7 @@
       "async": true,
       "ns": "object",
       "name": "isBoolean",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (underscore.isBoolean(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isBoolean(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -480,7 +480,7 @@
       "async": true,
       "ns": "object",
       "name": "isDate",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (underscore.isDate(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isDate(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -518,7 +518,7 @@
       "async": true,
       "ns": "object",
       "name": "isElement",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (underscore.isElement(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isElement(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -556,7 +556,7 @@
       "async": true,
       "ns": "object",
       "name": "isEmpty",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (underscore.isEmpty(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isEmpty(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -628,7 +628,7 @@
       "async": true,
       "ns": "object",
       "name": "isFinite",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (underscore.isFinite(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isFinite(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -666,7 +666,7 @@
       "async": true,
       "ns": "object",
       "name": "isFunction",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (underscore.isFunction(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isFunction(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -704,7 +704,7 @@
       "async": true,
       "ns": "object",
       "name": "isNaN",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (underscore.isNaN(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isNaN(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -742,7 +742,7 @@
       "async": true,
       "ns": "object",
       "name": "isNull",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (underscore.isNull(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isNull(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -778,7 +778,7 @@
       "description": "Determines if object is a Number",
       "ns": "object",
       "name": "isNumber",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (underscore.isNumber(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isNumber(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -816,7 +816,7 @@
       "async": true,
       "ns": "object",
       "name": "isObject",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (underscore.isObject(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isObject(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -854,7 +854,7 @@
       "async": true,
       "ns": "object",
       "name": "isRegExp",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (underscore.isRegExp(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isRegExp(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -892,7 +892,7 @@
       "async": true,
       "ns": "object",
       "name": "isString",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (underscore.isString(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isString(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -930,7 +930,7 @@
       "async": true,
       "ns": "object",
       "name": "isUndefined",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n\n  if (underscore.isUndefined(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isUndefined(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -964,7 +964,7 @@
       "async": true,
       "ns": "object",
       "name": "keys",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object.pick(input.path, data) : data;\n  output( { out: underscore.keys(val) } );\n}\n"
+      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n  output( { out: underscore.keys(val) } );\n}\n"
     },
     {
       "ports": {
