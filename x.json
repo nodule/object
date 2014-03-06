@@ -1064,6 +1064,42 @@
       "ports": {
         "input": {
           "in": {
+            "title": "In",
+            "async": true,
+            "type": "Object"
+          },
+          "match": {
+            "title": "Path",
+            "type": "array"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "Output",
+            "type": "any"
+          },
+          "error": {
+            "title": "Error",
+            "type": "object"
+          }
+        }
+      },
+      "require": {
+        "dot-object": "0.x.x"
+      },
+      "phrases": {
+        "active": "Picking one of the properties"
+      },
+      "description": "Selects a (nested) property outputing the first property available. data.in || data.that || .. etc. Sends an error of none of the properties matched.",
+      "async": true,
+      "ns": "object",
+      "name": "oneOf",
+      "fn": "on.input.in = function() {\n\n  var val = undefined;\n  for(var i = 0; i < input.path.length; i++) {\n    val = dot_object().pick(input.path[i], data);\n    if(val !== undefined) {\n      output({ out: val });\n      break;\n    }\n  }\n\n  output({ error: new Error('None of the properties are found') });\n\n};\n"
+    },
+    {
+      "ports": {
+        "input": {
+          "in": {
             "title": "Object",
             "type": "object"
           }
