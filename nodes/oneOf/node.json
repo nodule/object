@@ -1,0 +1,35 @@
+{
+  "name": "oneOf",
+  "ns": "object",
+  "async": true,
+  "description": "Selects a (nested) property outputing the first property available. data.in || data.that || .. etc. Sends an error of none of the properties matched.",
+  "phrases": {
+    "active": "Picking one of the properties"
+  },
+  "require": {
+    "dot-object": "0.x.x"
+  },
+  "ports": {
+    "input": {
+      "in": {
+        "title": "In",
+        "async": true,
+        "type": "Object"
+      },
+      "match": {
+        "title": "Path",
+        "type": "array"
+      }
+    },
+    "output": {
+      "out": {
+        "title": "Output",
+        "type": "any"
+      },
+      "error": {
+        "title": "Error",
+        "type": "object"
+      }
+    }
+  }
+}
