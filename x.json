@@ -1068,7 +1068,7 @@
             "async": true,
             "type": "Object"
           },
-          "match": {
+          "path": {
             "title": "Path",
             "type": "array"
           }
