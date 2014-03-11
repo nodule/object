@@ -268,7 +268,7 @@
       "async": true,
       "ns": "object",
       "name": "has",
-      "fn": "on.input.in = function() {\n  // can be data or input.in\n  if(dot_object().pick(data, input.path)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n}\n"
+      "fn": "on.input.in = function() {\n  // can be data or input.in\n  if(dot_object().pick(input.path, data)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n}\n"
     },
     {
       "ports": {
