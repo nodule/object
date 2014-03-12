@@ -1094,7 +1094,7 @@
       "async": true,
       "ns": "object",
       "name": "oneOf",
-      "fn": "on.input.in = function() {\n\n  var val;\n  for(var i = 0; i < input.path.length; i++) {\n    val = dot_object().pick(input.path[i], data);\n    if(val !== undefined) {\n      output({ out: val });\n      break;\n    }\n  }\n\n  output({ error: new Error('None of the properties are found') });\n\n};\n"
+      "fn": "on.input.in = function() {\n\n  var val;\n  for(var i = 0; i < input.path.length; i++) {\n    val = dot_object().pick(input.path[i], data);\n    if(val !== undefined) {\n      return output({ out: val });\n    }\n  }\n\n  output({ error: new Error('None of the properties are found') });\n\n};\n"
     },
     {
       "ports": {

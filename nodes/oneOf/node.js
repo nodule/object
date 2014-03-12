@@ -4,8 +4,7 @@ on.input.in = function() {
   for(var i = 0; i < input.path.length; i++) {
     val = dot_object().pick(input.path[i], data);
     if(val !== undefined) {
-      output({ out: val });
-      break;
+      return output({ out: val });
     }
   }
 
