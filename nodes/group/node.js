@@ -2,6 +2,14 @@ on.input. in = function () {
   // x contains our keys
   for (var gid in x) {
 
+    if(!state.hasOwnProperty(gid)) {
+      state[gid] = {
+        items: [],
+        total: null,
+        complete: false
+      };
+    }
+
     state[gid].items.push(data);
 
     if (state[gid].complete &&
