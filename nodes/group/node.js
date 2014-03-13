@@ -30,13 +30,16 @@ on.input. in = function () {
 };
 
 on.input.xin = function () {
-  if (!data.complete) {
+
+  if(!state.hasOwnProperty(data.gid)) {
     state[data.gid] = {
       items: [],
       total: null,
       complete: false
     };
-  } else {
+  }
+
+  if (data.complete) {
     state[data.gid].total = data.items.length;
     state[data.gid].complete = true;
 
