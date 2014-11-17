@@ -13,6 +13,11 @@
   },
   "nodes": [
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -26,9 +31,6 @@
             "type": "object"
           }
         }
-      },
-      "require": {
-        "underscore": "1.x.x"
       },
       "phrases": {
         "active": "Cloning object"
@@ -62,6 +64,11 @@
       "fn": "output.out = input.in;\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -80,9 +87,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x"
-      },
       "phrases": {
         "active": "Applying defaults to object"
       },
@@ -92,6 +96,11 @@
       "fn": "output.out = underscore.defaults(input. in , input.defaults)\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -105,9 +114,6 @@
             "type": "array"
           }
         }
-      },
-      "require": {
-        "underscore": "1.x.x"
       },
       "phrases": {
         "active": "Extending object"
@@ -235,6 +241,11 @@
       "fn": "state = {\n  group: {},\n  total: 0\n};\n\n// If this even works, state is not cleared\n// properly or at lease during send out\n// the current groups can be removed.\n\n// really needs a main also.\n// main is called always then.\n// and check the existance of those keys\n// first just make the synchronous one\non.input. in = function () {\n  // x contains our keys\n  var id = x[state.gid];\n  if (!state[id]) state[id] = {};\n\n  state[id]. in = data;\n\n  if (state[id].by) {\n    // we have a match.\n    if (!state.group[state[id].by]) state.group[state[id].by] = [];\n    state.group[state[id].by].push(state[id]. in );\n  }\n\n  state.total++;\n\n  if (state.complete && state.l === (state.total / 2)) {\n    // send them out, might also create groups again.\n    for (var key in state.group) {\n      var g = chi.group('xout', output);\n\n      // like to introduce the grouped output, output like the below is grouped\n      // it's a bit like an array port, only difference the output goes to normal ports.\n      // I would like to add the convention, that if you send output this way.\n      // You must declare a group inside the json\n      //\n      // out: \"group\": \"result\"\n      // by:  \"group\": \"result\"\n      //\n      // in a ui this will look like:\n      // [o o] o o o\n      //\n      // Only two states:\n      //\n      //  [• •] and [o o]\n      //\n      // Whereas the individual ports are not perse synchronous:\n      //\n      //  [o o] o • o\n      //\n      // Where the first is the grouped output, you are assured those ports\n      // are pairs of data comming out, belong to eachother.\n      output({\n        out: state.group[key],\n        by: JSON.parse(key) // same as input.by\n      }, g.item());\n      g.done();\n    }\n  }\n};\n\n// collect the keys.\non.input.by = function () {\n\n  var id = x[state.gid];\n  if (!state[id]) state[id] = {};\n\n  state[id].by = JSON.stringify(data); // keyify\n\n  if (state[id]. in ) {\n    // we have a match.\n    if (!state.group[state[id].by]) state.group[state[id].by] = [];\n    state.group[state[id].by].push(state[id]. in );\n  }\n\n  state.total++;\n\n  if (state.complete && state.l === (state.total / 2)) {\n    // send them out, might also create groups again.\n    for (var key in state.group) {\n      var g = chi.group('xout', output);\n      output({\n        out: state.group[key],\n        by: JSON.parse(key) // same as input.by\n      }, g.item());\n      g.done();\n    }\n  }\n\n};\n\n// xin now kinda acts like a main.\n// more clear would probably be group begin and end methods.\n// it also makes it required to have this connected.\non.input.xin = function () {\n  // will always arrive first.\n  // probably this can all be done outside a component.\n  // the pair matching is something common.\n  if (!data.complete) {\n    // register the groupId\n    // we rely on this being set first\n    state.gid = data.gid;\n    state.complete = false;\n  } else {\n    // is finished\n    // send it out.\n    state.complete = true;\n    state.l = data.items.length;\n  }\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -258,9 +269,6 @@
           }
         }
       },
-      "require": {
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining whether the object has property {{input.path}}"
       },
@@ -271,6 +279,11 @@
       "fn": "on.input.in = function() {\n  // can be data or input.in\n  if(dot_object().pick(input.path, data)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n}\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -285,9 +298,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x"
-      },
       "phrases": {
         "active": "Inverting object"
       },
@@ -297,6 +307,12 @@
       "fn": "output.out = underscore.invert(input. in )\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "instance-of": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -325,10 +341,6 @@
           }
         }
       },
-      "require": {
-        "instance-of": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining whether object is a {{input.type}}"
       },
@@ -339,6 +351,11 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (instance_of(val, input.kind)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -357,9 +374,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x"
-      },
       "phrases": {
         "active": "Determining Arguments Object"
       },
@@ -369,6 +383,12 @@
       "fn": "if (underscore.isArguments(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -393,10 +413,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining Array"
       },
@@ -407,6 +423,12 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isArray(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -431,10 +453,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining whether object is a boolean"
       },
@@ -445,6 +463,12 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isBoolean(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -469,10 +493,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining whether object is a Date"
       },
@@ -483,6 +503,12 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isDate(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -507,10 +533,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining dom element"
       },
@@ -521,6 +543,12 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isElement(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -545,10 +573,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining empty object"
       },
@@ -559,6 +583,11 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isEmpty(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -581,9 +610,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x"
-      },
       "phrases": {
         "active": "Determining equality"
       },
@@ -593,6 +619,12 @@
       "fn": "if (underscore.isEqual(input.in, input.other)) {\n  output.yes = input.in;\n} else {\n  output.no = [input.in,input.other];\n}\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -617,10 +649,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining whether object is a finite number"
       },
@@ -631,6 +659,12 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isFinite(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -655,10 +689,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining whether object is a function"
       },
@@ -669,6 +699,12 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isFunction(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -693,10 +729,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining whether object is NaN"
       },
@@ -707,6 +739,12 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isNaN(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -731,10 +769,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining whether object is Null"
       },
@@ -745,6 +779,12 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isNull(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -768,10 +808,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining whether object is a number"
       },
@@ -781,6 +817,12 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isNumber(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -805,10 +847,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining Object"
       },
@@ -819,6 +857,12 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isObject(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -843,10 +887,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining whether object is a RegExp"
       },
@@ -857,6 +897,12 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isRegExp(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -881,10 +927,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining whether object is a string"
       },
@@ -895,6 +937,12 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isString(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -919,10 +967,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Determining whether object is undefined"
       },
@@ -933,6 +977,12 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isUndefined(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -953,10 +1003,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x",
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Retrieving object properties"
       },
@@ -967,6 +1013,11 @@
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n  output( { out: underscore.keys(val) } );\n}\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -981,9 +1032,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x"
-      },
       "phrases": {
         "active": "Determining methods"
       },
@@ -993,6 +1041,11 @@
       "fn": "output.out = underscore.methods(input. in )\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -1019,9 +1072,6 @@
           }
         }
       },
-      "require": {
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Moving object properties"
       },
@@ -1031,6 +1081,11 @@
       "fn": "// Receiving an array, check both are of the same length.\nif(input.from.length !== input.to.length) {\n  output.error = new Error('from length does not match to length');\n} else {\n\n  var doo = dot_object();\n  for(var i = 0; i < input.from.length; i++) {\n    doo.move(input.from[i], input.to[i], input.in);\n  }\n\n  output.out = input.in;\n\n}\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -1049,9 +1104,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x"
-      },
       "phrases": {
         "active": "Omitting object keys"
       },
@@ -1061,6 +1113,11 @@
       "fn": "output.out = underscore.omit(input. in , input.omit)\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "dot-object": "0.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -1084,9 +1141,6 @@
           }
         }
       },
-      "require": {
-        "dot-object": "0.x.x"
-      },
       "phrases": {
         "active": "Picking one of the properties"
       },
@@ -1097,6 +1151,11 @@
       "fn": "on.input.in = function() {\n\n  var val;\n  for(var i = 0; i < input.path.length; i++) {\n    val = dot_object().pick(input.path[i], data);\n    if(val !== undefined) {\n      return output({ out: val });\n    }\n  }\n\n  output({ error: new Error('None of the properties are found') });\n\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -1111,9 +1170,6 @@
           }
         }
       },
-      "require": {
-        "underscore": "1.x.x"
-      },
       "phrases": {
         "active": "Transforming object to pairs"
       },
@@ -1123,6 +1179,11 @@
       "fn": "output.out = underscore.pairs(input. in )\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -1140,9 +1201,6 @@
             "type": "object"
           }
         }
-      },
-      "require": {
-        "underscore": "1.x.x"
       },
       "phrases": {
         "active": "Picking object"
@@ -1185,6 +1243,11 @@
       "fn": "var obj = input.object ? input.object : {};\nobj[input.key] = input. in ;\noutput.out = obj;\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -1198,9 +1261,6 @@
             "type": "array"
           }
         }
-      },
-      "require": {
-        "underscore": "1.x.x"
       },
       "phrases": {
         "active": "Retrieving object values"

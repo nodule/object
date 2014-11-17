@@ -6,9 +6,6 @@
   "phrases": {
     "active": "Determining whether the object has property {{input.path}}"
   },
-  "require": {
-    "dot-object": "0.x.x"
-  },
   "ports": {
     "input": {
       "in": {
@@ -30,6 +27,11 @@
         "title": "No",
         "type": "object"
       }
+    }
+  },
+  "dependencies": {
+    "npm": {
+      "dot-object": "0.x.x"
     }
   }
 }

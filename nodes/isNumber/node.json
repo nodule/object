@@ -5,10 +5,6 @@
   "phrases": {
     "active": "Determining whether object is a number"
   },
-  "require": {
-    "underscore": "1.x.x",
-    "dot-object": "0.x.x"
-  },
   "ports": {
     "input": {
       "in": {
@@ -30,6 +26,12 @@
         "title": "No",
         "type": "any"
       }
+    }
+  },
+  "dependencies": {
+    "npm": {
+      "underscore": "1.x.x",
+      "dot-object": "0.x.x"
     }
   }
 }

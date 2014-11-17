@@ -5,9 +5,6 @@
   "phrases": {
     "active": "Determining equality"
   },
-  "require": {
-    "underscore": "1.x.x"
-  },
   "ports": {
     "input": {
       "in": {
@@ -28,6 +25,11 @@
         "title": "No",
         "type": "array"
       }
+    }
+  },
+  "dependencies": {
+    "npm": {
+      "underscore": "1.x.x"
     }
   }
 }

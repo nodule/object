@@ -6,9 +6,6 @@
   "phrases": {
     "active": "Picking one of the properties"
   },
-  "require": {
-    "dot-object": "0.x.x"
-  },
   "ports": {
     "input": {
       "in": {
@@ -30,6 +27,11 @@
         "title": "Error",
         "type": "object"
       }
+    }
+  },
+  "dependencies": {
+    "npm": {
+      "dot-object": "0.x.x"
     }
   }
 }

@@ -6,10 +6,6 @@
   "phrases": {
     "active": "Retrieving object properties"
   },
-  "require": {
-    "underscore": "1.x.x",
-    "dot-object": "0.x.x"
-  },
   "ports": {
     "input": {
       "in": {
@@ -28,6 +24,12 @@
         "title": "out",
         "type": "array"
       }
+    }
+  },
+  "dependencies": {
+    "npm": {
+      "underscore": "1.x.x",
+      "dot-object": "0.x.x"
     }
   }
 }

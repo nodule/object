@@ -5,9 +5,6 @@
   "phrases": {
     "active": "Moving object properties"
   },
-  "require": {
-    "dot-object": "0.x.x"
-  },
   "ports": {
     "input": {
       "in": {
@@ -32,6 +29,11 @@
         "title": "Output",
         "type": "object"
       }
+    }
+  },
+  "dependencies": {
+    "npm": {
+      "dot-object": "0.x.x"
     }
   }
 }

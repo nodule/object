@@ -5,9 +5,6 @@
   "phrases": {
     "active": "Retrieving object values"
   },
-  "require": {
-    "underscore": "1.x.x"
-  },
   "ports": {
     "input": {
       "in": {
@@ -20,6 +17,11 @@
         "title": "out",
         "type": "array"
       }
+    }
+  },
+  "dependencies": {
+    "npm": {
+      "underscore": "1.x.x"
     }
   }
 }
