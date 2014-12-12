@@ -1,5 +1,7 @@
-if (underscore.isEqual(input.in, input.other)) {
-  output.yes = input.in;
-} else {
-  output.no = [input.in,input.other];
-}
+on.input.in = function(data) {
+  if (underscore.isEqual(data, input.other)) {
+    output({yes: data});
+  } else {
+    output({no: data});
+  }
+};

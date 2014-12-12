@@ -1,1 +1,3 @@
-output.out = underscore.pick(input. in , input.pick)
+on.input.in = function(data) {
+  output({out: underscore.pick(data, input.pick)});
+};

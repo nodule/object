@@ -1,6 +1,7 @@
 {
   "name": "isArguments",
   "ns": "object",
+  "async": true,
   "description": "Determines if object is an Arguments Object",
   "phrases": {
     "active": "Determining Arguments Object"

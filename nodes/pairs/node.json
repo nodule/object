@@ -1,6 +1,7 @@
 {
   "name": "pairs",
   "ns": "object",
+  "async": true,
   "description": "Retrieve key value pairs from an object",
   "phrases": {
     "active": "Transforming object to pairs"
@@ -9,7 +10,8 @@
     "input": {
       "in": {
         "title": "Object",
-        "type": "object"
+        "type": "object",
+        "async": true
       }
     },
     "output": {

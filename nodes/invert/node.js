@@ -1,1 +1,3 @@
-output.out = underscore.invert(input. in )
+on.input.in = function(data) {
+  output({out: underscore.invert(data)});
+};

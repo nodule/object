@@ -1,6 +1,7 @@
 {
   "name": "clone",
   "ns": "object",
+  "async": true,
   "description": "Create a shallow-copied clone of the object. Any nested objects or arrays will be copied by reference, not duplicated.",
   "phrases": {
     "active": "Cloning object"
@@ -9,7 +10,8 @@
     "input": {
       "in": {
         "title": "Object",
-        "type": "object"
+        "type": "object",
+        "async": true
       }
     },
     "output": {

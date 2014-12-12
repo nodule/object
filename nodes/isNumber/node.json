@@ -1,6 +1,7 @@
 {
   "name": "isNumber",
   "ns": "object",
+  "async": true,
   "description": "Determines if object is a Number",
   "phrases": {
     "active": "Determining whether object is a number"
@@ -9,7 +10,8 @@
     "input": {
       "in": {
         "title": "In",
-        "type": "any"
+        "type": "any",
+        "async": true
       },
       "path": {
         "title": "Path",

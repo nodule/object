@@ -1,6 +1,7 @@
 {
   "name": "methods",
   "ns": "object",
+  "async": true,
   "description": "Gets a sorted list of the names of every method in an object — that is to say, the name of every function property of the object",
   "phrases": {
     "active": "Determining methods"
@@ -9,7 +10,8 @@
     "input": {
       "in": {
         "title": "Object",
-        "type": "object"
+        "type": "object",
+        "async": true
       }
     },
     "output": {

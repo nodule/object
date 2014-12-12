@@ -10,8 +10,8 @@
     "input": {
       "in": {
         "title": "In",
-        "async": true,
-        "type": "any"
+        "type": "any",
+        "async": true
       },
       "path": {
         "title": "Path",

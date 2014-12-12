@@ -1,6 +1,7 @@
 {
   "name": "defaults",
   "ns": "object",
+  "async": true,
   "description": "Fill in undefined properties in object with values from the defaults objects, and return the object. As soon as the property is filled, further defaults will have no effect.",
   "phrases": {
     "active": "Applying defaults to object"
@@ -9,7 +10,8 @@
     "input": {
       "in": {
         "title": "Object",
-        "type": "object"
+        "type": "object",
+        "async": true
       },
       "defaults": {
         "title": "Defaults",

@@ -11,7 +11,7 @@ state = {
 // main is called always then.
 // and check the existance of those keys
 // first just make the synchronous one
-on.input. in = function () {
+on.input.in = function () {
   // x contains our keys
   var id = x[state.gid];
   if (!state[id]) state[id] = {};

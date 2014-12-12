@@ -1,6 +1,7 @@
 {
   "name": "pick",
   "ns": "object",
+  "async": true,
   "description": "Output a copy of the object, filtered to only have values for the whitelisted keys (or array of valid keys)",
   "phrases": {
     "active": "Picking object"
@@ -9,7 +10,8 @@
     "input": {
       "in": {
         "title": "Object",
-        "type": "object"
+        "type": "object",
+        "async": true
       },
       "pick": {
         "title": "Pick",

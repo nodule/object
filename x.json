@@ -22,7 +22,8 @@
         "input": {
           "in": {
             "title": "Object",
-            "type": "object"
+            "type": "object",
+            "async": true
           }
         },
         "output": {
@@ -36,9 +37,10 @@
         "active": "Cloning object"
       },
       "description": "Create a shallow-copied clone of the object. Any nested objects or arrays will be copied by reference, not duplicated.",
+      "async": true,
       "ns": "object",
       "name": "clone",
-      "fn": "output.out = underscore.clone(input. in )\n"
+      "fn": "on.input.in = function(data) {\n  output({out: underscore.clone(data)});\n};\n\n"
     },
     {
       "ports": {
@@ -75,7 +77,8 @@
         "input": {
           "in": {
             "title": "Object",
-            "type": "object"
+            "type": "object",
+            "async": true
           },
           "defaults": {
             "title": "Defaults",
@@ -93,9 +96,10 @@
         "active": "Applying defaults to object"
       },
       "description": "Fill in undefined properties in object with values from the defaults objects, and return the object. As soon as the property is filled, further defaults will have no effect.",
+      "async": true,
       "ns": "object",
       "name": "defaults",
-      "fn": "output.out = underscore.defaults(input. in , input.defaults)\n"
+      "fn": "on.input.in = function(data) {\n  output({out: underscore.defaults(data, input.defaults)});\n};\n"
     },
     {
       "dependencies": {
@@ -107,30 +111,38 @@
         "input": {
           "in": {
             "title": "Object",
-            "type": "object"
+            "type": "object",
+            "async": true
+          },
+          "source": {
+            "title": "Source Objects",
+            "type": "array",
+            "async": true
           }
         },
         "output": {
           "out": {
             "title": "out",
-            "type": "array"
+            "type": "object"
           }
         }
       },
       "phrases": {
         "active": "Extending object"
       },
-      "description": "Output a copy of the object, filtered to only have values for the whitelisted keys (or array of valid keys)",
+      "description": "Copy all of the properties in the source objects over to the destination object, and return the destination object. It's in-order, so the last source will override properties of the same name in previous arguments.",
+      "async": true,
       "ns": "object",
       "name": "extend",
-      "fn": "output.out = underscore.extend(input. in )\n"
+      "fn": "state.extend = underscore.extend.apply;\nstate.args = null;\nstate.source = null;\n\non.input.in = function(data) {\n  if(state.args) {\n     state.args.unshift(data);\n     output({out: state.extend(null, state.args)});\n     state.args = null;\n  } else {\n    state.args = [data];\n  }\n};\n\non.input.source = function(data) {\n\n  if(state.args) {\n     state.args.push(data);\n     output({out: state.extend(null, state.args)});\n     state.args = null;\n  } else {\n    state.args = [data];\n  }\n\n};\n"
     },
     {
       "ports": {
         "input": {
           "in": {
             "title": "Value(s)",
-            "type": "array"
+            "type": "array",
+            "async": true
           },
           "keys": {
             "title": "Key(s)",
@@ -157,9 +169,10 @@
         "active": "Filling object"
       },
       "description": "Fills an object with key/value pairs. Both key and in are array ports. Key must be fed the key names, and in will contain the values.",
+      "async": true,
       "ns": "object",
       "name": "fill",
-      "fn": "var obj = input.object ? input.object : {};\n\nif(input.keys.length !== input.in.length) {\n  output.error = {\n    msg: 'Key length does not match value length'\n  };\n} else {\n\n  for(var i = 0; i < input.keys.length; i++) {\n   obj[input.keys[i]] = input.in[i];\n  }\n\n  output.out = obj;\n}\n"
+      "fn": "on.input.in = function(data) {\n  var i;\n  var obj = input.object ? input.object : {};\n  if(input.keys.length !== data.length) {\n    output({error: Error('Key length does not match value length')});\n  } else {\n    for(i = 0; i < input.keys.length; i++) {\n     obj[input.keys[i]] = data[i];\n    }\n    output({out: obj});\n  }\n};\n"
     },
     {
       "ports": {
@@ -195,7 +208,7 @@
       "async": true,
       "ns": "object",
       "name": "group",
-      "fn": "on.input. in = function () {\n  // x contains our keys\n  for (var gid in x) {\n\n    if(!state.hasOwnProperty(gid)) {\n      state[gid] = {\n        items: [],\n        total: null,\n        complete: false\n      };\n    }\n\n    state[gid].items.push(data);\n\n    if (state[gid].complete &&\n      state[gid].total === (state[gid].items.length)) {\n\n      var g = chi.group('xout', output);\n      output({\n        out: state[gid].items\n      }, g.item());\n\n      g.done();\n\n      delete state[gid];\n\n    }\n\n  }\n};\n\non.input.xin = function () {\n\n  if(!state.hasOwnProperty(data.gid)) {\n    state[data.gid] = {\n      items: [],\n      total: null,\n      complete: false\n    };\n  }\n\n  if (data.complete) {\n    state[data.gid].total = data.items.length;\n    state[data.gid].complete = true;\n\n    // ok sometimes at this point we already have everything...\n    // I wonder if the function stays in scope, i think not.\n    if (state[data.gid].complete &&\n      state[data.gid].total === (state[data.gid].items.length)) {\n\n      var g = chi.group('xout', output);\n      output({\n        out: state[data.gid].items\n      }, g.item());\n\n      g.done();\n\n      delete state[data.gid];\n\n    }\n  }\n};\n"
+      "fn": "on.input.in = function () {\n  // x contains our keys\n  for (var gid in x) {\n\n    if(!state.hasOwnProperty(gid)) {\n      state[gid] = {\n        items: [],\n        total: null,\n        complete: false\n      };\n    }\n\n    state[gid].items.push(data);\n\n    if (state[gid].complete &&\n      state[gid].total === (state[gid].items.length)) {\n\n      var g = chi.group('xout', output);\n      output({\n        out: state[gid].items\n      }, g.item());\n\n      g.done();\n\n      delete state[gid];\n\n    }\n\n  }\n};\n\non.input.xin = function () {\n\n  if(!state.hasOwnProperty(data.gid)) {\n    state[data.gid] = {\n      items: [],\n      total: null,\n      complete: false\n    };\n  }\n\n  if (data.complete) {\n    state[data.gid].total = data.items.length;\n    state[data.gid].complete = true;\n\n    // ok sometimes at this point we already have everything...\n    // I wonder if the function stays in scope, i think not.\n    if (state[data.gid].complete &&\n      state[data.gid].total === (state[data.gid].items.length)) {\n\n      var g = chi.group('xout', output);\n      output({\n        out: state[data.gid].items\n      }, g.item());\n\n      g.done();\n\n      delete state[data.gid];\n\n    }\n  }\n};\n"
     },
     {
       "ports": {
@@ -240,7 +253,7 @@
       "async": true,
       "ns": "object",
       "name": "groupBy",
-      "fn": "state = {\n  group: {},\n  total: 0\n};\n\n// If this even works, state is not cleared\n// properly or at lease during send out\n// the current groups can be removed.\n\n// really needs a main also.\n// main is called always then.\n// and check the existance of those keys\n// first just make the synchronous one\non.input. in = function () {\n  // x contains our keys\n  var id = x[state.gid];\n  if (!state[id]) state[id] = {};\n\n  state[id]. in = data;\n\n  if (state[id].by) {\n    // we have a match.\n    if (!state.group[state[id].by]) state.group[state[id].by] = [];\n    state.group[state[id].by].push(state[id]. in );\n  }\n\n  state.total++;\n\n  if (state.complete && state.l === (state.total / 2)) {\n    // send them out, might also create groups again.\n    for (var key in state.group) {\n      var g = chi.group('xout', output);\n\n      // like to introduce the grouped output, output like the below is grouped\n      // it's a bit like an array port, only difference the output goes to normal ports.\n      // I would like to add the convention, that if you send output this way.\n      // You must declare a group inside the json\n      //\n      // out: \"group\": \"result\"\n      // by:  \"group\": \"result\"\n      //\n      // in a ui this will look like:\n      // [o o] o o o\n      //\n      // Only two states:\n      //\n      //  [• •] and [o o]\n      //\n      // Whereas the individual ports are not perse synchronous:\n      //\n      //  [o o] o • o\n      //\n      // Where the first is the grouped output, you are assured those ports\n      // are pairs of data comming out, belong to eachother.\n      output({\n        out: state.group[key],\n        by: JSON.parse(key) // same as input.by\n      }, g.item());\n      g.done();\n    }\n  }\n};\n\n// collect the keys.\non.input.by = function () {\n\n  var id = x[state.gid];\n  if (!state[id]) state[id] = {};\n\n  state[id].by = JSON.stringify(data); // keyify\n\n  if (state[id]. in ) {\n    // we have a match.\n    if (!state.group[state[id].by]) state.group[state[id].by] = [];\n    state.group[state[id].by].push(state[id]. in );\n  }\n\n  state.total++;\n\n  if (state.complete && state.l === (state.total / 2)) {\n    // send them out, might also create groups again.\n    for (var key in state.group) {\n      var g = chi.group('xout', output);\n      output({\n        out: state.group[key],\n        by: JSON.parse(key) // same as input.by\n      }, g.item());\n      g.done();\n    }\n  }\n\n};\n\n// xin now kinda acts like a main.\n// more clear would probably be group begin and end methods.\n// it also makes it required to have this connected.\non.input.xin = function () {\n  // will always arrive first.\n  // probably this can all be done outside a component.\n  // the pair matching is something common.\n  if (!data.complete) {\n    // register the groupId\n    // we rely on this being set first\n    state.gid = data.gid;\n    state.complete = false;\n  } else {\n    // is finished\n    // send it out.\n    state.complete = true;\n    state.l = data.items.length;\n  }\n};\n"
+      "fn": "state = {\n  group: {},\n  total: 0\n};\n\n// If this even works, state is not cleared\n// properly or at lease during send out\n// the current groups can be removed.\n\n// really needs a main also.\n// main is called always then.\n// and check the existance of those keys\n// first just make the synchronous one\non.input.in = function () {\n  // x contains our keys\n  var id = x[state.gid];\n  if (!state[id]) state[id] = {};\n\n  state[id]. in = data;\n\n  if (state[id].by) {\n    // we have a match.\n    if (!state.group[state[id].by]) state.group[state[id].by] = [];\n    state.group[state[id].by].push(state[id]. in );\n  }\n\n  state.total++;\n\n  if (state.complete && state.l === (state.total / 2)) {\n    // send them out, might also create groups again.\n    for (var key in state.group) {\n      var g = chi.group('xout', output);\n\n      // like to introduce the grouped output, output like the below is grouped\n      // it's a bit like an array port, only difference the output goes to normal ports.\n      // I would like to add the convention, that if you send output this way.\n      // You must declare a group inside the json\n      //\n      // out: \"group\": \"result\"\n      // by:  \"group\": \"result\"\n      //\n      // in a ui this will look like:\n      // [o o] o o o\n      //\n      // Only two states:\n      //\n      //  [• •] and [o o]\n      //\n      // Whereas the individual ports are not perse synchronous:\n      //\n      //  [o o] o • o\n      //\n      // Where the first is the grouped output, you are assured those ports\n      // are pairs of data comming out, belong to eachother.\n      output({\n        out: state.group[key],\n        by: JSON.parse(key) // same as input.by\n      }, g.item());\n      g.done();\n    }\n  }\n};\n\n// collect the keys.\non.input.by = function () {\n\n  var id = x[state.gid];\n  if (!state[id]) state[id] = {};\n\n  state[id].by = JSON.stringify(data); // keyify\n\n  if (state[id]. in ) {\n    // we have a match.\n    if (!state.group[state[id].by]) state.group[state[id].by] = [];\n    state.group[state[id].by].push(state[id]. in );\n  }\n\n  state.total++;\n\n  if (state.complete && state.l === (state.total / 2)) {\n    // send them out, might also create groups again.\n    for (var key in state.group) {\n      var g = chi.group('xout', output);\n      output({\n        out: state.group[key],\n        by: JSON.parse(key) // same as input.by\n      }, g.item());\n      g.done();\n    }\n  }\n\n};\n\n// xin now kinda acts like a main.\n// more clear would probably be group begin and end methods.\n// it also makes it required to have this connected.\non.input.xin = function () {\n  // will always arrive first.\n  // probably this can all be done outside a component.\n  // the pair matching is something common.\n  if (!data.complete) {\n    // register the groupId\n    // we rely on this being set first\n    state.gid = data.gid;\n    state.complete = false;\n  } else {\n    // is finished\n    // send it out.\n    state.complete = true;\n    state.l = data.items.length;\n  }\n};\n"
     },
     {
       "dependencies": {
@@ -304,9 +317,10 @@
         "active": "Inverting object"
       },
       "description": "Retrieves a copy of the object where the keys have become the values and the values the keys. For this to work, all of your object's values should be unique and string serializable",
+      "async": true,
       "ns": "object",
       "name": "invert",
-      "fn": "output.out = underscore.invert(input. in )\n"
+      "fn": "on.input.in = function(data) {\n  output({out: underscore.invert(data)});\n};\n"
     },
     {
       "dependencies": {
@@ -380,9 +394,10 @@
         "active": "Determining Arguments Object"
       },
       "description": "Determines if object is an Arguments Object",
+      "async": true,
       "ns": "object",
       "name": "isArguments",
-      "fn": "if (underscore.isArguments(input.in)) {\n  output.yes = input.in;\n} else {\n  output.no = input.in;\n}\n"
+      "fn": "on.input.in = function(data) {\n  if (underscore.isArguments(data)) {\n    output({yes: data});\n  } else {\n    output({no: data});\n  }\n};\n"
     },
     {
       "dependencies": {
@@ -594,7 +609,8 @@
         "input": {
           "in": {
             "title": "Object",
-            "type": "object"
+            "type": "object",
+            "async": true
           },
           "other": {
             "title": "Object",
@@ -616,9 +632,10 @@
         "active": "Determining equality"
       },
       "description": "Performs an optimized deep comparison between the two objects, to determine if they should be considered equal.",
+      "async": true,
       "ns": "object",
       "name": "isEqual",
-      "fn": "if (underscore.isEqual(input.in, input.other)) {\n  output.yes = input.in;\n} else {\n  output.no = [input.in,input.other];\n}\n"
+      "fn": "on.input.in = function(data) {\n  if (underscore.isEqual(data, input.other)) {\n    output({yes: data});\n  } else {\n    output({no: data});\n  }\n};\n"
     },
     {
       "dependencies": {
@@ -631,8 +648,8 @@
         "input": {
           "in": {
             "title": "In",
-            "async": true,
-            "type": "any"
+            "type": "any",
+            "async": true
           },
           "path": {
             "title": "Path",
@@ -791,7 +808,8 @@
         "input": {
           "in": {
             "title": "In",
-            "type": "any"
+            "type": "any",
+            "async": true
           },
           "path": {
             "title": "Path",
@@ -814,6 +832,7 @@
         "active": "Determining whether object is a number"
       },
       "description": "Determines if object is a Number",
+      "async": true,
       "ns": "object",
       "name": "isNumber",
       "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isNumber(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
@@ -829,8 +848,8 @@
         "input": {
           "in": {
             "title": "In",
-            "async": true,
-            "type": "any"
+            "type": "any",
+            "async": true
           },
           "path": {
             "title": "Path",
@@ -869,8 +888,8 @@
         "input": {
           "in": {
             "title": "In",
-            "async": true,
-            "type": "any"
+            "type": "any",
+            "async": true
           },
           "path": {
             "title": "Path",
@@ -989,8 +1008,8 @@
         "input": {
           "in": {
             "title": "Object",
-            "async": true,
-            "type": "object"
+            "type": "object",
+            "async": true
           },
           "path": {
             "title": "Path",
@@ -1024,7 +1043,8 @@
         "input": {
           "in": {
             "title": "Object",
-            "type": "object"
+            "type": "object",
+            "async": true
           }
         },
         "output": {
@@ -1038,9 +1058,10 @@
         "active": "Determining methods"
       },
       "description": "Gets a sorted list of the names of every method in an object — that is to say, the name of every function property of the object",
+      "async": true,
       "ns": "object",
       "name": "methods",
-      "fn": "output.out = underscore.methods(input. in )\n"
+      "fn": "on.input.in = function(data) {\n  output({out: underscore.methods(data)});\n};\n"
     },
     {
       "dependencies": {
@@ -1052,7 +1073,8 @@
         "input": {
           "in": {
             "title": "Input Object",
-            "type": "object"
+            "type": "object",
+            "async": true
           },
           "from": {
             "title": "From",
@@ -1078,9 +1100,10 @@
         "active": "Moving object properties"
       },
       "description": "Moves properties within one object from one place to the other",
+      "async": true,
       "ns": "object",
       "name": "move",
-      "fn": "// Receiving an array, check both are of the same length.\nif(input.from.length !== input.to.length) {\n  output.error = new Error('from length does not match to length');\n} else {\n\n  var doo = dot_object();\n  for(var i = 0; i < input.from.length; i++) {\n    doo.move(input.from[i], input.to[i], input.in);\n  }\n\n  output.out = input.in;\n\n}\n"
+      "fn": "on.input.in = function(data) {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if(input.from.length !== input.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    for(i = 0; i < input.from.length; i++) {\n      doo.move(input.from[i], input.to[i], data);\n    }\n\n    output({out: data});\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -1092,7 +1115,8 @@
         "input": {
           "in": {
             "title": "Object",
-            "type": "object"
+            "type": "object",
+            "async": true
           },
           "omit": {
             "title": "Pick",
@@ -1110,9 +1134,10 @@
         "active": "Omitting object keys"
       },
       "description": "Return a copy of the object, filtered to omit the blacklisted keys (or array of keys)",
+      "async": true,
       "ns": "object",
       "name": "omit",
-      "fn": "output.out = underscore.omit(input. in , input.omit)\n"
+      "fn": "on.input.in = function(data) {\n  output({out: underscore.omit(data, input.omit)});\n};\n"
     },
     {
       "dependencies": {
@@ -1124,8 +1149,8 @@
         "input": {
           "in": {
             "title": "In",
-            "async": true,
-            "type": "Object"
+            "type": "Object",
+            "async": true
           },
           "path": {
             "title": "Path",
@@ -1162,7 +1187,8 @@
         "input": {
           "in": {
             "title": "Object",
-            "type": "object"
+            "type": "object",
+            "async": true
           }
         },
         "output": {
@@ -1176,9 +1202,10 @@
         "active": "Transforming object to pairs"
       },
       "description": "Retrieve key value pairs from an object",
+      "async": true,
       "ns": "object",
       "name": "pairs",
-      "fn": "output.out = underscore.pairs(input. in )\n"
+      "fn": "on.input.in = function(data) {\n  output({out: underscore.pairs(data)});\n};\n"
     },
     {
       "dependencies": {
@@ -1190,7 +1217,8 @@
         "input": {
           "in": {
             "title": "Object",
-            "type": "object"
+            "type": "object",
+            "async": true
           },
           "pick": {
             "title": "Pick",
@@ -1208,16 +1236,18 @@
         "active": "Picking object"
       },
       "description": "Output a copy of the object, filtered to only have values for the whitelisted keys (or array of valid keys)",
+      "async": true,
       "ns": "object",
       "name": "pick",
-      "fn": "output.out = underscore.pick(input. in , input.pick)\n"
+      "fn": "on.input.in = function(data) {\n  output({out: underscore.pick(data, input.pick)});\n};\n"
     },
     {
       "ports": {
         "input": {
           "in": {
             "title": "Value",
-            "type": "any"
+            "type": "any",
+            "async": true
           },
           "key": {
             "title": "Key",
@@ -1240,9 +1270,10 @@
         "active": "Setting property {{input.key}}"
       },
       "description": "Set a property on an object, or else create a new object and set the property",
+      "async": true,
       "ns": "object",
       "name": "set",
-      "fn": "var obj = input.object ? input.object : {};\nobj[input.key] = input. in ;\noutput.out = obj;\n"
+      "fn": "on.input.in = function(data) {\n  var obj = input.object ? input.object : {};\n  obj[input.key] = data;\n  output({out: obj});\n};\n"
     },
     {
       "dependencies": {
@@ -1254,7 +1285,8 @@
         "input": {
           "in": {
             "title": "Object",
-            "type": "object"
+            "type": "object",
+            "async": true
           }
         },
         "output": {
@@ -1268,9 +1300,10 @@
         "active": "Retrieving object values"
       },
       "description": "Retrieve all of the values of the object's properties",
+      "async": true,
       "ns": "object",
       "name": "values",
-      "fn": "output.out = underscore.values(input. in )\n"
+      "fn": "on.input.in = function(data) {\n  output({out: underscore.values(data)});\n};\n"
     }
   ],
   "twigs": []

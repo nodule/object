@@ -1,4 +1,4 @@
-on.input. in = function () {
+on.input.in = function () {
   // x contains our keys
   for (var gid in x) {
 

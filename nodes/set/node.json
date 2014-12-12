@@ -1,6 +1,7 @@
 {
   "name": "set",
   "ns": "object",
+  "async": true,
   "description": "Set a property on an object, or else create a new object and set the property",
   "phrases": {
     "active": "Setting property {{input.key}}"
@@ -9,7 +10,8 @@
     "input": {
       "in": {
         "title": "Value",
-        "type": "any"
+        "type": "any",
+        "async": true
       },
       "key": {
         "title": "Key",

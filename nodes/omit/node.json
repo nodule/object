@@ -1,6 +1,7 @@
 {
   "name": "omit",
   "ns": "object",
+  "async": true,
   "description": "Return a copy of the object, filtered to omit the blacklisted keys (or array of keys)",
   "phrases": {
     "active": "Omitting object keys"
@@ -9,7 +10,8 @@
     "input": {
       "in": {
         "title": "Object",
-        "type": "object"
+        "type": "object",
+        "async": true
       },
       "omit": {
         "title": "Pick",

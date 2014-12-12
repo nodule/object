@@ -10,8 +10,8 @@
     "input": {
       "in": {
         "title": "Object",
-        "async": true,
-        "type": "object"
+        "type": "object",
+        "async": true
       },
       "path": {
         "title": "Path",

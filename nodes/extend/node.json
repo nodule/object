@@ -1,7 +1,8 @@
 {
   "name": "extend",
   "ns": "object",
-  "description": "Output a copy of the object, filtered to only have values for the whitelisted keys (or array of valid keys)",
+  "async": true,
+  "description": "Copy all of the properties in the source objects over to the destination object, and return the destination object. It's in-order, so the last source will override properties of the same name in previous arguments.",
   "phrases": {
     "active": "Extending object"
   },
@@ -9,13 +10,19 @@
     "input": {
       "in": {
         "title": "Object",
-        "type": "object"
+        "type": "object",
+        "async": true
+      },
+      "source": {
+        "title": "Source Objects",
+        "type": "array",
+        "async": true
       }
     },
     "output": {
       "out": {
         "title": "out",
-        "type": "array"
+        "type": "object"
       }
     }
   },

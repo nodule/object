@@ -1,6 +1,7 @@
 {
   "name": "values",
   "ns": "object",
+  "async": true,
   "description": "Retrieve all of the values of the object's properties",
   "phrases": {
     "active": "Retrieving object values"
@@ -9,7 +10,8 @@
     "input": {
       "in": {
         "title": "Object",
-        "type": "object"
+        "type": "object",
+        "async": true
       }
     },
     "output": {

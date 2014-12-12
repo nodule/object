@@ -1,1 +1,3 @@
-output.out = underscore.pairs(input. in )
+on.input.in = function(data) {
+  output({out: underscore.pairs(data)});
+};

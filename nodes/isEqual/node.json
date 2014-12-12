@@ -1,6 +1,7 @@
 {
   "name": "isEqual",
   "ns": "object",
+  "async": true,
   "description": "Performs an optimized deep comparison between the two objects, to determine if they should be considered equal.",
   "phrases": {
     "active": "Determining equality"
@@ -9,7 +10,8 @@
     "input": {
       "in": {
         "title": "Object",
-        "type": "object"
+        "type": "object",
+        "async": true
       },
       "other": {
         "title": "Object",

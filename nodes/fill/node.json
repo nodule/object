@@ -1,6 +1,7 @@
 {
   "name": "fill",
   "ns": "object",
+  "async": true,
   "description": "Fills an object with key/value pairs. Both key and in are array ports. Key must be fed the key names, and in will contain the values.",
   "phrases": {
     "active": "Filling object"
@@ -9,7 +10,8 @@
     "input": {
       "in": {
         "title": "Value(s)",
-        "type": "array"
+        "type": "array",
+        "async": true
       },
       "keys": {
         "title": "Key(s)",

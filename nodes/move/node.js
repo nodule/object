@@ -1,13 +1,17 @@
-// Receiving an array, check both are of the same length.
-if(input.from.length !== input.to.length) {
-  output.error = new Error('from length does not match to length');
-} else {
+on.input.in = function(data) {
+  var doo;
+  var i;
 
-  var doo = dot_object();
-  for(var i = 0; i < input.from.length; i++) {
-    doo.move(input.from[i], input.to[i], input.in);
+  // Receiving an array, check both are of the same length.
+  if(input.from.length !== input.to.length) {
+    output({error: Error('from length does not match to length')});
+  } else {
+    doo = dot_object();
+    for(i = 0; i < input.from.length; i++) {
+      doo.move(input.from[i], input.to[i], data);
+    }
+
+    output({out: data});
   }
 
-  output.out = input.in;
-
-}
+};

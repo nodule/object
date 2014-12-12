@@ -1,6 +1,7 @@
 {
   "name": "move",
   "ns": "object",
+  "async": true,
   "description": "Moves properties within one object from one place to the other",
   "phrases": {
     "active": "Moving object properties"
@@ -9,7 +10,8 @@
     "input": {
       "in": {
         "title": "Input Object",
-        "type": "object"
+        "type": "object",
+        "async": true
       },
       "from": {
         "title": "From",
