@@ -45,7 +45,8 @@
         "input": {
           "in": {
             "title": "Object",
-            "type": "object"
+            "type": "object",
+            "async": true
           }
         },
         "output": {
@@ -59,9 +60,10 @@
         "active": "Creating object"
       },
       "description": "Create an object, if input is a direct object it just returns a copy of the object",
+      "async": true,
       "ns": "object",
       "name": "create",
-      "fn": "output.out = input.in;\n"
+      "fn": "on.input.in = function(data) { output({out: data}); };\n"
     },
     {
       "dependencies": {

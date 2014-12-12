@@ -1,6 +1,7 @@
 {
   "name": "create",
   "ns": "object",
+  "async": true,
   "description": "Create an object, if input is a direct object it just returns a copy of the object",
   "phrases": {
     "active": "Creating object"
@@ -9,7 +10,8 @@
     "input": {
       "in": {
         "title": "Object",
-        "type": "object"
+        "type": "object",
+        "async": true
       }
     },
     "output": {
