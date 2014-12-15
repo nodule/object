@@ -1,10 +1,10 @@
 {
-  "name": "move",
+  "name": "transfer",
   "ns": "object",
   "async": true,
-  "description": "Moves properties within one object from one place to the other",
+  "description": "Transfer a properties from one object to another object.",
   "phrases": {
-    "active": "Moving object properties"
+    "active": "Transfering object properties"
   },
   "ports": {
     "input": {

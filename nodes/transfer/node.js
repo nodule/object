@@ -7,11 +7,13 @@ on.input.in = function(data) {
     output({error: Error('from length does not match to length')});
   } else {
     doo = dot_object();
+    var out = {};
+    var merge = true;
     for(i = 0; i < input.from.length; i++) {
-      doo.move(input.from[i], input.to[i], data);
+      doo.transfer(input.from[i], input.to[i], data, out, merge);
     }
 
-    output({out: data});
+    output({out: out});
   }
 
 };
