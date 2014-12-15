@@ -1097,13 +1097,13 @@
         }
       },
       "phrases": {
-        "active": "Moving object properties"
+        "active": "Transfering object properties"
       },
-      "description": "Moves properties within one object from one place to the other",
+      "description": "Transfer a properties from one object to another object.",
       "async": true,
       "ns": "object",
       "name": "move",
-      "fn": "on.input.in = function(data) {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if(input.from.length !== input.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    for(i = 0; i < input.from.length; i++) {\n      doo.move(input.from[i], input.to[i], data);\n    }\n\n    output({out: data});\n  }\n\n};\n"
+      "fn": "on.input.in = function(data) {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if(input.from.length !== input.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    var out = {};\n    var merge = true;\n    for(i = 0; i < input.from.length; i++) {\n      doo.transfer(input.from[i], input.to[i], data, out, merge);\n    }\n\n    output({out: out});\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -1277,6 +1277,48 @@
       "ns": "object",
       "name": "set",
       "fn": "on.input.in = function(data) {\n  var obj = input.object ? input.object : {};\n  obj[input.key] = data;\n  output({out: obj});\n};\n"
+    },
+    {
+      "dependencies": {
+        "npm": {
+          "dot-object": "0.x.x"
+        }
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Input Object",
+            "type": "object",
+            "async": true
+          },
+          "from": {
+            "title": "From",
+            "type": "array"
+          },
+          "to": {
+            "title": "To",
+            "type": "array"
+          }
+        },
+        "output": {
+          "error": {
+            "title": "Error",
+            "type": "object"
+          },
+          "out": {
+            "title": "Output",
+            "type": "object"
+          }
+        }
+      },
+      "phrases": {
+        "active": "Moving object properties"
+      },
+      "description": "Moves properties within one object from one place to the other",
+      "async": true,
+      "ns": "object",
+      "name": "move",
+      "fn": "on.input.in = function(data) {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if(input.from.length !== input.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    for(i = 0; i < input.from.length; i++) {\n      doo.move(input.from[i], input.to[i], data);\n    }\n\n    output({out: data});\n  }\n\n};\n"
     },
     {
       "dependencies": {
