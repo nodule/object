@@ -13,6 +13,11 @@
         "type": "object",
         "async": true
       },
+      "target": {
+        "title": "Target Object",
+        "type": "object",
+        "default": {}
+      },
       "from": {
         "title": "From",
         "type": "array"

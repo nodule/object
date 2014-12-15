@@ -55,6 +55,11 @@
             "type": "object",
             "async": true
           },
+          "target": {
+            "title": "Target Object",
+            "type": "object",
+            "default": {}
+          },
           "from": {
             "title": "From",
             "type": "array"
@@ -82,7 +87,7 @@
       "async": true,
       "ns": "object",
       "name": "copy",
-      "fn": "on.input.in = function(data) {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if(input.from.length !== input.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    var out = {};\n    var merge = true;\n    for(i = 0; i < input.from.length; i++) {\n      doo.copy(input.from[i], input.to[i], data, out, merge);\n    }\n\n    output({out: out});\n  }\n\n};\n"
+      "fn": "on.input.in = function(data) {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if(input.from.length !== input.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    var merge = true;\n    // should already be done, but to make sure.\n    // not sure if it's the case when input.target is set as context\n    input.target = JSON.parse(JSON.stringify(input.target));\n    for(i = 0; i < input.from.length; i++) {\n      doo.copy(input.from[i], input.to[i], data, input.target, merge);\n    }\n\n    output({out: input.target});\n  }\n\n};\n"
     },
     {
       "ports": {

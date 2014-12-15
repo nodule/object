@@ -7,13 +7,15 @@ on.input.in = function(data) {
     output({error: Error('from length does not match to length')});
   } else {
     doo = dot_object();
-    var out = {};
     var merge = true;
+    // should already be done, but to make sure.
+    // not sure if it's the case when input.target is set as context
+    input.target = JSON.parse(JSON.stringify(input.target));
     for(i = 0; i < input.from.length; i++) {
-      doo.copy(input.from[i], input.to[i], data, out, merge);
+      doo.copy(input.from[i], input.to[i], data, input.target, merge);
     }
 
-    output({out: out});
+    output({out: input.target});
   }
 
 };
