@@ -1,0 +1,41 @@
+{
+  "name": "copy",
+  "ns": "object",
+  "async": true,
+  "description": "Copy properties from one object to another object.",
+  "phrases": {
+    "active": "Copying object properties"
+  },
+  "ports": {
+    "input": {
+      "in": {
+        "title": "Input Object",
+        "type": "object",
+        "async": true
+      },
+      "from": {
+        "title": "From",
+        "type": "array"
+      },
+      "to": {
+        "title": "To",
+        "type": "array"
+      }
+    },
+    "output": {
+      "error": {
+        "title": "Error",
+        "type": "object"
+      },
+      "out": {
+        "title": "Output",
+        "type": "object"
+      }
+    }
+  },
+  "dependencies": {
+    "npm": {
+      "dot-object": "0.x.x"
+    }
+  }
+}

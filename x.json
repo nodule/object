@@ -43,6 +43,48 @@
       "fn": "on.input.in = function(data) {\n  output({out: underscore.clone(data)});\n};\n\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "dot-object": "0.x.x"
+        }
+      },
+      "ports": {
+        "input": {
+          "in": {
+            "title": "Input Object",
+            "type": "object",
+            "async": true
+          },
+          "from": {
+            "title": "From",
+            "type": "array"
+          },
+          "to": {
+            "title": "To",
+            "type": "array"
+          }
+        },
+        "output": {
+          "error": {
+            "title": "Error",
+            "type": "object"
+          },
+          "out": {
+            "title": "Output",
+            "type": "object"
+          }
+        }
+      },
+      "phrases": {
+        "active": "Copying object properties"
+      },
+      "description": "Copy properties from one object to another object.",
+      "async": true,
+      "ns": "object",
+      "name": "copy",
+      "fn": "on.input.in = function(data) {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if(input.from.length !== input.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    var out = {};\n    var merge = true;\n    for(i = 0; i < input.from.length; i++) {\n      doo.copy(input.from[i], input.to[i], data, out, merge);\n    }\n\n    output({out: out});\n  }\n\n};\n"
+    },
+    {
       "ports": {
         "input": {
           "in": {
