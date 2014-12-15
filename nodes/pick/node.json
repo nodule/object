@@ -15,7 +15,10 @@
       },
       "pick": {
         "title": "Pick",
-        "type": "any"
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
       }
     },
     "output": {
