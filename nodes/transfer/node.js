@@ -8,7 +8,7 @@ on.input.in = function(data) {
   } else {
     doo = dot_object();
     var out = {};
-    var merge = true;
+    var merge = false;
     for(i = 0; i < input.from.length; i++) {
       doo.transfer(input.from[i], input.to[i], data, out, merge);
     }

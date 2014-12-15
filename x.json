@@ -1318,7 +1318,7 @@
       "async": true,
       "ns": "object",
       "name": "transfer",
-      "fn": "on.input.in = function(data) {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if(input.from.length !== input.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    var out = {};\n    var merge = true;\n    for(i = 0; i < input.from.length; i++) {\n      doo.transfer(input.from[i], input.to[i], data, out, merge);\n    }\n\n    output({out: out});\n  }\n\n};\n"
+      "fn": "on.input.in = function(data) {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if(input.from.length !== input.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    var out = {};\n    var merge = false;\n    for(i = 0; i < input.from.length; i++) {\n      doo.transfer(input.from[i], input.to[i], data, out, merge);\n    }\n\n    output({out: out});\n  }\n\n};\n"
     },
     {
       "dependencies": {
