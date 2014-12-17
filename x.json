@@ -1299,8 +1299,8 @@
             "type": "any",
             "async": true
           },
-          "key": {
-            "title": "Key",
+          "path": {
+            "title": "Path",
             "type": "string"
           },
           "object": {
@@ -1316,6 +1316,11 @@
           }
         }
       },
+      "dependencies": {
+        "npm": {
+          "dot-object": "0.x.x"
+        }
+      },
       "phrases": {
         "active": "Setting property {{input.key}}"
       },
@@ -1323,7 +1328,7 @@
       "async": true,
       "ns": "object",
       "name": "set",
-      "fn": "on.input.in = function(data) {\n  var obj = input.object ? input.object : {};\n  obj[input.key] = data;\n  output({out: obj});\n};\n"
+      "fn": "on.input.in = function(data) {\n  var obj = input.object ? input.object : {};\n  dot_object().set(input.path, data, obj);\n  output({out: obj});\n};\n"
     },
     {
       "dependencies": {

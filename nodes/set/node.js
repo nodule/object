@@ -1,5 +1,5 @@
 on.input.in = function(data) {
   var obj = input.object ? input.object : {};
-  obj[input.key] = data;
+  dot_object().set(input.path, data, obj);
   output({out: obj});
 };

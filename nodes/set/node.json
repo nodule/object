@@ -6,6 +6,11 @@
   "phrases": {
     "active": "Setting property {{input.key}}"
   },
+  "dependencies": {
+    "npm": {
+      "dot-object": "0.x.x"
+    }
+  },
   "ports": {
     "input": {
       "in": {
@@ -13,8 +18,8 @@
         "type": "any",
         "async": true
       },
-      "key": {
-        "title": "Key",
+      "path": {
+        "title": "Path",
         "type": "string"
       },
       "object": {
