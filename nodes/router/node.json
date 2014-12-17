@@ -1,7 +1,7 @@
 {
   "name": "router",
   "ns": "object",
-  "description": "Route packets based on a path, input index will result in same index on output",
+  "description": "Route packets based on a path, input index will result in same index on output. Route should be an array [path,match], multiple matchers can be added lik [[path,match],[path,match]] -> [0] route Router out [0] -> matched..",
   "async": true,
   "dependencies": {
     "npm": {
@@ -28,6 +28,14 @@
         "title": "Route",
         "type": "array",
         "async": true
+      },
+      "missed": {
+        "title": "Missed",
+        "type": "object"
+      },
+      "error": {
+        "title": "Error",
+        "type": "Error"
       }
     }
   }
