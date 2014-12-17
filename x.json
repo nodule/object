@@ -1295,6 +1295,41 @@
       "ports": {
         "input": {
           "in": {
+            "title": "Input Object",
+            "type": "object",
+            "async": true
+          },
+          "route": {
+            "title": "Routes",
+            "type": "array"
+          }
+        },
+        "output": {
+          "out": {
+            "title": "Route",
+            "type": "array",
+            "async": true
+          }
+        }
+      },
+      "phrases": {
+        "active": "Routing"
+      },
+      "dependencies": {
+        "npm": {
+          "dot-object": "0.x.x"
+        }
+      },
+      "async": true,
+      "description": "Route packets based on a path, input index will result in same index on output",
+      "ns": "object",
+      "name": "router",
+      "fn": "on.input.in = function(data) {\n\n  var out = [];\n  for(var i = 0; i < input.route.length; i++) {\n    var res = dot_object().pick(input.route[i], data);\n    // err.. does pick remove the value?\n    if(undefined !== res) {\n      out[i] = data; // send out the data, not the actual picked value.\n      output({out: out});\n      break;\n    }\n  }\n  // maybe send to error port if no matches.\n};\n"
+    },
+    {
+      "ports": {
+        "input": {
+          "in": {
             "title": "Value",
             "type": "any",
             "async": true

@@ -1,0 +1,34 @@
+{
+  "name": "router",
+  "ns": "object",
+  "description": "Route packets based on a path, input index will result in same index on output",
+  "async": true,
+  "dependencies": {
+    "npm": {
+      "dot-object": "0.x.x"
+    }
+  },
+  "phrases": {
+    "active": "Routing"
+  },
+  "ports": {
+    "input": {
+      "in": {
+        "title": "Input Object",
+        "type": "object",
+        "async": true
+      },
+      "route": {
+        "title": "Routes",
+        "type": "array"
+      }
+    },
+    "output": {
+      "out": {
+        "title": "Route",
+        "type": "array",
+        "async": true
+      }
+    }
+  }
+}
