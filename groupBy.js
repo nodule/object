@@ -16,7 +16,8 @@ module.exports = {
           var r = function() {
             // x contains our keys
             if (!x.hasOwnProperty(state.gid)) {
-              throw Error('groupBy:in State gid not initialized yet')
+              console.log(x)
+              throw Error('groupBy:in State gid not initialized yet', state.gid)
             }
             var id = x[state.gid];
             if (!state[id]) {
@@ -107,7 +108,8 @@ module.exports = {
         fn: function __BY__(data, x, source, state, input, output, chi) {
           var r = function() {
             if (!x.hasOwnProperty(state.gid)) {
-              throw Error('groupBy:by State gid not initialized yet')
+              console.log(x)
+              throw Error('groupBy:by State gid not initialized yet', state.gid)
             }
 
             var id = x[state.gid];
