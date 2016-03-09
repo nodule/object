@@ -15,20 +15,27 @@ module.exports = {
         fn: function __IN__(data, x, source, state, input, output, chi) {
           var r = function() {
             // x contains our keys
+            if (!x.hasOwnProperty(state.gid)) {
+              throw Error('groupBy:in State gid not initialized yet')
+            }
             var id = x[state.gid];
-            if (!state[id]) state[id] = {};
+            if (!state[id]) {
+              state[id] = {};
+            }
 
             state[id].in = data;
 
             if (state[id].by) {
               // we have a match.
-              if (!state.group[state[id].by]) state.group[state[id].by] = [];
+              if (!state.group[state[id].by]) {
+                state.group[state[id].by] = [];
+              }
               state.group[state[id].by].push(state[id].in);
             }
 
             state.total++;
 
-            if (state.complete && state.l === (state.total / 2)) {
+            if (state.complete && state.length === (state.total / 2)) {
               // send them out, might also create groups again.
               for (var key in state.group) {
                 var g = chi.group('xout', output);
@@ -85,7 +92,7 @@ module.exports = {
               // is finished
               // send it out.
               state.complete = true;
-              state.l = data.items.length;
+              state.length = data.items.length;
             }
           }.call(this);
           return {
@@ -99,6 +106,10 @@ module.exports = {
         type: "any",
         fn: function __BY__(data, x, source, state, input, output, chi) {
           var r = function() {
+            if (!x.hasOwnProperty(state.gid)) {
+              throw Error('groupBy:by State gid not initialized yet')
+            }
+
             var id = x[state.gid];
             if (!state[id]) state[id] = {};
 
@@ -112,7 +123,7 @@ module.exports = {
 
             state.total++;
 
-            if (state.complete && state.l === (state.total / 2)) {
+            if (state.complete && state.length === (state.total / 2)) {
               // send them out, might also create groups again.
               for (var key in state.group) {
                 var g = chi.group('xout', output);

@@ -13,20 +13,27 @@ state = {
 // first just make the synchronous one
 on.input.in = function () {
   // x contains our keys
+  if (!x.hasOwnProperty(state.gid)) {
+    throw Error('groupBy:in State gid not initialized yet')
+  }
   var id = x[state.gid];
-  if (!state[id]) state[id] = {};
+  if (!state[id]) {
+    state[id] = {};
+  }
 
-  state[id]. in = data;
+  state[id].in = data;
 
   if (state[id].by) {
     // we have a match.
-    if (!state.group[state[id].by]) state.group[state[id].by] = [];
-    state.group[state[id].by].push(state[id]. in );
+    if (!state.group[state[id].by]) {
+      state.group[state[id].by] = [];
+    }
+    state.group[state[id].by].push(state[id].in);
   }
 
   state.total++;
 
-  if (state.complete && state.l === (state.total / 2)) {
+  if (state.complete && state.length === (state.total / 2)) {
     // send them out, might also create groups again.
     for (var key in state.group) {
       var g = chi.group('xout', output);
@@ -63,6 +70,9 @@ on.input.in = function () {
 
 // collect the keys.
 on.input.by = function () {
+  if (!x.hasOwnProperty(state.gid)) {
+    throw Error('groupBy:by State gid not initialized yet')
+  }
 
   var id = x[state.gid];
   if (!state[id]) state[id] = {};
@@ -77,7 +87,7 @@ on.input.by = function () {
 
   state.total++;
 
-  if (state.complete && state.l === (state.total / 2)) {
+  if (state.complete && state.length === (state.total / 2)) {
     // send them out, might also create groups again.
     for (var key in state.group) {
       var g = chi.group('xout', output);
@@ -107,6 +117,6 @@ on.input.xin = function () {
     // is finished
     // send it out.
     state.complete = true;
-    state.l = data.items.length;
+    state.length = data.items.length;
   }
 };
