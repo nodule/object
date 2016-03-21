@@ -4,7 +4,7 @@ on.input.in = function() {
 
   // Receiving an array, check both are of the same length.
   if($.from.length !== $.to.length) {
-    output({error: Error('from length does not match to length')});
+    output({error: $.create(Error('from length does not match to length'))});
   } else {
     doo = dot_object();
     var merge = true;
@@ -15,7 +15,6 @@ on.input.in = function() {
       doo.copy($.from[i], $.to[i], $.in, $.target, merge);
     }
 
-    output({out: $.target});
+    output({out: $.write('in', $.target)});
   }
-
 };

@@ -22,7 +22,7 @@ on.input.in = function () {
     state[id] = {};
   }
 
-  state[id].in = $.in;
+  state[id].in = $.get('in');
 
   if (state[id].by) {
     // we have a match.
@@ -61,8 +61,8 @@ on.input.in = function () {
       // Where the first is the grouped output, you are assured those ports
       // are pairs of data comming out, belong to eachother.
       output({
-        out: state.group[key],
-        by: JSON.parse(key) // same as $.by
+        out:$.create(state.group[key]),
+        by: $.create(JSON.parse(key)) // same as $.by
       }, g.item());
       g.done();
     }
@@ -81,10 +81,10 @@ on.input.by = function () {
 
   state[id].by = JSON.stringify($.by); // keyify
 
-  if (state[id]. in ) {
+  if (state[id].in) {
     // we have a match.
     if (!state.group[state[id].by]) state.group[state[id].by] = [];
-    state.group[state[id].by].push(state[id]. in );
+    state.group[state[id].by].push(state[id].in);
   }
 
   state.total++;
@@ -95,7 +95,7 @@ on.input.by = function () {
       var g = chi.group('xout', output);
       output({
         out: state.group[key],
-        by: JSON.parse(key) // same as $.by
+        by: $.create(JSON.parse(key)) // same as $.by
       }, g.item());
       g.done();
     }

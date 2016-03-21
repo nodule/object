@@ -13,7 +13,7 @@ on.input.in = function() {
       doo.transfer($.from[i], $.to[i], $.in, out, merge);
     }
 
-    output({out: out});
+    output({out: $.write('in', out)});
   }
 
 };

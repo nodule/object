@@ -11,7 +11,7 @@ on.input.in = function() {
       doo.move($.from[i], $.to[i], $.in);
     }
 
-    output({out: $.in});
+    output({out: $.write('in', $.in)});
   }
 
 };

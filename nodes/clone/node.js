@@ -1,4 +1,4 @@
 on.input.in = function() {
-  output({out: underscore.clone($.in)});
+  output({out: $.clone('in', underscore.clone($.in))});
 };
 

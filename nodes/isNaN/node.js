@@ -2,9 +2,9 @@ on.input.in = function() {
   var val = $.path ? dot_object().pick($.path, $.in) : $.in;
 
   if (underscore.isNaN(val)) {
-    output({ yes: $.in });
+    output({ yes: $.get('in') });
   } else {
-    output({ no: $.in });
+    output({ no: $.get('in') });
   }
 
 };

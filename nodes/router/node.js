@@ -7,7 +7,7 @@ on.input.in = function() {
     route = $.route[i];
     if(route.length !== 2) {
       output({
-        error: new Error('Route should be in the form [path,match]')
+        error: $.create(new Error('Route should be in the form [path,match]'))
       });
     }
     var res = dot_object().pick(route[0], $.in);
@@ -15,13 +15,13 @@ on.input.in = function() {
     if(undefined !== res) {
       reg = new RegExp(route[1]);
       if(reg.test(res)) {
-        out[i] = $.in; // send out the $.in, not the actual picked value.
+        out[i] = $.get('in'); // send out the $.in, not the actual picked value.
         output({out: out});
         return true;
       }
     }
   }
 
-  output({missed: $.in});
+  output({missed: $.get('in')});
 
 };

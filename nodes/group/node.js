@@ -10,14 +10,14 @@ on.input.in = function () {
       };
     }
 
-    state[gid].items.push($.in);
+    state[gid].items.push($.get('in'));
 
     if (state[gid].complete &&
       state[gid].total === (state[gid].items.length)) {
 
       var g = chi.group('xout', output);
       output({
-        out: state[gid].items
+        out: $.create(state[gid].items)
       }, g.item());
 
       g.done();
@@ -50,7 +50,7 @@ on.input.xin = function () {
 
       var g = chi.group('xout', output);
       output({
-        out: state[$.xin.gid].items
+        out: $.create(state[$.xin.gid].items)
       }, g.item());
 
       g.done();

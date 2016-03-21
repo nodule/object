@@ -1,7 +1,7 @@
 on.input.in = function() {
   if(dot_object().pick($.path, $.in)) {
-    output({ yes: $.in });
+    output({ yes: $.get('in') });
   } else {
-    output({ no: $.in });
+    output({ no: $.get('in') });
   }
 }

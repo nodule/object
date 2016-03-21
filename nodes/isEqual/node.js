@@ -1,7 +1,7 @@
 on.input.in = function(input.in) {
   if (underscore.isEqual($.in, $.other)) {
-    output({yes: $.in});
+    output({yes: $.get('in')});
   } else {
-    output({no: $.in});
+    output({no: $.get('in')});
   }
 };

@@ -1,3 +1,3 @@
 on.input.in = function() {
-  output({out: underscore.methods($.in)});
+  output({out: $.write('in', underscore.methods($.in))});
 };

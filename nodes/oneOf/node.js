@@ -4,7 +4,7 @@ on.input.in = function() {
   for(var i = 0; i < $.path.length; i++) {
     val = dot_object().pick($.path[i], $.in);
     if(val !== undefined) {
-      return output({ out: val });
+      return output({ out: $.write('in', val) });
     }
   }
 

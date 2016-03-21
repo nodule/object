@@ -1,3 +1,3 @@
 on.input.in = function() {
-  output({out: underscore.omit($.in, $.omit)});
+  output({out: $.write('in', underscore.omit($.in, $.omit))});
 };
