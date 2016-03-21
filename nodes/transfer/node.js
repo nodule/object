@@ -1,4 +1,4 @@
-on.input.in = function(data) {
+on.input.in = function() {
   var doo;
   var i;
 
@@ -10,7 +10,7 @@ on.input.in = function(data) {
     var out = {};
     var merge = false;
     for(i = 0; i < input.from.length; i++) {
-      doo.transfer(input.from[i], input.to[i], data, out, merge);
+      doo.transfer(input.from[i], input.to[i], input.in, out, merge);
     }
 
     output({out: out});

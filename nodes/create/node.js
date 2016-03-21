@@ -1,1 +1,1 @@
-on.input.in = function(data) { output({out: data}); };
+on.input.in = function() { output({out: input.in}); };

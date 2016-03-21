@@ -10,7 +10,7 @@ on.input.in = function () {
       };
     }
 
-    state[gid].items.push(data);
+    state[gid].items.push(input.in);
 
     if (state[gid].complete &&
       state[gid].total === (state[gid].items.length)) {
@@ -31,31 +31,31 @@ on.input.in = function () {
 
 on.input.xin = function () {
 
-  if(!state.hasOwnProperty(data.gid)) {
-    state[data.gid] = {
+  if(!state.hasOwnProperty(input.xin.gid)) {
+    state[input.xin.gid] = {
       items: [],
       total: null,
       complete: false
     };
   }
 
-  if (data.complete) {
-    state[data.gid].total = data.items.length;
-    state[data.gid].complete = true;
+  if (input.xin.complete) {
+    state[input.xin.gid].total = input.xin.items.length;
+    state[input.xin.gid].complete = true;
 
     // ok sometimes at this point we already have everything...
     // I wonder if the function stays in scope, i think not.
-    if (state[data.gid].complete &&
-      state[data.gid].total === (state[data.gid].items.length)) {
+    if (state[input.xin.gid].complete &&
+      state[input.xin.gid].total === (state[input.xin.gid].items.length)) {
 
       var g = chi.group('xout', output);
       output({
-        out: state[data.gid].items
+        out: state[input.xin.gid].items
       }, g.item());
 
       g.done();
 
-      delete state[data.gid];
+      delete state[input.xin.gid];
 
     }
   }

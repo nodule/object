@@ -22,7 +22,7 @@ on.input.in = function () {
     state[id] = {};
   }
 
-  state[id].in = data;
+  state[id].in = input.in;
 
   if (state[id].by) {
     // we have a match.
@@ -79,7 +79,7 @@ on.input.by = function () {
   var id = x[state.gid];
   if (!state[id]) state[id] = {};
 
-  state[id].by = JSON.stringify(data); // keyify
+  state[id].by = JSON.stringify(input.by); // keyify
 
   if (state[id]. in ) {
     // we have a match.
@@ -110,15 +110,15 @@ on.input.xin = function () {
   // will always arrive first.
   // probably this can all be done outside a component.
   // the pair matching is something common.
-  if (!data.complete) {
+  if (!input.xin.complete) {
     // register the groupId
     // we rely on this being set first
-    state.gid = data.gid;
+    state.gid = input.xin.gid;
     state.complete = false;
   } else {
     // is finished
     // send it out.
     state.complete = true;
-    state.length = data.items.length;
+    state.length = input.xin.items.length;
   }
 };

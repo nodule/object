@@ -1,4 +1,4 @@
-on.input.in = function(data) {
+on.input.in = function() {
 
   var out = [];
   var reg;
@@ -10,18 +10,18 @@ on.input.in = function(data) {
         error: new Error('Route should be in the form [path,match]')
       });
     }
-    var res = dot_object().pick(route[0], data);
+    var res = dot_object().pick(route[0], input.in);
     // err.. does pick remove the value?
     if(undefined !== res) {
       reg = new RegExp(route[1]);
       if(reg.test(res)) {
-        out[i] = data; // send out the data, not the actual picked value.
+        out[i] = input.in; // send out the input.in, not the actual picked value.
         output({out: out});
         return true;
       }
     }
   }
 
-  output({missed: data});
+  output({missed: input.in});
 
 };

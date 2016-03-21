@@ -1,3 +1,3 @@
-on.input.in = function(data) {
-  output({out: underscore.defaults(data, input.defaults)});
+on.input.in = function() {
+  output({out: underscore.defaults(input.in, input.defaults)});
 };

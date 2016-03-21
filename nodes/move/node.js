@@ -1,4 +1,4 @@
-on.input.in = function(data) {
+on.input.in = function() {
   var doo;
   var i;
 
@@ -8,10 +8,10 @@ on.input.in = function(data) {
   } else {
     doo = dot_object();
     for(i = 0; i < input.from.length; i++) {
-      doo.move(input.from[i], input.to[i], data);
+      doo.move(input.from[i], input.to[i], input.in);
     }
 
-    output({out: data});
+    output({out: input.in});
   }
 
 };

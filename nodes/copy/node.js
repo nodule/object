@@ -1,4 +1,4 @@
-on.input.in = function(data) {
+on.input.in = function() {
   var doo;
   var i;
 
@@ -12,7 +12,7 @@ on.input.in = function(data) {
     // not sure if it's the case when input.target is set as context
     input.target = JSON.parse(JSON.stringify(input.target));
     for(i = 0; i < input.from.length; i++) {
-      doo.copy(input.from[i], input.to[i], data, input.target, merge);
+      doo.copy(input.from[i], input.to[i], input.in, input.target, merge);
     }
 
     output({out: input.target});

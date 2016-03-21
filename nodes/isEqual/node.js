@@ -1,7 +1,7 @@
-on.input.in = function(data) {
-  if (underscore.isEqual(data, input.other)) {
-    output({yes: data});
+on.input.in = function(input.in) {
+  if (underscore.isEqual(input.in, input.other)) {
+    output({yes: input.in});
   } else {
-    output({no: data});
+    output({no: input.in});
   }
 };

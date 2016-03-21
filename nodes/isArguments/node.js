@@ -1,7 +1,7 @@
-on.input.in = function(data) {
-  if (underscore.isArguments(data)) {
-    output({yes: data});
+on.input.in = function() {
+  if (underscore.isArguments(input.in)) {
+    output({yes: input.in});
   } else {
-    output({no: data});
+    output({no: input.in});
   }
 };

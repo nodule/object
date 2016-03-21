@@ -2,24 +2,24 @@ state.extend = underscore.extend.apply;
 state.args = null;
 state.source = null;
 
-on.input.in = function(data) {
+on.input.in = function() {
   if(state.args) {
-     state.args.unshift(data);
+     state.args.unshift(input.in);
      output({out: state.extend(null, state.args)});
      state.args = null;
   } else {
-    state.args = [data];
+    state.args = [input.in];
   }
 };
 
-on.input.source = function(data) {
+on.input.source = function() {
 
   if(state.args) {
-     state.args.push(data);
+     state.args.push(input.source);
      output({out: state.extend(null, state.args)});
      state.args = null;
   } else {
-    state.args = [data];
+    state.args = [input.source];
   }
 
 };

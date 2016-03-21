@@ -1,3 +1,3 @@
-on.input.in = function(data) {
-  output({out: underscore.methods(data)});
+on.input.in = function() {
+  output({out: underscore.methods(input.in)});
 };
