@@ -1,10 +1,10 @@
 on.input.in = function() {
-  var val = input.path ? dot_object().pick(input.path, input.in) : input.in;
+  var val = $.path ? dot_object().pick($.path, $.in) : $.in;
 
   if (underscore.isFinite(val)) {
-    output({ yes: input.in });
+    output({ yes: $.in });
   } else {
-    output({ no: input.in });
+    output({ no: $.in });
   }
 
 };

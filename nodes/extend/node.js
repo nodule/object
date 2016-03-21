@@ -4,22 +4,22 @@ state.source = null;
 
 on.input.in = function() {
   if(state.args) {
-     state.args.unshift(input.in);
+     state.args.unshift($.in);
      output({out: state.extend(null, state.args)});
      state.args = null;
   } else {
-    state.args = [input.in];
+    state.args = [$.in];
   }
 };
 
 on.input.source = function() {
 
   if(state.args) {
-     state.args.push(input.source);
+     state.args.push($.source);
      output({out: state.extend(null, state.args)});
      state.args = null;
   } else {
-    state.args = [input.source];
+    state.args = [$.source];
   }
 
 };

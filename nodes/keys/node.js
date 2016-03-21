@@ -1,4 +1,4 @@
 on.input.in = function() {
-  var val = input.path ? dot_object().pick(input.path, input.in) : input.in;
+  var val = $.path ? dot_object().pick($.path, $.in) : $.in;
   output( { out: underscore.keys(val) } );
 }

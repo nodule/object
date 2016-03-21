@@ -3,15 +3,15 @@ on.input.in = function() {
   var i;
 
   // Receiving an array, check both are of the same length.
-  if(input.from.length !== input.to.length) {
+  if($.from.length !== $.to.length) {
     output({error: Error('from length does not match to length')});
   } else {
     doo = dot_object();
-    for(i = 0; i < input.from.length; i++) {
-      doo.move(input.from[i], input.to[i], input.in);
+    for(i = 0; i < $.from.length; i++) {
+      doo.move($.from[i], $.to[i], $.in);
     }
 
-    output({out: input.in});
+    output({out: $.in});
   }
 
 };

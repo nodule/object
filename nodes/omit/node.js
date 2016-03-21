@@ -1,3 +1,3 @@
 on.input.in = function() {
-  output({out: underscore.omit(input.in, input.omit)});
+  output({out: underscore.omit($.in, $.omit)});
 };

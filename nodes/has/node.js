@@ -1,7 +1,7 @@
 on.input.in = function() {
-  if(dot_object().pick(input.path, input.in)) {
-    output({ yes: input.in });
+  if(dot_object().pick($.path, $.in)) {
+    output({ yes: $.in });
   } else {
-    output({ no: input.in });
+    output({ no: $.in });
   }
 }
