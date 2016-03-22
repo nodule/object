@@ -24,7 +24,7 @@ module.exports = {
               state[id] = {};
             }
 
-            state[id].in = data;
+            state[id].in = $.get('in');
 
             if (state[id].by) {
               // we have a match.
@@ -63,8 +63,8 @@ module.exports = {
                 // Where the first is the grouped output, you are assured those ports
                 // are pairs of data comming out, belong to eachother.
                 output({
-                  out: state.group[key],
-                  by: JSON.parse(key) // same as input.by
+                  out: $.create(state.group[key]),
+                  by: $.create(JSON.parse(key)) // same as $.by
                 }, g.item());
                 g.done();
               }
@@ -84,16 +84,16 @@ module.exports = {
             // will always arrive first.
             // probably this can all be done outside a component.
             // the pair matching is something common.
-            if (!data.complete) {
+            if (!$.xin.complete) {
               // register the groupId
               // we rely on this being set first
-              state.gid = data.gid;
+              state.gid = $.xin.gid;
               state.complete = false;
             } else {
               // is finished
               // send it out.
               state.complete = true;
-              state.length = data.items.length;
+              state.length = $.xin.items.length;
             }
           }.call(this);
           return {
@@ -115,7 +115,7 @@ module.exports = {
             var id = x[state.gid];
             if (!state[id]) state[id] = {};
 
-            state[id].by = JSON.stringify(data); // keyify
+            state[id].by = JSON.stringify($.by); // keyify
 
             if (state[id].in) {
               // we have a match.
@@ -131,7 +131,7 @@ module.exports = {
                 var g = chi.group('xout', output);
                 output({
                   out: state.group[key],
-                  by: JSON.parse(key) // same as input.by
+                  by: $.create(JSON.parse(key)) // same as $.by
                 }, g.item());
                 g.done();
               }

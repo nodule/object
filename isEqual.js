@@ -14,13 +14,13 @@ module.exports = {
         async: true,
         fn: function __IN__(data, x, source, state, input, output, underscore) {
           var r = function() {
-            if (underscore.isEqual(data, input.other)) {
+            if (underscore.isEqual($.in, $.other)) {
               output({
-                yes: data
+                yes: $.get('in')
               });
             } else {
               output({
-                no: data
+                no: $.get('in')
               });
             }
           }.call(this);

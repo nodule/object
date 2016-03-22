@@ -25,14 +25,14 @@ module.exports = {
                 };
               }
 
-              state[gid].items.push(data);
+              state[gid].items.push($.get('in'));
 
               if (state[gid].complete &&
                 state[gid].total === (state[gid].items.length)) {
 
                 var g = chi.group('xout', output);
                 output({
-                  out: state[gid].items
+                  out: $.create(state[gid].items)
                 }, g.item());
 
                 g.done();
@@ -54,31 +54,31 @@ module.exports = {
         type: "any",
         fn: function __XIN__(data, x, source, state, input, output, chi) {
           var r = function() {
-            if (!state.hasOwnProperty(data.gid)) {
-              state[data.gid] = {
+            if (!state.hasOwnProperty($.xin.gid)) {
+              state[$.xin.gid] = {
                 items: [],
                 total: null,
                 complete: false
               };
             }
 
-            if (data.complete) {
-              state[data.gid].total = data.items.length;
-              state[data.gid].complete = true;
+            if ($.xin.complete) {
+              state[$.xin.gid].total = $.xin.items.length;
+              state[$.xin.gid].complete = true;
 
               // ok sometimes at this point we already have everything...
               // I wonder if the function stays in scope, i think not.
-              if (state[data.gid].complete &&
-                state[data.gid].total === (state[data.gid].items.length)) {
+              if (state[$.xin.gid].complete &&
+                state[$.xin.gid].total === (state[$.xin.gid].items.length)) {
 
                 var g = chi.group('xout', output);
                 output({
-                  out: state[data.gid].items
+                  out: $.create(state[$.xin.gid].items)
                 }, g.item());
 
                 g.done();
 
-                delete state[data.gid];
+                delete state[$.xin.gid];
 
               }
             }

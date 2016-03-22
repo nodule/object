@@ -19,10 +19,10 @@ module.exports = {
         async: true,
         fn: function __IN__(data, x, source, state, input, output, dot_object) {
           var r = function() {
-            var obj = input.object ? input.object : {};
-            dot_object().set(input.path, data, obj);
+            var obj = $.object ? $.object : {};
+            dot_object().set($.path, $.in, obj);
             output({
-              out: obj
+              out: $.write('in', obj)
             });
           }.call(this);
           return {

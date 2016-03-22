@@ -15,7 +15,7 @@ module.exports = {
         fn: function __IN__(data, x, source, state, input, output, underscore) {
           var r = function() {
             output({
-              out: underscore.omit(data, input.omit)
+              out: $.write('in', underscore.omit($.in, $.omit))
             });
           }.call(this);
           return {

@@ -15,11 +15,11 @@ module.exports = {
         fn: function __IN__(data, x, source, state, input, output, dot_object) {
           var r = function() {
             var val;
-            for (var i = 0; i < input.path.length; i++) {
-              val = dot_object().pick(input.path[i], data);
+            for (var i = 0; i < $.path.length; i++) {
+              val = dot_object().pick($.path[i], $.in);
               if (val !== undefined) {
                 return output({
-                  out: val
+                  out: $.write('in', val)
                 });
               }
             }

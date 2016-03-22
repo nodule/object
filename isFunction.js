@@ -14,15 +14,15 @@ module.exports = {
         type: "any",
         fn: function __IN__(data, x, source, state, input, output, underscore, dot_object) {
           var r = function() {
-            var val = input.path ? dot_object().pick(input.path, data) : data;
+            var val = $.path ? dot_object().pick($.path, $.in) : $.in;
 
             if (underscore.isFunction(val)) {
               output({
-                yes: data
+                yes: $.get('in')
               });
             } else {
               output({
-                no: data
+                no: $.get('in')
               });
             }
           }.call(this);

@@ -14,7 +14,7 @@ module.exports = {
         fn: function __IN__(data, x, source, state, input, output, underscore) {
           var r = function() {
             output({
-              out: underscore.invert(data)
+              out: $.write('in', underscore.invert($.in))
             });
           }.call(this);
           return {

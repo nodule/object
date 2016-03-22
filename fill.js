@@ -15,17 +15,17 @@ module.exports = {
         fn: function __IN__(data, x, source, state, input, output) {
           var r = function() {
             var i;
-            var obj = input.object ? input.object : {};
-            if (input.keys.length !== data.length) {
+            var obj = $.object ? $.object : {};
+            if ($.keys.length !== $.in.length) {
               output({
-                error: Error('Key length does not match value length')
+                error: $.create(Error('Key length does not match value length'))
               });
             } else {
-              for (i = 0; i < input.keys.length; i++) {
-                obj[input.keys[i]] = data[i];
+              for (i = 0; i < $.keys.length; i++) {
+                obj[$.keys[i]] = $.in[i];
               }
               output({
-                out: obj
+                out: $.write('in', obj)
               });
             }
           }.call(this);

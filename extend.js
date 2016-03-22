@@ -15,13 +15,13 @@ module.exports = {
         fn: function __IN__(data, x, source, state, input, output, underscore) {
           var r = function() {
             if (state.args) {
-              state.args.unshift(data);
+              state.args.unshift($.in);
               output({
-                out: state.extend(null, state.args)
+                out: $.write('in', state.extend(null, state.args))
               });
               state.args = null;
             } else {
-              state.args = [data];
+              state.args = [$.in];
             }
           }.call(this);
           return {
@@ -37,13 +37,13 @@ module.exports = {
         fn: function __SOURCE__(data, x, source, state, input, output, underscore) {
           var r = function() {
             if (state.args) {
-              state.args.push(data);
+              state.args.push($.source);
               output({
-                out: state.extend(null, state.args)
+                out: $.write('in', state.extend(null, state.args))
               });
               state.args = null;
             } else {
-              state.args = [data];
+              state.args = [$.source];
             }
           }.call(this);
           return {

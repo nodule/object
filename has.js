@@ -14,14 +14,13 @@ module.exports = {
         async: true,
         fn: function __IN__(data, x, source, state, input, output, dot_object) {
           var r = function() {
-            // can be data or input.in
-            if (dot_object().pick(input.path, data)) {
+            if (dot_object().pick($.path, $.in)) {
               output({
-                yes: data
+                yes: $.get('in')
               });
             } else {
               output({
-                no: data
+                no: $.get('in')
               });
             }
           }.call(this);

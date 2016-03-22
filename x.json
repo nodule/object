@@ -40,7 +40,7 @@
       "async": true,
       "ns": "object",
       "name": "clone",
-      "fn": "on.input.in = function(data) {\n  output({out: underscore.clone(data)});\n};\n\n"
+      "fn": "on.input.in = function() {\n  output({out: $.clone('in', underscore.clone($.in))});\n};\n\n"
     },
     {
       "dependencies": {
@@ -87,7 +87,7 @@
       "async": true,
       "ns": "object",
       "name": "copy",
-      "fn": "on.input.in = function(data) {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if(input.from.length !== input.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    var merge = true;\n    // should already be done, but to make sure.\n    // not sure if it's the case when input.target is set as context\n    input.target = JSON.parse(JSON.stringify(input.target));\n    for(i = 0; i < input.from.length; i++) {\n      doo.copy(input.from[i], input.to[i], data, input.target, merge);\n    }\n\n    output({out: input.target});\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if($.from.length !== $.to.length) {\n    output({error: $.create(Error('from length does not match to length'))});\n  } else {\n    doo = dot_object();\n    var merge = true;\n    // should already be done, but to make sure.\n    // not sure if it's the case when $.target is set as context\n    $.target = JSON.parse(JSON.stringify($.target));\n    for(i = 0; i < $.from.length; i++) {\n      doo.copy($.from[i], $.to[i], $.in, $.target, merge);\n    }\n\n    output({out: $.write('in', $.target)});\n  }\n};\n"
     },
     {
       "ports": {
@@ -112,7 +112,7 @@
       "async": true,
       "ns": "object",
       "name": "create",
-      "fn": "on.input.in = function(data) { output({out: data}); };\n"
+      "fn": "on.input.in = function() { output({out: $.clone('in', $.get('in'))}); };\n"
     },
     {
       "dependencies": {
@@ -146,7 +146,7 @@
       "async": true,
       "ns": "object",
       "name": "defaults",
-      "fn": "on.input.in = function(data) {\n  output({out: underscore.defaults(data, input.defaults)});\n};\n"
+      "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.defaults($.in, $.defaults))});\n};\n"
     },
     {
       "dependencies": {
@@ -181,7 +181,7 @@
       "async": true,
       "ns": "object",
       "name": "extend",
-      "fn": "state.extend = underscore.extend.apply;\nstate.args = null;\nstate.source = null;\n\non.input.in = function(data) {\n  if(state.args) {\n     state.args.unshift(data);\n     output({out: state.extend(null, state.args)});\n     state.args = null;\n  } else {\n    state.args = [data];\n  }\n};\n\non.input.source = function(data) {\n\n  if(state.args) {\n     state.args.push(data);\n     output({out: state.extend(null, state.args)});\n     state.args = null;\n  } else {\n    state.args = [data];\n  }\n\n};\n"
+      "fn": "state.extend = underscore.extend.apply;\nstate.args = null;\nstate.source = null;\n\non.input.in = function() {\n  if(state.args) {\n     state.args.unshift($.in);\n     output({out: $.write('in', state.extend(null, state.args))});\n     state.args = null;\n  } else {\n    state.args = [$.in];\n  }\n};\n\non.input.source = function() {\n\n  if(state.args) {\n     state.args.push($.source);\n     output({out: $.write('in', state.extend(null, state.args))});\n     state.args = null;\n  } else {\n    state.args = [$.source];\n  }\n\n};\n"
     },
     {
       "ports": {
@@ -219,7 +219,7 @@
       "async": true,
       "ns": "object",
       "name": "fill",
-      "fn": "on.input.in = function(data) {\n  var i;\n  var obj = input.object ? input.object : {};\n  if(input.keys.length !== data.length) {\n    output({error: Error('Key length does not match value length')});\n  } else {\n    for(i = 0; i < input.keys.length; i++) {\n     obj[input.keys[i]] = data[i];\n    }\n    output({out: obj});\n  }\n};\n"
+      "fn": "on.input.in = function() {\n  var i;\n  var obj = $.object ? $.object : {};\n  if($.keys.length !== $.in.length) {\n    output({error: $.create(Error('Key length does not match value length'))});\n  } else {\n    for(i = 0; i < $.keys.length; i++) {\n     obj[$.keys[i]] = $.in[i];\n    }\n    output({out: $.write('in', obj)});\n  }\n};\n"
     },
     {
       "ports": {
@@ -255,7 +255,7 @@
       "async": true,
       "ns": "object",
       "name": "group",
-      "fn": "on.input.in = function () {\n  // x contains our keys\n  for (var gid in x) {\n\n    if(!state.hasOwnProperty(gid)) {\n      state[gid] = {\n        items: [],\n        total: null,\n        complete: false\n      };\n    }\n\n    state[gid].items.push(data);\n\n    if (state[gid].complete &&\n      state[gid].total === (state[gid].items.length)) {\n\n      var g = chi.group('xout', output);\n      output({\n        out: state[gid].items\n      }, g.item());\n\n      g.done();\n\n      delete state[gid];\n\n    }\n\n  }\n};\n\non.input.xin = function () {\n\n  if(!state.hasOwnProperty(data.gid)) {\n    state[data.gid] = {\n      items: [],\n      total: null,\n      complete: false\n    };\n  }\n\n  if (data.complete) {\n    state[data.gid].total = data.items.length;\n    state[data.gid].complete = true;\n\n    // ok sometimes at this point we already have everything...\n    // I wonder if the function stays in scope, i think not.\n    if (state[data.gid].complete &&\n      state[data.gid].total === (state[data.gid].items.length)) {\n\n      var g = chi.group('xout', output);\n      output({\n        out: state[data.gid].items\n      }, g.item());\n\n      g.done();\n\n      delete state[data.gid];\n\n    }\n  }\n};\n"
+      "fn": "on.input.in = function () {\n  // x contains our keys\n  for (var gid in x) {\n\n    if(!state.hasOwnProperty(gid)) {\n      state[gid] = {\n        items: [],\n        total: null,\n        complete: false\n      };\n    }\n\n    state[gid].items.push($.get('in'));\n\n    if (state[gid].complete &&\n      state[gid].total === (state[gid].items.length)) {\n\n      var g = chi.group('xout', output);\n      output({\n        out: $.create(state[gid].items)\n      }, g.item());\n\n      g.done();\n\n      delete state[gid];\n\n    }\n\n  }\n};\n\non.input.xin = function () {\n\n  if(!state.hasOwnProperty($.xin.gid)) {\n    state[$.xin.gid] = {\n      items: [],\n      total: null,\n      complete: false\n    };\n  }\n\n  if ($.xin.complete) {\n    state[$.xin.gid].total = $.xin.items.length;\n    state[$.xin.gid].complete = true;\n\n    // ok sometimes at this point we already have everything...\n    // I wonder if the function stays in scope, i think not.\n    if (state[$.xin.gid].complete &&\n      state[$.xin.gid].total === (state[$.xin.gid].items.length)) {\n\n      var g = chi.group('xout', output);\n      output({\n        out: $.create(state[$.xin.gid].items)\n      }, g.item());\n\n      g.done();\n\n      delete state[$.xin.gid];\n\n    }\n  }\n};\n"
     },
     {
       "ports": {
@@ -300,7 +300,7 @@
       "async": true,
       "ns": "object",
       "name": "groupBy",
-      "fn": "state = {\n  group: {},\n  total: 0\n};\n\n// If this even works, state is not cleared\n// properly or at lease during send out\n// the current groups can be removed.\n\n// really needs a main also.\n// main is called always then.\n// and check the existance of those keys\n// first just make the synchronous one\non.input.in = function () {\n  // x contains our keys\n  if (!x.hasOwnProperty(state.gid)) {\n    console.log(x)\n    throw Error('groupBy:in State gid not initialized yet', state.gid)\n  }\n  var id = x[state.gid];\n  if (!state[id]) {\n    state[id] = {};\n  }\n\n  state[id].in = data;\n\n  if (state[id].by) {\n    // we have a match.\n    if (!state.group[state[id].by]) {\n      state.group[state[id].by] = [];\n    }\n    state.group[state[id].by].push(state[id].in);\n  }\n\n  state.total++;\n\n  if (state.complete && state.length === (state.total / 2)) {\n    // send them out, might also create groups again.\n    for (var key in state.group) {\n      var g = chi.group('xout', output);\n\n      // like to introduce the grouped output, output like the below is grouped\n      // it's a bit like an array port, only difference the output goes to normal ports.\n      // I would like to add the convention, that if you send output this way.\n      // You must declare a group inside the json\n      //\n      // out: \"group\": \"result\"\n      // by:  \"group\": \"result\"\n      //\n      // in a ui this will look like:\n      // [o o] o o o\n      //\n      // Only two states:\n      //\n      //  [• •] and [o o]\n      //\n      // Whereas the individual ports are not perse synchronous:\n      //\n      //  [o o] o • o\n      //\n      // Where the first is the grouped output, you are assured those ports\n      // are pairs of data comming out, belong to eachother.\n      output({\n        out: state.group[key],\n        by: JSON.parse(key) // same as input.by\n      }, g.item());\n      g.done();\n    }\n  }\n};\n\n// collect the keys.\non.input.by = function () {\n  if (!x.hasOwnProperty(state.gid)) {\n    console.log(x)\n    throw Error('groupBy:by State gid not initialized yet', state.gid)\n  }\n\n  var id = x[state.gid];\n  if (!state[id]) state[id] = {};\n\n  state[id].by = JSON.stringify(data); // keyify\n\n  if (state[id]. in ) {\n    // we have a match.\n    if (!state.group[state[id].by]) state.group[state[id].by] = [];\n    state.group[state[id].by].push(state[id]. in );\n  }\n\n  state.total++;\n\n  if (state.complete && state.length === (state.total / 2)) {\n    // send them out, might also create groups again.\n    for (var key in state.group) {\n      var g = chi.group('xout', output);\n      output({\n        out: state.group[key],\n        by: JSON.parse(key) // same as input.by\n      }, g.item());\n      g.done();\n    }\n  }\n\n};\n\n// xin now kinda acts like a main.\n// more clear would probably be group begin and end methods.\n// it also makes it required to have this connected.\non.input.xin = function () {\n  // will always arrive first.\n  // probably this can all be done outside a component.\n  // the pair matching is something common.\n  if (!data.complete) {\n    // register the groupId\n    // we rely on this being set first\n    state.gid = data.gid;\n    state.complete = false;\n  } else {\n    // is finished\n    // send it out.\n    state.complete = true;\n    state.length = data.items.length;\n  }\n};\n"
+      "fn": "state = {\n  group: {},\n  total: 0\n};\n\n// If this even works, state is not cleared\n// properly or at lease during send out\n// the current groups can be removed.\n\n// really needs a main also.\n// main is called always then.\n// and check the existance of those keys\n// first just make the synchronous one\non.input.in = function () {\n  // x contains our keys\n  if (!x.hasOwnProperty(state.gid)) {\n    console.log(x)\n    throw Error('groupBy:in State gid not initialized yet', state.gid)\n  }\n  var id = x[state.gid];\n  if (!state[id]) {\n    state[id] = {};\n  }\n\n  state[id].in = $.get('in');\n\n  if (state[id].by) {\n    // we have a match.\n    if (!state.group[state[id].by]) {\n      state.group[state[id].by] = [];\n    }\n    state.group[state[id].by].push(state[id].in);\n  }\n\n  state.total++;\n\n  if (state.complete && state.length === (state.total / 2)) {\n    // send them out, might also create groups again.\n    for (var key in state.group) {\n      var g = chi.group('xout', output);\n\n      // like to introduce the grouped output, output like the below is grouped\n      // it's a bit like an array port, only difference the output goes to normal ports.\n      // I would like to add the convention, that if you send output this way.\n      // You must declare a group inside the json\n      //\n      // out: \"group\": \"result\"\n      // by:  \"group\": \"result\"\n      //\n      // in a ui this will look like:\n      // [o o] o o o\n      //\n      // Only two states:\n      //\n      //  [• •] and [o o]\n      //\n      // Whereas the individual ports are not perse synchronous:\n      //\n      //  [o o] o • o\n      //\n      // Where the first is the grouped output, you are assured those ports\n      // are pairs of data comming out, belong to eachother.\n      output({\n        out:$.create(state.group[key]),\n        by: $.create(JSON.parse(key)) // same as $.by\n      }, g.item());\n      g.done();\n    }\n  }\n};\n\n// collect the keys.\non.input.by = function () {\n  if (!x.hasOwnProperty(state.gid)) {\n    console.log(x)\n    throw Error('groupBy:by State gid not initialized yet', state.gid)\n  }\n\n  var id = x[state.gid];\n  if (!state[id]) state[id] = {};\n\n  state[id].by = JSON.stringify($.by); // keyify\n\n  if (state[id].in) {\n    // we have a match.\n    if (!state.group[state[id].by]) state.group[state[id].by] = [];\n    state.group[state[id].by].push(state[id].in);\n  }\n\n  state.total++;\n\n  if (state.complete && state.length === (state.total / 2)) {\n    // send them out, might also create groups again.\n    for (var key in state.group) {\n      var g = chi.group('xout', output);\n      output({\n        out: state.group[key],\n        by: $.create(JSON.parse(key)) // same as $.by\n      }, g.item());\n      g.done();\n    }\n  }\n\n};\n\n// xin now kinda acts like a main.\n// more clear would probably be group begin and end methods.\n// it also makes it required to have this connected.\non.input.xin = function () {\n  // will always arrive first.\n  // probably this can all be done outside a component.\n  // the pair matching is something common.\n  if (!$.xin.complete) {\n    // register the groupId\n    // we rely on this being set first\n    state.gid = $.xin.gid;\n    state.complete = false;\n  } else {\n    // is finished\n    // send it out.\n    state.complete = true;\n    state.length = $.xin.items.length;\n  }\n};\n"
     },
     {
       "dependencies": {
@@ -338,7 +338,7 @@
       "async": true,
       "ns": "object",
       "name": "has",
-      "fn": "on.input.in = function() {\n  // can be data or input.in\n  if(dot_object().pick(input.path, data)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n}\n"
+      "fn": "on.input.in = function() {\n  if(dot_object().pick($.path, $.in)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n}\n"
     },
     {
       "dependencies": {
@@ -367,7 +367,7 @@
       "async": true,
       "ns": "object",
       "name": "invert",
-      "fn": "on.input.in = function(data) {\n  output({out: underscore.invert(data)});\n};\n"
+      "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.invert($.in))});\n};\n"
     },
     {
       "dependencies": {
@@ -411,7 +411,7 @@
       "async": true,
       "ns": "object",
       "name": "is",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (instance_of(val, input.kind)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (instance_of(val, $.kind)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -444,7 +444,7 @@
       "async": true,
       "ns": "object",
       "name": "isArguments",
-      "fn": "on.input.in = function(data) {\n  if (underscore.isArguments(data)) {\n    output({yes: data});\n  } else {\n    output({no: data});\n  }\n};\n"
+      "fn": "on.input.in = function() {\n  if (underscore.isArguments($.in)) {\n    output({yes: $.get('in')});\n  } else {\n    output({no: $.get('in')});\n  }\n};\n"
     },
     {
       "dependencies": {
@@ -484,7 +484,7 @@
       "async": true,
       "ns": "object",
       "name": "isArray",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isArray(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isArray(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -524,7 +524,7 @@
       "async": true,
       "ns": "object",
       "name": "isBoolean",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isBoolean(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isBoolean(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -564,7 +564,7 @@
       "async": true,
       "ns": "object",
       "name": "isDate",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isDate(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isDate(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -604,7 +604,7 @@
       "async": true,
       "ns": "object",
       "name": "isElement",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isElement(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isElement(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -644,7 +644,7 @@
       "async": true,
       "ns": "object",
       "name": "isEmpty",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isEmpty(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isEmpty(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -682,7 +682,7 @@
       "async": true,
       "ns": "object",
       "name": "isEqual",
-      "fn": "on.input.in = function(data) {\n  if (underscore.isEqual(data, input.other)) {\n    output({yes: data});\n  } else {\n    output({no: data});\n  }\n};\n"
+      "fn": "on.input.in = function() {\n  if (underscore.isEqual($.in, $.other)) {\n    output({yes: $.get('in')});\n  } else {\n    output({no: $.get('in')});\n  }\n};\n"
     },
     {
       "dependencies": {
@@ -722,7 +722,7 @@
       "async": true,
       "ns": "object",
       "name": "isFinite",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isFinite(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isFinite(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -762,7 +762,7 @@
       "async": true,
       "ns": "object",
       "name": "isFunction",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isFunction(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isFunction(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -802,7 +802,7 @@
       "async": true,
       "ns": "object",
       "name": "isNaN",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isNaN(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isNaN(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -842,7 +842,7 @@
       "async": true,
       "ns": "object",
       "name": "isNull",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isNull(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isNull(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -882,7 +882,7 @@
       "async": true,
       "ns": "object",
       "name": "isNumber",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isNumber(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isNumber(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -922,7 +922,7 @@
       "async": true,
       "ns": "object",
       "name": "isObject",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isObject(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isObject(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -962,7 +962,7 @@
       "async": true,
       "ns": "object",
       "name": "isRegExp",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isRegExp(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isRegExp(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -1002,7 +1002,7 @@
       "async": true,
       "ns": "object",
       "name": "isString",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isString(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isString(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -1042,7 +1042,7 @@
       "async": true,
       "ns": "object",
       "name": "isUndefined",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n\n  if (underscore.isUndefined(val)) {\n    output({ yes: data });\n  } else {\n    output({ no: data });\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isUndefined(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -1078,7 +1078,7 @@
       "async": true,
       "ns": "object",
       "name": "keys",
-      "fn": "on.input.in = function() {\n  var val = input.path ? dot_object().pick(input.path, data) : data;\n  output( { out: underscore.keys(val) } );\n}\n"
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n  output( { out: $.write('in', underscore.keys(val)) } );\n}\n"
     },
     {
       "dependencies": {
@@ -1108,7 +1108,7 @@
       "async": true,
       "ns": "object",
       "name": "methods",
-      "fn": "on.input.in = function(data) {\n  output({out: underscore.methods(data)});\n};\n"
+      "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.methods($.in))});\n};\n"
     },
     {
       "dependencies": {
@@ -1150,7 +1150,7 @@
       "async": true,
       "ns": "object",
       "name": "move",
-      "fn": "on.input.in = function(data) {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if(input.from.length !== input.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    for(i = 0; i < input.from.length; i++) {\n      doo.move(input.from[i], input.to[i], data);\n    }\n\n    output({out: data});\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if($.from.length !== $.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    for(i = 0; i < $.from.length; i++) {\n      doo.move($.from[i], $.to[i], $.in);\n    }\n\n    output({out: $.write('in', $.in)});\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -1184,7 +1184,7 @@
       "async": true,
       "ns": "object",
       "name": "omit",
-      "fn": "on.input.in = function(data) {\n  output({out: underscore.omit(data, input.omit)});\n};\n"
+      "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.omit($.in, $.omit))});\n};\n"
     },
     {
       "dependencies": {
@@ -1222,7 +1222,7 @@
       "async": true,
       "ns": "object",
       "name": "oneOf",
-      "fn": "on.input.in = function() {\n\n  var val;\n  for(var i = 0; i < input.path.length; i++) {\n    val = dot_object().pick(input.path[i], data);\n    if(val !== undefined) {\n      return output({ out: val });\n    }\n  }\n\n  output({ error: new Error('None of the properties are found') });\n\n};\n"
+      "fn": "on.input.in = function() {\n\n  var val;\n  for(var i = 0; i < $.path.length; i++) {\n    val = dot_object().pick($.path[i], $.in);\n    if(val !== undefined) {\n      return output({ out: $.write('in', val) });\n    }\n  }\n\n  output({ error: new Error('None of the properties are found') });\n\n};\n"
     },
     {
       "dependencies": {
@@ -1252,7 +1252,7 @@
       "async": true,
       "ns": "object",
       "name": "pairs",
-      "fn": "on.input.in = function(data) {\n  output({out: underscore.pairs(data)});\n};\n"
+      "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.pairs($.in))});\n};\n"
     },
     {
       "dependencies": {
@@ -1289,7 +1289,7 @@
       "async": true,
       "ns": "object",
       "name": "pick",
-      "fn": "on.input.in = function(data) {\n  output({out: underscore.pick(data, input.pick)});\n};\n"
+      "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.pick($.in, $.pick))});\n};\n"
     },
     {
       "ports": {
@@ -1332,7 +1332,7 @@
       "description": "Route packets based on a path, input index will result in same index on output. Route should be an array [path,match], multiple matchers can be added lik [[path,match],[path,match]] -> [0] route Router out [0] -> matched..",
       "ns": "object",
       "name": "router",
-      "fn": "on.input.in = function(data) {\n\n  var out = [];\n  var reg;\n  var route;\n  for(var i = 0; i < input.route.length; i++) {\n    route = input.route[i];\n    if(route.length !== 2) {\n      output({\n        error: new Error('Route should be in the form [path,match]')\n      });\n    }\n    var res = dot_object().pick(route[0], data);\n    // err.. does pick remove the value?\n    if(undefined !== res) {\n      reg = new RegExp(route[1]);\n      if(reg.test(res)) {\n        out[i] = data; // send out the data, not the actual picked value.\n        output({out: out});\n        return true;\n      }\n    }\n  }\n\n  output({missed: data});\n\n};\n"
+      "fn": "on.input.in = function() {\n\n  var out = [];\n  var reg;\n  var route;\n  for(var i = 0; i < $.route.length; i++) {\n    route = $.route[i];\n    if(route.length !== 2) {\n      output({\n        error: $.create(new Error('Route should be in the form [path,match]'))\n      });\n    }\n    var res = dot_object().pick(route[0], $.in);\n    // err.. does pick remove the value?\n    if(undefined !== res) {\n      reg = new RegExp(route[1]);\n      if(reg.test(res)) {\n        out[i] = $.get('in'); // send out the $.in, not the actual picked value.\n        output({out: out});\n        return true;\n      }\n    }\n  }\n\n  output({missed: $.get('in')});\n\n};\n"
     },
     {
       "ports": {
@@ -1371,7 +1371,7 @@
       "async": true,
       "ns": "object",
       "name": "set",
-      "fn": "on.input.in = function(data) {\n  var obj = input.object ? input.object : {};\n  dot_object().set(input.path, data, obj);\n  output({out: obj});\n};\n"
+      "fn": "on.input.in = function() {\n  var obj = $.object ? $.object : {};\n  dot_object().set($.path, $.in, obj);\n  output({out: $.write('in', obj)});\n};\n"
     },
     {
       "dependencies": {
@@ -1413,7 +1413,7 @@
       "async": true,
       "ns": "object",
       "name": "transfer",
-      "fn": "on.input.in = function(data) {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if(input.from.length !== input.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    var out = {};\n    var merge = false;\n    for(i = 0; i < input.from.length; i++) {\n      doo.transfer(input.from[i], input.to[i], data, out, merge);\n    }\n\n    output({out: out});\n  }\n\n};\n"
+      "fn": "on.input.in = function() {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if($.from.length !== $.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    var out = {};\n    var merge = false;\n    for(i = 0; i < $.from.length; i++) {\n      doo.transfer($.from[i], $.to[i], $.in, out, merge);\n    }\n\n    output({out: $.write('in', out)});\n  }\n\n};\n"
     },
     {
       "dependencies": {
@@ -1443,7 +1443,7 @@
       "async": true,
       "ns": "object",
       "name": "values",
-      "fn": "on.input.in = function(data) {\n  output({out: underscore.values(data)});\n};\n"
+      "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.values($.in))});\n};\n"
     }
   ],
   "twigs": []

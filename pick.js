@@ -15,7 +15,7 @@ module.exports = {
         fn: function __IN__(data, x, source, state, input, output, underscore) {
           var r = function() {
             output({
-              out: underscore.pick(data, input.pick)
+              out: $.write('in', underscore.pick($.in, $.pick))
             });
           }.call(this);
           return {

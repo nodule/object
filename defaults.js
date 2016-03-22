@@ -15,7 +15,7 @@ module.exports = {
         fn: function __IN__(data, x, source, state, input, output, underscore) {
           var r = function() {
             output({
-              out: underscore.defaults(data, input.defaults)
+              out: $.write('in', underscore.defaults($.in, $.defaults))
             });
           }.call(this);
           return {

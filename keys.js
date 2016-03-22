@@ -14,9 +14,9 @@ module.exports = {
         async: true,
         fn: function __IN__(data, x, source, state, input, output, underscore, dot_object) {
           var r = function() {
-            var val = input.path ? dot_object().pick(input.path, data) : data;
+            var val = $.path ? dot_object().pick($.path, $.in) : $.in;
             output({
-              out: underscore.keys(val)
+              out: $.write('in', underscore.keys(val))
             });
           }.call(this);
           return {

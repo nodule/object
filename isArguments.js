@@ -13,13 +13,13 @@ module.exports = {
         type: "any",
         fn: function __IN__(data, x, source, state, input, output, underscore) {
           var r = function() {
-            if (underscore.isArguments(data)) {
+            if (underscore.isArguments($.in)) {
               output({
-                yes: data
+                yes: $.get('in')
               });
             } else {
               output({
-                no: data
+                no: $.get('in')
               });
             }
           }.call(this);

@@ -1,4 +1,4 @@
-on.input.in = function(input.in) {
+on.input.in = function() {
   if (underscore.isEqual($.in, $.other)) {
     output({yes: $.get('in')});
   } else {
