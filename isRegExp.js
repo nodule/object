@@ -12,7 +12,7 @@ module.exports = {
         title: "In",
         type: "any",
         async: true,
-        fn: function __IN__(data, x, source, state, input, $, output, underscore, dot_object) {
+        fn: function __IN__(data, source, state, input, $, output, underscore, dot_object) {
           var r = function() {
             var val = $.path ? dot_object().pick($.path, $.in) : $.in;
 

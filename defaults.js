@@ -12,7 +12,7 @@ module.exports = {
         title: "Object",
         type: "object",
         async: true,
-        fn: function __IN__(data, x, source, state, input, $, output, underscore) {
+        fn: function __IN__(data, source, state, input, $, output, underscore) {
           var r = function() {
             output({
               out: $.write('in', underscore.defaults($.in, $.defaults))

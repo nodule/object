@@ -11,7 +11,7 @@ module.exports = {
       "in": {
         title: "Object",
         type: "any",
-        fn: function __IN__(data, x, source, state, input, $, output, chix_group) {
+        fn: function __IN__(data, source, state, input, $, output, chix_group) {
           var r = function() {
             state.group.add($.in)
             state.handler()
@@ -54,7 +54,7 @@ module.exports = {
       xin: {
         title: "In Group",
         type: "any",
-        fn: function __XIN__(data, x, source, state, input, $, output, chix_group) {
+        fn: function __XIN__(data, source, state, input, $, output, chix_group) {
           var r = function() {
             state.group.receive($.xin)
             state.handler()
@@ -113,7 +113,7 @@ module.exports = {
   },
   state: {},
   on: {
-    start: function __ONSTART__(data, x, source, state, input, $, output, chix_group) {
+    start: function __ONSTART__(data, source, state, input, $, output, chix_group) {
       var r = function() {
         state.group = chix_group.create()
         state.handler = function stateHandler() {

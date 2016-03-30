@@ -12,7 +12,7 @@ module.exports = {
         title: "Object",
         type: "object",
         async: true,
-        fn: function __IN__(data, x, source, state, input, $, output, underscore) {
+        fn: function __IN__(data, source, state, input, $, output, underscore) {
           var r = function() {
             if (state.args) {
               state.args.unshift($.in);
@@ -34,7 +34,7 @@ module.exports = {
         title: "Source Objects",
         type: "array",
         async: true,
-        fn: function __SOURCE__(data, x, source, state, input, $, output, underscore) {
+        fn: function __SOURCE__(data, source, state, input, $, output, underscore) {
           var r = function() {
             if (state.args) {
               state.args.push($.source);
