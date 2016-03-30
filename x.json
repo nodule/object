@@ -7,9 +7,10 @@
     "url": "https://github.com/nodule/object.git"
   },
   "dependencies": {
-    "underscore": "1.x.x",
+    "chix-group": "^1.0.0",
+    "dot-object": "0.x.x",
     "instance-of": "1.x.x",
-    "dot-object": "0.x.x"
+    "underscore": "1.x.x"
   },
   "nodes": [
     {
@@ -222,6 +223,11 @@
       "fn": "on.input.in = function() {\n  var i;\n  var obj = $.object ? $.object : {};\n  if($.keys.length !== $.in.length) {\n    output({error: $.create(Error('Key length does not match value length'))});\n  } else {\n    for(i = 0; i < $.keys.length; i++) {\n     obj[$.keys[i]] = $.in[i];\n    }\n    output({out: $.write('in', obj)});\n  }\n};\n"
     },
     {
+      "dependencies": {
+        "npm": {
+          "chix-group": "latest"
+        }
+      },
       "ports": {
         "input": {
           "in": {
@@ -245,9 +251,6 @@
           }
         }
       },
-      "expose": [
-        "chi"
-      ],
       "phrases": {
         "active": "Grouping object"
       },
@@ -255,7 +258,7 @@
       "async": true,
       "ns": "object",
       "name": "group",
-      "fn": "on.input.in = function () {\n  // x contains our keys\n  for (var gid in x) {\n\n    if(!state.hasOwnProperty(gid)) {\n      state[gid] = {\n        items: [],\n        total: null,\n        complete: false\n      };\n    }\n\n    state[gid].items.push($.get('in'));\n\n    if (state[gid].complete &&\n      state[gid].total === (state[gid].items.length)) {\n\n      var g = chi.group('xout', output);\n      output({\n        out: $.create(state[gid].items)\n      }, g.item());\n\n      g.done();\n\n      delete state[gid];\n\n    }\n\n  }\n};\n\non.input.xin = function () {\n\n  if(!state.hasOwnProperty($.xin.gid)) {\n    state[$.xin.gid] = {\n      items: [],\n      total: null,\n      complete: false\n    };\n  }\n\n  if ($.xin.complete) {\n    state[$.xin.gid].total = $.xin.items.length;\n    state[$.xin.gid].complete = true;\n\n    // ok sometimes at this point we already have everything...\n    // I wonder if the function stays in scope, i think not.\n    if (state[$.xin.gid].complete &&\n      state[$.xin.gid].total === (state[$.xin.gid].items.length)) {\n\n      var g = chi.group('xout', output);\n      output({\n        out: $.create(state[$.xin.gid].items)\n      }, g.item());\n\n      g.done();\n\n      delete state[$.xin.gid];\n\n    }\n  }\n};\n"
+      "fn": "on.start = function start() {\n  state.group = chix_group.create()\n  state.handler = function stateHandler() {\n    if (state.group.isComplete()) {\n      output({out: $.create(state.group.read())})\n    }\n  }\n}\n\n// should be able to continously receive groups.\non.input.in = function () {\n  state.group.add($.in)\n  state.handler()\n\n  /*\n  // x contains our keys\n  for (var gid in x) {\n    if(!state.hasOwnProperty(gid)) {\n      state[gid] = {\n        items: [],\n        total: null,\n        complete: false\n      };\n    }\n\n    state[gid].items.push($.get('in'));\n\n    if (state[gid].complete &&\n      state[gid].total === (state[gid].items.length)) {\n\n      var g = chi.group('xout', output);\n      output({\n        out: $.create(state[gid].items)\n      }, g.item());\n\n      g.done();\n\n      delete state[gid];\n\n    }\n  }\n  */\n};\n\non.input.xin = function () {\n  state.group.receive($.xin)\n  state.handler()\n  /*\n  if(!state.hasOwnProperty($.xin.gid)) {\n    state[$.xin.gid] = {\n      items: [],\n      total: null,\n      complete: false\n    };\n  }\n\n  if ($.xin.complete) {\n    state[$.xin.gid].total = $.xin.items.length;\n    state[$.xin.gid].complete = true;\n\n    if (state[$.xin.gid].complete &&\n      state[$.xin.gid].total === (state[$.xin.gid].items.length)) {\n\n      var g = chi.group('xout', output);\n      output({\n        out: $.create(state[$.xin.gid].items)\n      }, g.item());\n\n      g.done();\n\n      delete state[$.xin.gid];\n\n    }\n  }\n  */\n};\n"
     },
     {
       "ports": {

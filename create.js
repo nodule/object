@@ -12,7 +12,7 @@ module.exports = {
         title: "Object",
         type: "object",
         async: true,
-        fn: function __IN__(data, x, source, state, input, output) {
+        fn: function __IN__(data, x, source, state, input, $, output) {
           var r = function() {
             output({
               out: $.clone('in', $.get('in'))

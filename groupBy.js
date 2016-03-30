@@ -12,7 +12,7 @@ module.exports = {
       "in": {
         title: "Object",
         type: "any",
-        fn: function __IN__(data, x, source, state, input, output, chi) {
+        fn: function __IN__(data, x, source, state, input, $, output, chi) {
           var r = function() {
             // x contains our keys
             if (!x.hasOwnProperty(state.gid)) {
@@ -79,7 +79,7 @@ module.exports = {
       xin: {
         title: "In Group",
         type: "any",
-        fn: function __XIN__(data, x, source, state, input, output, chi) {
+        fn: function __XIN__(data, x, source, state, input, $, output, chi) {
           var r = function() {
             // will always arrive first.
             // probably this can all be done outside a component.
@@ -105,7 +105,7 @@ module.exports = {
       by: {
         title: "Group By",
         type: "any",
-        fn: function __BY__(data, x, source, state, input, output, chi) {
+        fn: function __BY__(data, x, source, state, input, $, output, chi) {
           var r = function() {
             if (!x.hasOwnProperty(state.gid)) {
               console.log(x)

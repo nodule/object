@@ -15,9 +15,10 @@
     "test": "chit -r"
   },
   "dependencies": {
-    "underscore": "1.x.x",
+    "chix-group": "^1.0.0",
+    "dot-object": "0.x.x",
     "instance-of": "1.x.x",
-    "dot-object": "0.x.x"
+    "underscore": "1.x.x"
   },
   "devDependencies": {
     "chit": "0.x.x"

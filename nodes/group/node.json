@@ -6,9 +6,6 @@
   "phrases": {
     "active": "Grouping object"
   },
-  "expose": [
-    "chi"
-  ],
   "ports": {
     "input": {
       "in": {
@@ -30,6 +27,11 @@
         "title": "Xout",
         "type": "array"
       }
+    }
+  },
+  "dependencies": {
+    "npm": {
+      "chix-group": "latest"
     }
   }
 }

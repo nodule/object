@@ -1,7 +1,20 @@
+on.start = function start() {
+  state.group = chix_group.create()
+  state.handler = function stateHandler() {
+    if (state.group.isComplete()) {
+      output({out: $.create(state.group.read())})
+    }
+  }
+}
+
+// should be able to continously receive groups.
 on.input.in = function () {
+  state.group.add($.in)
+  state.handler()
+
+  /*
   // x contains our keys
   for (var gid in x) {
-
     if(!state.hasOwnProperty(gid)) {
       state[gid] = {
         items: [],
@@ -25,12 +38,14 @@ on.input.in = function () {
       delete state[gid];
 
     }
-
   }
+  */
 };
 
 on.input.xin = function () {
-
+  state.group.receive($.xin)
+  state.handler()
+  /*
   if(!state.hasOwnProperty($.xin.gid)) {
     state[$.xin.gid] = {
       items: [],
@@ -43,8 +58,6 @@ on.input.xin = function () {
     state[$.xin.gid].total = $.xin.items.length;
     state[$.xin.gid].complete = true;
 
-    // ok sometimes at this point we already have everything...
-    // I wonder if the function stays in scope, i think not.
     if (state[$.xin.gid].complete &&
       state[$.xin.gid].total === (state[$.xin.gid].items.length)) {
 
@@ -59,4 +72,5 @@ on.input.xin = function () {
 
     }
   }
+  */
 };
