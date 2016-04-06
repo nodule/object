@@ -1,6 +1,6 @@
 on.start = function start() {
   state.group = chix_group.create()
-  state.handler = function stateHandler() {
+  state.handler = function stateHandler($) {
     if (state.group.isComplete()) {
       output({out: $.create(state.group.read())})
     }
@@ -10,7 +10,7 @@ on.start = function start() {
 // should be able to continously receive groups.
 on.input.in = function () {
   state.group.add($.get('in'))
-  state.handler()
+  state.handler($)
 
   /*
   // x contains our keys
@@ -44,7 +44,7 @@ on.input.in = function () {
 
 on.input.xin = function () {
   state.group.receive($.get('xin'))
-  state.handler()
+  state.handler($)
   /*
   if(!state.hasOwnProperty($.xin.gid)) {
     state[$.xin.gid] = {

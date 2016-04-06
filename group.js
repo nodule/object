@@ -14,7 +14,7 @@ module.exports = {
         fn: function __XIN__(data, source, state, input, $, output, chix_group) {
           var r = function() {
             state.group.receive($.get('xin'))
-            state.handler()
+            state.handler($)
               /*
               if(!state.hasOwnProperty($.xin.gid)) {
                 state[$.xin.gid] = {
@@ -56,7 +56,7 @@ module.exports = {
         fn: function __IN__(data, source, state, input, $, output, chix_group) {
           var r = function() {
             state.group.add($.get('in'))
-            state.handler()
+            state.handler($)
 
             /*
             // x contains our keys
@@ -116,7 +116,7 @@ module.exports = {
     start: function __ONSTART__(data, source, state, input, $, output, chix_group) {
       var r = function() {
         state.group = chix_group.create()
-        state.handler = function stateHandler() {
+        state.handler = function stateHandler($) {
           if (state.group.isComplete()) {
             output({
               out: $.create(state.group.read())
