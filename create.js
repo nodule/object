@@ -15,7 +15,7 @@ module.exports = {
         fn: function __IN__(data, source, state, input, $, output) {
           var r = function() {
             output({
-              out: $.clone('in', $.get('in'))
+              out: $.clone('in', $.in)
             });
           }.call(this);
           return {

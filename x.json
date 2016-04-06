@@ -113,7 +113,7 @@
       "async": true,
       "ns": "object",
       "name": "create",
-      "fn": "on.input.in = function() { output({out: $.clone('in', $.get('in'))}); };\n"
+      "fn": "on.input.in = function() {\n  output({out: $.clone('in', $.in)});\n};\n"
     },
     {
       "dependencies": {

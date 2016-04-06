@@ -1,1 +1,3 @@
-on.input.in = function() { output({out: $.clone('in', $.get('in'))}); };
+on.input.in = function() {
+  output({out: $.clone('in', $.in)});
+};
