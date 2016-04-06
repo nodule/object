@@ -9,7 +9,7 @@ on.start = function start() {
 
 // should be able to continously receive groups.
 on.input.in = function () {
-  state.group.add($.in)
+  state.group.add($.get('in'))
   state.handler()
 
   /*
@@ -43,7 +43,7 @@ on.input.in = function () {
 };
 
 on.input.xin = function () {
-  state.group.receive($.xin)
+  state.group.receive($.get('xin'))
   state.handler()
   /*
   if(!state.hasOwnProperty($.xin.gid)) {

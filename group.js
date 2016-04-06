@@ -13,7 +13,7 @@ module.exports = {
         type: "any",
         fn: function __XIN__(data, source, state, input, $, output, chix_group) {
           var r = function() {
-            state.group.receive($.xin)
+            state.group.receive($.get('xin'))
             state.handler()
               /*
               if(!state.hasOwnProperty($.xin.gid)) {
@@ -55,7 +55,7 @@ module.exports = {
         type: "any",
         fn: function __IN__(data, source, state, input, $, output, chix_group) {
           var r = function() {
-            state.group.add($.in)
+            state.group.add($.get('in'))
             state.handler()
 
             /*
