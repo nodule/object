@@ -8,24 +8,24 @@
   },
   "ports": {
     "input": {
-      "in": {
-        "title": "Object",
-        "type": "any"
-      },
       "xin": {
         "title": "In Group",
+        "type": "any"
+      },
+      "in": {
+        "title": "Object",
         "type": "any"
       }
     },
     "output": {
+      "xout": {
+        "title": "Xout",
+        "type": "array"
+      },
       "out": {
         "title": "out",
         "group": "result",
         "type": "any"
-      },
-      "xout": {
-        "title": "Xout",
-        "type": "array"
       }
     }
   },
