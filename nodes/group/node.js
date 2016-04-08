@@ -1,5 +1,5 @@
 on.start = function start() {
-  state.group = chix_group.create()
+  state.group = chix_group.recv.create()
   state.handler = function stateHandler($) {
     if (state.group.isComplete()) {
       output({out: $.create(state.group.read())})
@@ -43,7 +43,7 @@ on.input.in = function () {
 };
 
 on.input.xin = function () {
-  state.group.receive($.get('xin'))
+  state.group.confirm($.get('xin'))
   state.handler($)
   /*
   if(!state.hasOwnProperty($.xin.gid)) {

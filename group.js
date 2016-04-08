@@ -13,7 +13,7 @@ module.exports = {
         type: "any",
         fn: function __XIN__(data, source, state, input, $, output, chix_group) {
           var r = function() {
-            state.group.receive($.get('xin'))
+            state.group.confirm($.get('xin'))
             state.handler($)
               /*
               if(!state.hasOwnProperty($.xin.gid)) {
@@ -115,7 +115,7 @@ module.exports = {
   on: {
     start: function __ONSTART__(data, source, state, input, $, output, chix_group) {
       var r = function() {
-        state.group = chix_group.create()
+        state.group = chix_group.recv.create()
         state.handler = function stateHandler($) {
           if (state.group.isComplete()) {
             output({
