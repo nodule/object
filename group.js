@@ -121,6 +121,7 @@ module.exports = {
             output({
               out: $.create(state.group.read())
             })
+            state.group = chix_group.recv.create()
           }
         }
       }.call(this);

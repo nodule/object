@@ -3,6 +3,7 @@ on.start = function start() {
   state.handler = function stateHandler($) {
     if (state.group.isComplete()) {
       output({out: $.create(state.group.read())})
+      state.group = chix_group.recv.create()
     }
   }
 }
