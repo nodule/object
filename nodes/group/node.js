@@ -2,7 +2,9 @@ on.start = function start() {
   state.group = chix_group.recv.create()
   state.$ = null
   state.group.on('group', function groupHandler(group) {
-    output({out: state.$.create(group)})
+    var p = state.$.create(group)
+    p.removeMeta('chix-group')
+    output({out: p})
   })
 }
 

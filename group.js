@@ -61,8 +61,10 @@ module.exports = {
         state.group = chix_group.recv.create()
         state.$ = null
         state.group.on('group', function groupHandler(group) {
+          var p = state.$.create(group)
+          p.removeMeta('chix-group')
           output({
-            out: state.$.create(group)
+            out: p
           })
         })
       }.call(this);

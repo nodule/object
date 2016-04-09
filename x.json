@@ -258,7 +258,7 @@
       "async": true,
       "ns": "object",
       "name": "group",
-      "fn": "on.start = function start() {\n  state.group = chix_group.recv.create()\n  state.$ = null\n  state.group.on('group', function groupHandler(group) {\n    output({out: state.$.create(group)})\n  })\n}\n\non.input.in = function () {\n  state.group.add($.get('in'))\n  state.$ = $\n};\n\non.input.xin = function () {\n  state.group.receive($.get('xin'))\n  state.$ = $\n};\n"
+      "fn": "on.start = function start() {\n  state.group = chix_group.recv.create()\n  state.$ = null\n  state.group.on('group', function groupHandler(group) {\n    var p = state.$.create(group)\n    p.removeMeta('chix-group')\n    output({out: p})\n  })\n}\n\non.input.in = function () {\n  state.group.add($.get('in'))\n  state.$ = $\n};\n\non.input.xin = function () {\n  state.group.receive($.get('xin'))\n  state.$ = $\n};\n"
     },
     {
       "ports": {
