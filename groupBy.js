@@ -26,6 +26,7 @@ module.exports = {
         type: "any",
         fn: function __XIN__(data, source, state, input, $, output, chix_group) {
           var r = function() {
+            state.$ = $
             state.groupBy.receive($.get('xin'))
           }.call(this);
           return {
@@ -76,6 +77,7 @@ module.exports = {
       var r = function() {
         state.groupBy = chix_group.groupBy.create()
         state.groupBy.on('group', function(group, by) {
+          var $ = state.$
           var g = chix_group.send.create()
           output({
             xout: g.open()
