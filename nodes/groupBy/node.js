@@ -10,13 +10,13 @@ on.start = function () {
 
 
 on.input.in = function () {
-  state.groupBy.add($.in)
+  state.groupBy.add($.get('in'))
 }
 
 on.input.by = function () {
-  state.groupBy.setBy($.by)
+  state.groupBy.setBy($.get('by'))
 }
 
 on.input.xin = function () {
-  state.groupBy.receive($.xin)
+  state.groupBy.receive($.get('xin'))
 }

@@ -305,7 +305,7 @@
       "async": true,
       "ns": "object",
       "name": "groupBy",
-      "fn": "on.start = function () {\n  state.groupBy = chix_group.groupBy.create()\n  state.groupBy.on('group', function (group, by) {\n    var g = chix_group.send.create()\n    output({xout: g.open()})\n    output({out: g.write($.create(group)), by: $.create(by)})\n    output({xout: g.close()})\n  })\n}\n\n\non.input.in = function () {\n  state.groupBy.add($.in)\n}\n\non.input.by = function () {\n  state.groupBy.setBy($.by)\n}\n\non.input.xin = function () {\n  state.groupBy.receive($.xin)\n}\n"
+      "fn": "on.start = function () {\n  state.groupBy = chix_group.groupBy.create()\n  state.groupBy.on('group', function (group, by) {\n    var g = chix_group.send.create()\n    output({xout: g.open()})\n    output({out: g.write($.create(group)), by: $.create(by)})\n    output({xout: g.close()})\n  })\n}\n\n\non.input.in = function () {\n  state.groupBy.add($.get('in'))\n}\n\non.input.by = function () {\n  state.groupBy.setBy($.get('by'))\n}\n\non.input.xin = function () {\n  state.groupBy.receive($.get('xin'))\n}\n"
     },
     {
       "dependencies": {

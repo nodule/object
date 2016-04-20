@@ -13,7 +13,7 @@ module.exports = {
         type: "any",
         fn: function __IN__(data, source, state, input, $, output, chix_group) {
           var r = function() {
-            state.groupBy.add($.in)
+            state.groupBy.add($.get('in'))
           }.call(this);
           return {
             state: state,
@@ -26,7 +26,7 @@ module.exports = {
         type: "any",
         fn: function __XIN__(data, source, state, input, $, output, chix_group) {
           var r = function() {
-            state.groupBy.receive($.xin)
+            state.groupBy.receive($.get('xin'))
           }.call(this);
           return {
             state: state,
@@ -39,7 +39,7 @@ module.exports = {
         type: "any",
         fn: function __BY__(data, source, state, input, $, output, chix_group) {
           var r = function() {
-            state.groupBy.setBy($.by)
+            state.groupBy.setBy($.get('by'))
           }.call(this);
           return {
             state: state,
