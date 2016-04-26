@@ -83,7 +83,11 @@ module.exports = {
             xout: g.open()
           })
           output({
-            out: g.write($.create(group)),
+            out: g.write(
+              $.create(
+                group.map((p) => p.read(p.owner))
+              )
+            ),
             by: $.create(by)
           })
           output({

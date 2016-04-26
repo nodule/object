@@ -4,7 +4,14 @@ on.start = function () {
     var $ = state.$
     var g = chix_group.send.create()
     output({xout: g.open()})
-    output({out: g.write($.create(group)), by: $.create(by)})
+    output({
+      out: g.write(
+        $.create(
+          group.map((p) => p.read(p.owner))
+        )
+      ),
+      by: $.create(by)
+    })
     output({xout: g.close()})
   })
 }

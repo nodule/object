@@ -14,10 +14,12 @@
   },
   "nodes": [
     {
-      "dependencies": {
-        "npm": {
-          "underscore": "1.x.x"
-        }
+      "name": "clone",
+      "ns": "object",
+      "async": true,
+      "description": "Create a shallow-copied clone of the object. Any nested objects or arrays will be copied by reference, not duplicated.",
+      "phrases": {
+        "active": "Cloning object"
       },
       "ports": {
         "input": {
@@ -34,20 +36,20 @@
           }
         }
       },
-      "phrases": {
-        "active": "Cloning object"
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
       },
-      "description": "Create a shallow-copied clone of the object. Any nested objects or arrays will be copied by reference, not duplicated.",
-      "async": true,
-      "ns": "object",
-      "name": "clone",
       "fn": "on.input.in = function() {\n  output({out: $.clone('in', underscore.clone($.in))});\n};\n\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "dot-object": "0.x.x"
-        }
+      "name": "copy",
+      "ns": "object",
+      "async": true,
+      "description": "Copy properties from one object to another object.",
+      "phrases": {
+        "active": "Copying object properties"
       },
       "ports": {
         "input": {
@@ -81,16 +83,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Copying object properties"
+      "dependencies": {
+        "npm": {
+          "dot-object": "0.x.x"
+        }
       },
-      "description": "Copy properties from one object to another object.",
-      "async": true,
-      "ns": "object",
-      "name": "copy",
       "fn": "on.input.in = function() {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if($.from.length !== $.to.length) {\n    output({error: $.create(Error('from length does not match to length'))});\n  } else {\n    doo = dot_object();\n    var merge = true;\n    // should already be done, but to make sure.\n    // not sure if it's the case when $.target is set as context\n    $.target = JSON.parse(JSON.stringify($.target));\n    for(i = 0; i < $.from.length; i++) {\n      doo.copy($.from[i], $.to[i], $.in, $.target, merge);\n    }\n\n    output({out: $.write('in', $.target)});\n  }\n};\n"
     },
     {
+      "name": "create",
+      "ns": "object",
+      "async": true,
+      "description": "Create an object, if input is a direct object it just returns a copy of the object",
+      "phrases": {
+        "active": "Creating object"
+      },
       "ports": {
         "input": {
           "in": {
@@ -106,20 +113,15 @@
           }
         }
       },
-      "phrases": {
-        "active": "Creating object"
-      },
-      "description": "Create an object, if input is a direct object it just returns a copy of the object",
-      "async": true,
-      "ns": "object",
-      "name": "create",
       "fn": "on.input.in = function() {\n  output({out: $.clone('in', $.in)});\n};\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "underscore": "1.x.x"
-        }
+      "name": "defaults",
+      "ns": "object",
+      "async": true,
+      "description": "Fill in undefined properties in object with values from the defaults objects, and return the object. As soon as the property is filled, further defaults will have no effect.",
+      "phrases": {
+        "active": "Applying defaults to object"
       },
       "ports": {
         "input": {
@@ -140,20 +142,20 @@
           }
         }
       },
-      "phrases": {
-        "active": "Applying defaults to object"
-      },
-      "description": "Fill in undefined properties in object with values from the defaults objects, and return the object. As soon as the property is filled, further defaults will have no effect.",
-      "async": true,
-      "ns": "object",
-      "name": "defaults",
-      "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.defaults($.in, $.defaults))});\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.defaults($.in, $.defaults))});\n};\n"
+    },
+    {
+      "name": "extend",
+      "ns": "object",
+      "async": true,
+      "description": "Copy all of the properties in the source objects over to the destination object, and return the destination object. It's in-order, so the last source will override properties of the same name in previous arguments.",
+      "phrases": {
+        "active": "Extending object"
       },
       "ports": {
         "input": {
@@ -175,16 +177,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Extending object"
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
       },
-      "description": "Copy all of the properties in the source objects over to the destination object, and return the destination object. It's in-order, so the last source will override properties of the same name in previous arguments.",
-      "async": true,
-      "ns": "object",
-      "name": "extend",
       "fn": "state.extend = underscore.extend.apply;\nstate.args = null;\nstate.source = null;\n\non.input.in = function() {\n  if(state.args) {\n     state.args.unshift($.in);\n     output({out: $.write('in', state.extend(null, state.args))});\n     state.args = null;\n  } else {\n    state.args = [$.in];\n  }\n};\n\non.input.source = function() {\n\n  if(state.args) {\n     state.args.push($.source);\n     output({out: $.write('in', state.extend(null, state.args))});\n     state.args = null;\n  } else {\n    state.args = [$.source];\n  }\n\n};\n"
     },
     {
+      "name": "fill",
+      "ns": "object",
+      "async": true,
+      "description": "Fills an object with key/value pairs. Both key and in are array ports. Key must be fed the key names, and in will contain the values.",
+      "phrases": {
+        "active": "Filling object"
+      },
       "ports": {
         "input": {
           "in": {
@@ -213,20 +220,15 @@
           }
         }
       },
-      "phrases": {
-        "active": "Filling object"
-      },
-      "description": "Fills an object with key/value pairs. Both key and in are array ports. Key must be fed the key names, and in will contain the values.",
-      "async": true,
-      "ns": "object",
-      "name": "fill",
       "fn": "on.input.in = function() {\n  var i;\n  var obj = $.object ? $.object : {};\n  if($.keys.length !== $.in.length) {\n    output({error: $.create(Error('Key length does not match value length'))});\n  } else {\n    for(i = 0; i < $.keys.length; i++) {\n     obj[$.keys[i]] = $.in[i];\n    }\n    output({out: $.write('in', obj)});\n  }\n};\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "chix-group": "psichi/chix-group"
-        }
+      "name": "group",
+      "ns": "object",
+      "async": true,
+      "description": "Groups input into an array",
+      "phrases": {
+        "active": "Grouping object"
       },
       "ports": {
         "input": {
@@ -251,20 +253,20 @@
           }
         }
       },
-      "phrases": {
-        "active": "Grouping object"
-      },
-      "description": "Groups input into an array",
-      "async": true,
-      "ns": "object",
-      "name": "group",
-      "fn": "on.start = function start() {\n  state.group = chix_group.recv.create()\n  state.$ = null\n  state.group.on('group', function groupHandler(group) {\n    var p = state.$.create(group)\n    p.removeMeta('chix-group')\n    output({out: p})\n  })\n}\n\non.input.in = function () {\n  state.group.add($.get('in'))\n  state.$ = $\n};\n\non.input.xin = function () {\n  state.group.receive($.get('xin'))\n  state.$ = $\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "chix-group": "psichi/chix-group"
         }
+      },
+      "fn": "on.start = function start() {\n  state.group = chix_group.recv.create()\n  state.$ = null\n  state.group.on('group', function groupHandler(group) {\n    var p = state.$.create(group.map((p) => p.read(p.owner)))\n    p.removeMeta('chix-group')\n    output({out: p})\n  })\n}\n\non.input.in = function () {\n  state.group.add($.get('in'))\n  state.$ = $\n};\n\non.input.xin = function () {\n  state.group.receive($.get('xin'))\n  state.$ = $\n};\n"
+    },
+    {
+      "name": "groupBy",
+      "ns": "object",
+      "async": true,
+      "description": "Groups an object by it's differentiator",
+      "phrases": {
+        "active": "Grouping object"
       },
       "ports": {
         "input": {
@@ -298,20 +300,20 @@
           }
         }
       },
-      "phrases": {
-        "active": "Grouping object"
-      },
-      "description": "Groups an object by it's differentiator",
-      "async": true,
-      "ns": "object",
-      "name": "groupBy",
-      "fn": "on.start = function () {\n  state.groupBy = chix_group.groupBy.create()\n  state.groupBy.on('group', function (group, by) {\n    var $ = state.$\n    var g = chix_group.send.create()\n    output({xout: g.open()})\n    output({out: g.write($.create(group)), by: $.create(by)})\n    output({xout: g.close()})\n  })\n}\n\n\non.input.in = function () {\n  state.groupBy.add($.get('in'))\n}\n\non.input.by = function () {\n  state.groupBy.setBy($.get('by'))\n}\n\non.input.xin = function () {\n  state.$ = $\n  state.groupBy.receive($.get('xin'))\n}\n"
-    },
-    {
       "dependencies": {
         "npm": {
-          "dot-object": "0.x.x"
+          "chix-group": "psichi/chix-group"
         }
+      },
+      "fn": "on.start = function () {\n  state.groupBy = chix_group.groupBy.create()\n  state.groupBy.on('group', function (group, by) {\n    var $ = state.$\n    var g = chix_group.send.create()\n    output({xout: g.open()})\n    output({\n      out: g.write(\n        $.create(\n          group.map((p) => p.read(p.owner))\n        )\n      ),\n      by: $.create(by)\n    })\n    output({xout: g.close()})\n  })\n}\n\n\non.input.in = function () {\n  state.groupBy.add($.get('in'))\n}\n\non.input.by = function () {\n  state.groupBy.setBy($.get('by'))\n}\n\non.input.xin = function () {\n  state.$ = $\n  state.groupBy.receive($.get('xin'))\n}\n"
+    },
+    {
+      "name": "has",
+      "ns": "object",
+      "async": true,
+      "description": "Does the object contain the given property? You can use dot notation to dig deeper into the object.",
+      "phrases": {
+        "active": "Determining whether the object has property {{input.path}}"
       },
       "ports": {
         "input": {
@@ -336,20 +338,20 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining whether the object has property {{input.path}}"
+      "dependencies": {
+        "npm": {
+          "dot-object": "0.x.x"
+        }
       },
-      "description": "Does the object contain the given property? You can use dot notation to dig deeper into the object.",
-      "async": true,
-      "ns": "object",
-      "name": "has",
       "fn": "on.input.in = function() {\n  if(dot_object().pick($.path, $.in)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n}\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "underscore": "1.x.x"
-        }
+      "name": "invert",
+      "ns": "object",
+      "async": true,
+      "description": "Retrieves a copy of the object where the keys have become the values and the values the keys. For this to work, all of your object's values should be unique and string serializable",
+      "phrases": {
+        "active": "Inverting object"
       },
       "ports": {
         "input": {
@@ -365,21 +367,20 @@
           }
         }
       },
-      "phrases": {
-        "active": "Inverting object"
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
       },
-      "description": "Retrieves a copy of the object where the keys have become the values and the values the keys. For this to work, all of your object's values should be unique and string serializable",
-      "async": true,
-      "ns": "object",
-      "name": "invert",
       "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.invert($.in))});\n};\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "instance-of": "1.x.x",
-          "dot-object": "0.x.x"
-        }
+      "name": "is",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object an object is of a certain type",
+      "phrases": {
+        "active": "Determining whether object is a {{input.type}}"
       },
       "ports": {
         "input": {
@@ -409,20 +410,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining whether object is a {{input.type}}"
+      "dependencies": {
+        "npm": {
+          "instance-of": "1.x.x",
+          "dot-object": "0.x.x"
+        }
       },
-      "description": "Determines if object an object is of a certain type",
-      "async": true,
-      "ns": "object",
-      "name": "is",
       "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (instance_of(val, $.kind)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "underscore": "1.x.x"
-        }
+      "name": "isArguments",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object is an Arguments Object",
+      "phrases": {
+        "active": "Determining Arguments Object"
       },
       "ports": {
         "input": {
@@ -442,21 +444,20 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining Arguments Object"
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
       },
-      "description": "Determines if object is an Arguments Object",
-      "async": true,
-      "ns": "object",
-      "name": "isArguments",
       "fn": "on.input.in = function() {\n  if (underscore.isArguments($.in)) {\n    output({yes: $.get('in')});\n  } else {\n    output({no: $.get('in')});\n  }\n};\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "underscore": "1.x.x",
-          "dot-object": "0.x.x"
-        }
+      "name": "isArray",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object is an Array",
+      "phrases": {
+        "active": "Determining Array"
       },
       "ports": {
         "input": {
@@ -482,21 +483,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining Array"
-      },
-      "description": "Determines if object is an Array",
-      "async": true,
-      "ns": "object",
-      "name": "isArray",
-      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isArray(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x",
           "dot-object": "0.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isArray(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
+    },
+    {
+      "name": "isBoolean",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object is a Boolean",
+      "phrases": {
+        "active": "Determining whether object is a boolean"
       },
       "ports": {
         "input": {
@@ -522,21 +523,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining whether object is a boolean"
-      },
-      "description": "Determines if object is a Boolean",
-      "async": true,
-      "ns": "object",
-      "name": "isBoolean",
-      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isBoolean(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x",
           "dot-object": "0.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isBoolean(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
+    },
+    {
+      "name": "isDate",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object is a Date",
+      "phrases": {
+        "active": "Determining whether object is a Date"
       },
       "ports": {
         "input": {
@@ -562,21 +563,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining whether object is a Date"
-      },
-      "description": "Determines if object is a Date",
-      "async": true,
-      "ns": "object",
-      "name": "isDate",
-      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isDate(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x",
           "dot-object": "0.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isDate(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
+    },
+    {
+      "name": "isElement",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object is a DOM element.",
+      "phrases": {
+        "active": "Determining dom element"
       },
       "ports": {
         "input": {
@@ -602,21 +603,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining dom element"
-      },
-      "description": "Determines if object is a DOM element.",
-      "async": true,
-      "ns": "object",
-      "name": "isElement",
-      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isElement(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x",
           "dot-object": "0.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isElement(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
+    },
+    {
+      "name": "isEmpty",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object contains no values (no enumerable own-properties)",
+      "phrases": {
+        "active": "Determining empty object"
       },
       "ports": {
         "input": {
@@ -642,20 +643,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining empty object"
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
       },
-      "description": "Determines if object contains no values (no enumerable own-properties)",
-      "async": true,
-      "ns": "object",
-      "name": "isEmpty",
       "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isEmpty(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "underscore": "1.x.x"
-        }
+      "name": "isEqual",
+      "ns": "object",
+      "async": true,
+      "description": "Performs an optimized deep comparison between the two objects, to determine if they should be considered equal.",
+      "phrases": {
+        "active": "Determining equality"
       },
       "ports": {
         "input": {
@@ -680,21 +682,20 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining equality"
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
       },
-      "description": "Performs an optimized deep comparison between the two objects, to determine if they should be considered equal.",
-      "async": true,
-      "ns": "object",
-      "name": "isEqual",
       "fn": "on.input.in = function() {\n  if (underscore.isEqual($.in, $.other)) {\n    output({yes: $.get('in')});\n  } else {\n    output({no: $.get('in')});\n  }\n};\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "underscore": "1.x.x",
-          "dot-object": "0.x.x"
-        }
+      "name": "isFinite",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object is a Finite Number",
+      "phrases": {
+        "active": "Determining whether object is a finite number"
       },
       "ports": {
         "input": {
@@ -720,21 +721,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining whether object is a finite number"
-      },
-      "description": "Determines if object is a Finite Number",
-      "async": true,
-      "ns": "object",
-      "name": "isFinite",
-      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isFinite(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x",
           "dot-object": "0.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isFinite(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
+    },
+    {
+      "name": "isFunction",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object is a Function",
+      "phrases": {
+        "active": "Determining whether object is a function"
       },
       "ports": {
         "input": {
@@ -760,21 +761,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining whether object is a function"
-      },
-      "description": "Determines if object is a Function",
-      "async": true,
-      "ns": "object",
-      "name": "isFunction",
-      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isFunction(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x",
           "dot-object": "0.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isFunction(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
+    },
+    {
+      "name": "isNaN",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object is NaN",
+      "phrases": {
+        "active": "Determining whether object is NaN"
       },
       "ports": {
         "input": {
@@ -800,21 +801,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining whether object is NaN"
-      },
-      "description": "Determines if object is NaN",
-      "async": true,
-      "ns": "object",
-      "name": "isNaN",
-      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isNaN(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x",
           "dot-object": "0.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isNaN(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
+    },
+    {
+      "name": "isNull",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object is Null",
+      "phrases": {
+        "active": "Determining whether object is Null"
       },
       "ports": {
         "input": {
@@ -840,21 +841,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining whether object is Null"
-      },
-      "description": "Determines if object is Null",
-      "async": true,
-      "ns": "object",
-      "name": "isNull",
-      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isNull(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x",
           "dot-object": "0.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isNull(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
+    },
+    {
+      "name": "isNumber",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object is a Number",
+      "phrases": {
+        "active": "Determining whether object is a number"
       },
       "ports": {
         "input": {
@@ -880,21 +881,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining whether object is a number"
-      },
-      "description": "Determines if object is a Number",
-      "async": true,
-      "ns": "object",
-      "name": "isNumber",
-      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isNumber(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x",
           "dot-object": "0.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isNumber(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
+    },
+    {
+      "name": "isObject",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object is an Object",
+      "phrases": {
+        "active": "Determining Object"
       },
       "ports": {
         "input": {
@@ -920,21 +921,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining Object"
-      },
-      "description": "Determines if object is an Object",
-      "async": true,
-      "ns": "object",
-      "name": "isObject",
-      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isObject(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x",
           "dot-object": "0.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isObject(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
+    },
+    {
+      "name": "isRegExp",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object is a RegExp",
+      "phrases": {
+        "active": "Determining whether object is a RegExp"
       },
       "ports": {
         "input": {
@@ -960,21 +961,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining whether object is a RegExp"
-      },
-      "description": "Determines if object is a RegExp",
-      "async": true,
-      "ns": "object",
-      "name": "isRegExp",
-      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isRegExp(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x",
           "dot-object": "0.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isRegExp(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
+    },
+    {
+      "name": "isString",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object is a String",
+      "phrases": {
+        "active": "Determining whether object is a string"
       },
       "ports": {
         "input": {
@@ -1000,21 +1001,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining whether object is a string"
-      },
-      "description": "Determines if object is a String",
-      "async": true,
-      "ns": "object",
-      "name": "isString",
-      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isString(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x",
           "dot-object": "0.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isString(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
+    },
+    {
+      "name": "isUndefined",
+      "ns": "object",
+      "async": true,
+      "description": "Determines if object is Undefined",
+      "phrases": {
+        "active": "Determining whether object is undefined"
       },
       "ports": {
         "input": {
@@ -1040,21 +1041,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining whether object is undefined"
-      },
-      "description": "Determines if object is Undefined",
-      "async": true,
-      "ns": "object",
-      "name": "isUndefined",
-      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isUndefined(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x",
           "dot-object": "0.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n\n  if (underscore.isUndefined(val)) {\n    output({ yes: $.get('in') });\n  } else {\n    output({ no: $.get('in') });\n  }\n\n};\n"
+    },
+    {
+      "name": "keys",
+      "ns": "object",
+      "async": true,
+      "description": "Retrieve all the names of the object's properties",
+      "phrases": {
+        "active": "Retrieving object properties"
       },
       "ports": {
         "input": {
@@ -1076,20 +1077,21 @@
           }
         }
       },
-      "phrases": {
-        "active": "Retrieving object properties"
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x",
+          "dot-object": "0.x.x"
+        }
       },
-      "description": "Retrieve all the names of the object's properties",
-      "async": true,
-      "ns": "object",
-      "name": "keys",
       "fn": "on.input.in = function() {\n  var val = $.path ? dot_object().pick($.path, $.in) : $.in;\n  output( { out: $.write('in', underscore.keys(val)) } );\n}\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "underscore": "1.x.x"
-        }
+      "name": "methods",
+      "ns": "object",
+      "async": true,
+      "description": "Gets a sorted list of the names of every method in an object — that is to say, the name of every function property of the object",
+      "phrases": {
+        "active": "Determining methods"
       },
       "ports": {
         "input": {
@@ -1106,20 +1108,20 @@
           }
         }
       },
-      "phrases": {
-        "active": "Determining methods"
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
       },
-      "description": "Gets a sorted list of the names of every method in an object — that is to say, the name of every function property of the object",
-      "async": true,
-      "ns": "object",
-      "name": "methods",
       "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.methods($.in))});\n};\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "dot-object": "0.x.x"
-        }
+      "name": "move",
+      "ns": "object",
+      "async": true,
+      "description": "Moves properties within one object from one place to the other",
+      "phrases": {
+        "active": "Moving object properties"
       },
       "ports": {
         "input": {
@@ -1148,20 +1150,20 @@
           }
         }
       },
-      "phrases": {
-        "active": "Moving object properties"
+      "dependencies": {
+        "npm": {
+          "dot-object": "0.x.x"
+        }
       },
-      "description": "Moves properties within one object from one place to the other",
-      "async": true,
-      "ns": "object",
-      "name": "move",
       "fn": "on.input.in = function() {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if($.from.length !== $.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    for(i = 0; i < $.from.length; i++) {\n      doo.move($.from[i], $.to[i], $.in);\n    }\n\n    output({out: $.write('in', $.in)});\n  }\n\n};\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "underscore": "1.x.x"
-        }
+      "name": "omit",
+      "ns": "object",
+      "async": true,
+      "description": "Return a copy of the object, filtered to omit the blacklisted keys (or array of keys)",
+      "phrases": {
+        "active": "Omitting object keys"
       },
       "ports": {
         "input": {
@@ -1182,20 +1184,20 @@
           }
         }
       },
-      "phrases": {
-        "active": "Omitting object keys"
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
       },
-      "description": "Return a copy of the object, filtered to omit the blacklisted keys (or array of keys)",
-      "async": true,
-      "ns": "object",
-      "name": "omit",
       "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.omit($.in, $.omit))});\n};\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "dot-object": "0.x.x"
-        }
+      "name": "oneOf",
+      "ns": "object",
+      "async": true,
+      "description": "Selects a (nested) property outputing the first property available. data.in || data.that || .. etc. Sends an error of none of the properties matched.",
+      "phrases": {
+        "active": "Picking one of the properties"
       },
       "ports": {
         "input": {
@@ -1220,20 +1222,20 @@
           }
         }
       },
-      "phrases": {
-        "active": "Picking one of the properties"
+      "dependencies": {
+        "npm": {
+          "dot-object": "0.x.x"
+        }
       },
-      "description": "Selects a (nested) property outputing the first property available. data.in || data.that || .. etc. Sends an error of none of the properties matched.",
-      "async": true,
-      "ns": "object",
-      "name": "oneOf",
       "fn": "on.input.in = function() {\n\n  var val;\n  for(var i = 0; i < $.path.length; i++) {\n    val = dot_object().pick($.path[i], $.in);\n    if(val !== undefined) {\n      return output({ out: $.write('in', val) });\n    }\n  }\n\n  output({ error: new Error('None of the properties are found') });\n\n};\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "underscore": "1.x.x"
-        }
+      "name": "pairs",
+      "ns": "object",
+      "async": true,
+      "description": "Retrieve key value pairs from an object",
+      "phrases": {
+        "active": "Transforming object to pairs"
       },
       "ports": {
         "input": {
@@ -1250,20 +1252,20 @@
           }
         }
       },
-      "phrases": {
-        "active": "Transforming object to pairs"
-      },
-      "description": "Retrieve key value pairs from an object",
-      "async": true,
-      "ns": "object",
-      "name": "pairs",
-      "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.pairs($.in))});\n};\n"
-    },
-    {
       "dependencies": {
         "npm": {
           "underscore": "1.x.x"
         }
+      },
+      "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.pairs($.in))});\n};\n"
+    },
+    {
+      "name": "pick",
+      "ns": "object",
+      "async": true,
+      "description": "Output a copy of the object, filtered to only have values for the whitelisted keys (or array of valid keys)",
+      "phrases": {
+        "active": "Picking object"
       },
       "ports": {
         "input": {
@@ -1287,16 +1289,26 @@
           }
         }
       },
-      "phrases": {
-        "active": "Picking object"
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
       },
-      "description": "Output a copy of the object, filtered to only have values for the whitelisted keys (or array of valid keys)",
-      "async": true,
-      "ns": "object",
-      "name": "pick",
       "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.pick($.in, $.pick))});\n};\n"
     },
     {
+      "name": "router",
+      "ns": "object",
+      "description": "Route packets based on a path, input index will result in same index on output. Route should be an array [path,match], multiple matchers can be added lik [[path,match],[path,match]] -> [0] route Router out [0] -> matched..",
+      "async": true,
+      "dependencies": {
+        "npm": {
+          "dot-object": "0.x.x"
+        }
+      },
+      "phrases": {
+        "active": "Routing"
+      },
       "ports": {
         "input": {
           "in": {
@@ -1325,21 +1337,21 @@
           }
         }
       },
+      "fn": "on.input.in = function() {\n\n  var out = [];\n  var reg;\n  var route;\n  for(var i = 0; i < $.route.length; i++) {\n    route = $.route[i];\n    if(route.length !== 2) {\n      output({\n        error: $.create(new Error('Route should be in the form [path,match]'))\n      });\n    }\n    var res = dot_object().pick(route[0], $.in);\n    // err.. does pick remove the value?\n    if(undefined !== res) {\n      reg = new RegExp(route[1]);\n      if(reg.test(res)) {\n        out[i] = $.get('in'); // send out the $.in, not the actual picked value.\n        output({out: out});\n        return true;\n      }\n    }\n  }\n\n  output({missed: $.get('in')});\n\n};\n"
+    },
+    {
+      "name": "set",
+      "ns": "object",
+      "async": true,
+      "description": "Set a property on an object, or else create a new object and set the property",
       "phrases": {
-        "active": "Routing"
+        "active": "Setting property {{input.key}}"
       },
       "dependencies": {
         "npm": {
           "dot-object": "0.x.x"
         }
       },
-      "async": true,
-      "description": "Route packets based on a path, input index will result in same index on output. Route should be an array [path,match], multiple matchers can be added lik [[path,match],[path,match]] -> [0] route Router out [0] -> matched..",
-      "ns": "object",
-      "name": "router",
-      "fn": "on.input.in = function() {\n\n  var out = [];\n  var reg;\n  var route;\n  for(var i = 0; i < $.route.length; i++) {\n    route = $.route[i];\n    if(route.length !== 2) {\n      output({\n        error: $.create(new Error('Route should be in the form [path,match]'))\n      });\n    }\n    var res = dot_object().pick(route[0], $.in);\n    // err.. does pick remove the value?\n    if(undefined !== res) {\n      reg = new RegExp(route[1]);\n      if(reg.test(res)) {\n        out[i] = $.get('in'); // send out the $.in, not the actual picked value.\n        output({out: out});\n        return true;\n      }\n    }\n  }\n\n  output({missed: $.get('in')});\n\n};\n"
-    },
-    {
       "ports": {
         "input": {
           "in": {
@@ -1364,25 +1376,15 @@
           }
         }
       },
-      "dependencies": {
-        "npm": {
-          "dot-object": "0.x.x"
-        }
-      },
-      "phrases": {
-        "active": "Setting property {{input.key}}"
-      },
-      "description": "Set a property on an object, or else create a new object and set the property",
-      "async": true,
-      "ns": "object",
-      "name": "set",
       "fn": "on.input.in = function() {\n  var obj = $.object ? $.object : {};\n  dot_object().set($.path, $.in, obj);\n  output({out: $.write('in', obj)});\n};\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "dot-object": "0.x.x"
-        }
+      "name": "transfer",
+      "ns": "object",
+      "async": true,
+      "description": "Transfer a properties from one object to another object.",
+      "phrases": {
+        "active": "Transfering object properties"
       },
       "ports": {
         "input": {
@@ -1411,20 +1413,20 @@
           }
         }
       },
-      "phrases": {
-        "active": "Transfering object properties"
+      "dependencies": {
+        "npm": {
+          "dot-object": "0.x.x"
+        }
       },
-      "description": "Transfer a properties from one object to another object.",
-      "async": true,
-      "ns": "object",
-      "name": "transfer",
       "fn": "on.input.in = function() {\n  var doo;\n  var i;\n\n  // Receiving an array, check both are of the same length.\n  if($.from.length !== $.to.length) {\n    output({error: Error('from length does not match to length')});\n  } else {\n    doo = dot_object();\n    var out = {};\n    var merge = false;\n    for(i = 0; i < $.from.length; i++) {\n      doo.transfer($.from[i], $.to[i], $.in, out, merge);\n    }\n\n    output({out: $.write('in', out)});\n  }\n\n};\n"
     },
     {
-      "dependencies": {
-        "npm": {
-          "underscore": "1.x.x"
-        }
+      "name": "values",
+      "ns": "object",
+      "async": true,
+      "description": "Retrieve all of the values of the object's properties",
+      "phrases": {
+        "active": "Retrieving object values"
       },
       "ports": {
         "input": {
@@ -1441,13 +1443,11 @@
           }
         }
       },
-      "phrases": {
-        "active": "Retrieving object values"
+      "dependencies": {
+        "npm": {
+          "underscore": "1.x.x"
+        }
       },
-      "description": "Retrieve all of the values of the object's properties",
-      "async": true,
-      "ns": "object",
-      "name": "values",
       "fn": "on.input.in = function() {\n  output({out: $.write('in', underscore.values($.in))});\n};\n"
     }
   ]
