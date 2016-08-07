@@ -7,8 +7,8 @@
     "url": "https://github.com/nodule/object.git"
   },
   "dependencies": {
-    "chix-group": "^1.0.0",
-    "dot-object": "0.x.x",
+    "chix-group": "^2.1.0",
+    "dot-object": "^1.5.0",
     "instance-of": "1.x.x",
     "underscore": "1.x.x"
   },
